@@ -2,10 +2,10 @@
   position: relative;
   width: 100%;
   overflow: hidden;
-  border-radius: var(--radius-xl);
-  margin: 0 16px;
-  width: calc(100% - 32px);
-  box-shadow: var(--shadow-lg);
+  border-radius: var(--radius-lg);
+  margin: 0 12px;
+  width: calc(100% - 24px);
+  box-shadow: var(--shadow-card);
 
   // 金色边框装饰
   &::before {
@@ -59,33 +59,33 @@
     }
   }
 
-  // 指示点 - 高端设计
+  // 指示点 - 紧凑设计
   &__dots {
     position: absolute;
-    bottom: 14px;
+    bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
-    gap: 8px;
-    padding: 6px 12px;
+    gap: 6px;
+    padding: 4px 8px;
     background: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(8px);
     border-radius: var(--radius-full);
     z-index: 3;
 
     .dot {
-      width: 6px;
-      height: 6px;
+      width: 5px;
+      height: 5px;
       background: rgba(255, 255, 255, 0.4);
       border-radius: 50%;
       cursor: pointer;
       transition: all var(--duration-normal) var(--ease-out);
 
       &.is-active {
-        width: 20px;
+        width: 16px;
         background: var(--gradient-gold);
-        border-radius: 3px;
-        box-shadow: 0 0 8px rgba(212, 175, 55, 0.5);
+        border-radius: 2.5px;
+        box-shadow: 0 0 6px rgba(212, 175, 55, 0.5);
       }
 
       &:hover:not(.is-active) {

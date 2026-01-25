@@ -1,10 +1,25 @@
 // Mock 数据
 
-// 系统通知
+// 系统通知 - 用于顶部小喇叭（平台通知：系统更新、规则通知等）
 export const systemNotices = [
   { id: '1', type: 'system_update', title: '系统更新：v2.5.0版本已发布，新增藏品合成功能', content: '新版本新增藏品合成功能...', createTime: '2026-01-25', isRead: false },
   { id: '2', type: 'rule_change', title: '交易规则调整：寄售手续费降至1%', content: '为回馈用户...', createTime: '2026-01-24', isRead: false },
   { id: '3', type: 'maintenance', title: '系统维护通知：1月26日凌晨2:00-4:00', content: '届时将暂停服务...', createTime: '2026-01-23', isRead: true },
+];
+
+// 活动通知 - 用于轮播下方的通知条（活动公告）
+export const activityNotices = [
+  { id: '1', type: 'activity', title: '仙人掌故事陈培芳《棋盘人生》分解', link: '/activity/1' },
+  { id: '2', type: 'activity', title: '华夏珍藏：实物及付相关公告', link: '/activity/2' },
+  { id: '3', type: 'activity', title: '新春特惠活动火热进行中，限量藏品等你来抢', link: '/activity/3' },
+];
+
+// 运营推荐位 - 首页宫格入口（热门推荐，可配置售卖链接）
+export const featureGridItems = [
+  { id: '1', image: 'https://picsum.photos/400/300?random=50', title: 'U卡限时特惠', subtitle: '新用户专享', badge: '热门', link: '/ucard' },
+  { id: '2', title: '市场', subtitle: '美妙的香槟样泡泡...', iconBg: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', link: '/market' },
+  { id: '3', title: '今日热榜', subtitle: '每天24点更新', iconBg: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)', link: '/hot' },
+  { id: '4', title: '加入社群', subtitle: '好友相伴，共创新纪元', iconBg: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)', link: '/community' },
 ];
 
 // 活动轮播

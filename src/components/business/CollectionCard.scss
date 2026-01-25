@@ -1,7 +1,7 @@
 .collection-card {
   position: relative;
   background: var(--color-bg-card);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-md);
   overflow: hidden;
   box-shadow: var(--shadow-card);
   cursor: pointer;
@@ -16,15 +16,15 @@
   // 顶部状态标签
   &__badge {
     position: absolute;
-    top: 10px;
-    left: 10px;
-    padding: 5px 12px;
-    font-size: 10px;
+    top: 6px;
+    left: 6px;
+    padding: 3px 8px;
+    font-size: 9px;
     font-weight: 600;
     color: #fff;
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-xs);
     z-index: 3;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.3px;
 
     &.badge--selling {
       background: #ef4444;
@@ -77,32 +77,32 @@
   // 平台标识
   &__platform {
     position: absolute;
-    bottom: 10px;
-    left: 10px;
+    bottom: 6px;
+    left: 6px;
     display: flex;
     align-items: center;
-    gap: 5px;
-    padding: 5px 10px;
+    gap: 4px;
+    padding: 3px 6px;
     background: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(8px);
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-xs);
     z-index: 2;
 
     .platform-icon {
-      width: 16px;
-      height: 16px;
+      width: 14px;
+      height: 14px;
       background: var(--color-bg-primary);
       color: var(--color-text-primary);
-      font-size: 9px;
+      font-size: 8px;
       font-weight: 800;
-      border-radius: 4px;
+      border-radius: 3px;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
     span:last-child {
-      font-size: 10px;
+      font-size: 9px;
       font-weight: 500;
       color: rgba(255, 255, 255, 0.9);
     }
@@ -110,31 +110,31 @@
 
   // 内容区域
   &__content {
-    padding: 14px;
+    padding: 10px;
     background: var(--color-bg-card);
   }
 
   &__header {
     display: flex;
     align-items: center;
-    gap: 8px;
-    margin-bottom: 10px;
+    gap: 6px;
+    margin-bottom: 6px;
   }
 
   // 类型标签
   &__type {
     flex-shrink: 0;
-    padding: 4px 10px;
-    font-size: 10px;
+    padding: 2px 6px;
+    font-size: 9px;
     font-weight: 600;
     color: var(--color-text-secondary);
     background: var(--color-bg-tertiary);
-    border-radius: var(--radius-sm);
-    letter-spacing: 0.3px;
+    border-radius: var(--radius-xs);
+    letter-spacing: 0.2px;
   }
 
   &__title {
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 600;
     color: var(--color-text-primary);
     overflow: hidden;
@@ -147,14 +147,14 @@
   &__creator {
     display: flex;
     align-items: center;
-    gap: 8px;
-    font-size: 12px;
+    gap: 6px;
+    font-size: 10px;
     color: var(--color-text-secondary);
-    margin-bottom: 12px;
+    margin-bottom: 8px;
 
     .creator-avatar {
-      width: 22px;
-      height: 22px;
+      width: 18px;
+      height: 18px;
       border-radius: 50%;
       object-fit: cover;
       border: 1px solid var(--color-border);
@@ -167,7 +167,7 @@
 
   // 底部信息区
   &__footer {
-    padding-top: 12px;
+    padding-top: 8px;
     border-top: 1px solid var(--color-border-light);
 
     .price-row,
@@ -176,8 +176,8 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 12px;
-      margin-bottom: 8px;
+      font-size: 10px;
+      margin-bottom: 5px;
 
       &:last-child {
         margin-bottom: 0;
@@ -196,7 +196,7 @@
 
     // 价格样式
     .price-row .value {
-      font-size: 18px;
+      font-size: 14px;
       font-weight: 700;
       color: var(--color-text-primary);
     }
@@ -207,13 +207,13 @@
       align-items: center;
       justify-content: center;
       width: 100%;
-      padding: 10px 16px;
-      font-size: 12px;
+      padding: 6px 10px;
+      font-size: 10px;
       font-weight: 600;
       color: var(--color-text-primary);
       background: var(--color-bg-tertiary);
-      border-radius: var(--radius-sm);
-      letter-spacing: 0.3px;
+      border-radius: var(--radius-xs);
+      letter-spacing: 0.2px;
     }
   }
 }

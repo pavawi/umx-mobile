@@ -1,0 +1,50 @@
+.system-notice-bar {
+  display: flex;
+  align-items: center;
+  height: 28px;
+  padding: 0 10px;
+  margin: 8px 12px;
+  background: linear-gradient(90deg, #FFF8E6 0%, #FFF4D9 100%);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: opacity var(--duration-fast) var(--ease-out);
+
+  &:active {
+    opacity: 0.85;
+  }
+
+  &__icon {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 6px;
+    color: #F5A623;
+  }
+
+  &__content {
+    flex: 1;
+    overflow: hidden;
+
+    .notice-text {
+      display: block;
+      font-size: 11px;
+      color: #8C6D1F;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: 1.4;
+    }
+  }
+
+  &__arrow {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 4px;
+    color: #C9A24D;
+  }
+}
