@@ -1,10 +1,25 @@
 // Mock 数据
 
-// 系统通知
+// 系统通知 - 用于顶部小喇叭（平台通知：系统更新、规则通知等）
 export const systemNotices = [
   { id: '8acb83269bcf72c6019be8d49aac6c81', type: 'system', title: '第23期珍珠宝箱奖励公布', content: '第23期珍珠宝箱内含藏品奖励公布...', createTime: '2026-01-23', isRead: false },
   { id: '8acb83259bcf72c6019be8bb7673572b', type: 'swap', title: '经典重铸计划 |《勇往直前》', content: '本期"经典重铸计划"——许力《勇往直前》...', createTime: '2026-01-23', isRead: false },
   { id: '8acb83259bcf72c6019be48637016f4b', type: 'decompose', title: '仙人掌故事|陈培芳《棋盘人生》分解', content: '华之衣裹旧日之魂，于棋盘之上跳当代之舞...', createTime: '2026-01-22', isRead: true },
+];
+
+// 活动通知 - 用于轮播下方的通知条（活动公告）
+export const activityNotices = [
+  { id: '1', type: 'activity', title: '仙人掌故事陈培芳《棋盘人生》分解', link: '/activity/1' },
+  { id: '2', type: 'activity', title: '华夏珍藏：实物及付相关公告', link: '/activity/2' },
+  { id: '3', type: 'activity', title: '新春特惠活动火热进行中，限量藏品等你来抢', link: '/activity/3' },
+];
+
+// 运营推荐位 - 首页宫格入口（热门推荐，可配置售卖链接）
+export const featureGridItems = [
+  { id: '1', image: 'https://picsum.photos/400/300?random=50', title: 'U卡限时特惠', subtitle: '新用户专享', badge: '热门', link: '/ucard' },
+  { id: '2', title: '市场', subtitle: '美妙的香槟样泡泡...', iconBg: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', link: '/market' },
+  { id: '3', title: '今日热榜', subtitle: '每天24点更新', iconBg: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)', link: '/hot' },
+  { id: '4', title: '加入社群', subtitle: '好友相伴，共创新纪元', iconBg: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)', link: '/community' },
 ];
 
 // 活动轮播

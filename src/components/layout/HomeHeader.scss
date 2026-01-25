@@ -1,0 +1,79 @@
+.home-header {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  gap: 10px;
+  background: var(--color-bg-primary);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  &__logo {
+    flex-shrink: 0;
+
+    .logo-text {
+      font-size: 20px;
+      font-weight: 800;
+      background: var(--gradient-gold);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.5px;
+    }
+  }
+
+  &__search {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 32px;
+    padding: 0 12px;
+    background: var(--color-bg-tertiary);
+    border-radius: 16px;
+    cursor: pointer;
+    transition: background var(--duration-fast) var(--ease-out);
+
+    &:active {
+      background: var(--color-bg-secondary);
+    }
+
+    svg {
+      flex-shrink: 0;
+      color: var(--color-text-placeholder);
+    }
+
+    .placeholder {
+      font-size: 13px;
+      color: var(--color-text-placeholder);
+    }
+  }
+
+  &__notice {
+    position: relative;
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: color var(--duration-fast) var(--ease-out);
+
+    &:active {
+      color: var(--color-text-primary);
+    }
+
+    .notice-dot {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      width: 8px;
+      height: 8px;
+      background: #FF4D4F;
+      border-radius: 50%;
+      border: 2px solid var(--color-bg-primary);
+    }
+  }
+}

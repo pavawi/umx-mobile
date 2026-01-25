@@ -9,7 +9,7 @@
     top: 0;
     left: 0;
     right: 0;
-    height: 300px;
+    height: 200px;
     background: var(--gradient-mesh);
     pointer-events: none;
     z-index: 0;
@@ -18,28 +18,28 @@
   .home-banner {
     position: relative;
     z-index: 1;
-    padding-top: 12px;
+    padding-top: 6px;
     display: flex;
     justify-content: center;
   }
 
-  // 快捷入口区域 - 简洁风格
+  // 快捷入口区域 - 紧凑风格
   .quick-entries {
     position: relative;
     z-index: 1;
     display: flex;
     justify-content: space-around;
-    padding: 24px 20px;
-    margin: 0 16px;
+    padding: 14px 12px;
+    margin: 0 12px;
     background: var(--color-bg-primary);
-    border-radius: var(--radius-xl);
+    border-radius: var(--radius-lg);
     box-shadow: var(--shadow-card);
 
     .entry-item {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 10px;
+      gap: 6px;
       cursor: pointer;
       transition: transform var(--duration-fast) var(--ease-out);
 
@@ -49,19 +49,19 @@
 
       .entry-icon {
         position: relative;
-        width: 52px;
-        height: 52px;
+        width: 40px;
+        height: 40px;
         display: flex;
         align-items: center;
         justify-content: center;
         background: var(--color-bg-tertiary);
-        border-radius: var(--radius-lg);
+        border-radius: var(--radius-md);
         color: var(--color-text-secondary);
         transition: all var(--duration-normal) var(--ease-out);
 
         svg {
-          width: 26px;
-          height: 26px;
+          width: 20px;
+          height: 20px;
         }
       }
 
@@ -71,10 +71,10 @@
       }
 
       .entry-title {
-        font-size: 12px;
+        font-size: 11px;
         font-weight: 500;
         color: var(--color-text-primary);
-        letter-spacing: 0.3px;
+        letter-spacing: 0.2px;
       }
     }
   }
@@ -83,24 +83,17 @@
   .home-tabs {
     position: relative;
     z-index: 1;
-    padding: 20px 0 16px;
+    padding: 12px 0 10px;
   }
 
-  // 推荐位区域
-  .recommend-section {
-    position: relative;
-    z-index: 1;
-    padding: 0 16px 20px;
-  }
-
-  // 藏品网格列表
+  // 藏品网格列表 - 紧凑间距
   .collection-grid {
     position: relative;
     z-index: 1;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 14px;
-    padding: 0 16px 24px;
+    gap: 10px;
+    padding: 0 12px 20px;
   }
 
   // Section标题样式（可复用）
@@ -108,11 +101,11 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 16px;
-    margin-bottom: 16px;
+    padding: 0 12px;
+    margin-bottom: 10px;
 
     .section-title {
-      font-size: 18px;
+      font-size: 15px;
       font-weight: 700;
       color: var(--color-text-primary);
       letter-spacing: -0.3px;
@@ -121,8 +114,8 @@
     .section-more {
       display: flex;
       align-items: center;
-      gap: 4px;
-      font-size: 13px;
+      gap: 2px;
+      font-size: 12px;
       font-weight: 500;
       color: var(--color-text-secondary);
       cursor: pointer;
@@ -133,8 +126,8 @@
       }
 
       svg {
-        width: 16px;
-        height: 16px;
+        width: 14px;
+        height: 14px;
       }
     }
   }
@@ -143,10 +136,10 @@
 // 首页特色区块 - 精选推荐
 .featured-section {
   position: relative;
-  margin: 20px 16px;
-  padding: 24px 20px;
+  margin: 12px;
+  padding: 16px 14px;
   background: var(--gradient-dark-card);
-  border-radius: var(--radius-xl);
+  border-radius: var(--radius-lg);
   border: 1px solid rgba(255, 255, 255, 0.08);
   overflow: hidden;
 
@@ -156,8 +149,8 @@
     position: absolute;
     top: -50%;
     right: -30%;
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
     background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, transparent 70%);
     pointer-events: none;
   }
@@ -167,8 +160,8 @@
     position: absolute;
     bottom: -30%;
     left: -20%;
-    width: 150px;
-    height: 150px;
+    width: 120px;
+    height: 120px;
     background: radial-gradient(circle, rgba(168, 85, 247, 0.1) 0%, transparent 70%);
     pointer-events: none;
   }
@@ -176,23 +169,23 @@
   .featured-title {
     position: relative;
     z-index: 1;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 700;
     color: rgba(255, 255, 255, 0.95);
-    margin-bottom: 16px;
+    margin-bottom: 12px;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
 
     .title-icon {
-      width: 24px;
-      height: 24px;
+      width: 20px;
+      height: 20px;
       background: var(--gradient-gold);
-      border-radius: 6px;
+      border-radius: 5px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 12px;
+      font-size: 10px;
     }
   }
 
@@ -206,20 +199,20 @@
 .stats-section {
   display: flex;
   justify-content: space-around;
-  padding: 20px 16px;
-  margin: 0 16px 20px;
+  padding: 14px 12px;
+  margin: 0 12px 12px;
   background: var(--color-bg-primary);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-md);
   box-shadow: var(--shadow-card);
 
   .stat-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 6px;
+    gap: 4px;
 
     .stat-value {
-      font-size: 22px;
+      font-size: 18px;
       font-weight: 700;
       background: var(--gradient-gold);
       -webkit-background-clip: text;
@@ -228,7 +221,7 @@
     }
 
     .stat-label {
-      font-size: 12px;
+      font-size: 11px;
       color: var(--color-text-secondary);
       font-weight: 500;
     }
