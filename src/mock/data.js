@@ -37,6 +37,16 @@ export const quickEntries = [
   { id: '4', icon: '📢', title: '官方公告', link: '/notice' },
 ];
 
+// 活动中心入口
+export const activityEntries = [
+  { id: '1', type: 'competition', title: 'UMX 艺术公开赛', status: 'ended', statusText: '已结束', link: '/activity/competition' },
+  { id: '2', type: 'treasure', title: '寻宝岛', status: 'active', link: '/activity/treasure' },
+  { id: '3', type: 'chest', title: '深海宝箱', status: 'active', link: '/activity/chest' },
+  { id: '4', type: 'pearl', title: '珍珠宝箱', status: 'active', link: '/activity/pearl' },
+  { id: '5', type: 'library', title: '藏品库', status: 'active', link: '/collection-library' },
+  { id: '6', type: 'upool', title: 'U贝池', status: 'active', link: '/activity/upool' },
+];
+
 // 推荐位
 export const recommendBanners = [
   { id: '1', image: 'https://picsum.photos/686/386?random=10', title: 'U卡限时特惠', badge: '限时', link: '/ucard' },

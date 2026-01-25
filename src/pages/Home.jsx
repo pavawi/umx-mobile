@@ -4,12 +4,14 @@ import HomeHeader from '../components/layout/HomeHeader';
 import BannerSwiper from '../components/business/BannerSwiper';
 import SystemNoticeBar from '../components/business/SystemNoticeBar';
 import FeatureGrid from '../components/business/FeatureGrid';
+import ActivitySection from '../components/business/ActivitySection';
 import CollectionCard from '../components/business/CollectionCard';
 import UFilterTabs from '../components/base/UFilterTabs';
 import {
   banners,
   systemNotices,
   featureGridItems,
+  activityEntries,
   homeTabs,
   homeCollections,
   hotCollections
@@ -53,18 +55,14 @@ export default function Home() {
         onItemClick={(item) => navigate(item.link)}
       />
 
+      {/* 活动中心入口 */}
+      <ActivitySection
+        items={activityEntries}
+        onItemClick={(item) => navigate(item.link)}
+      />
+
       {/* 藏品区域 */}
       <div className="collection-section">
-        <div className="section-header">
-          <span className="section-title">精选藏品</span>
-          <span className="section-more">
-            查看更多
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <polyline points="9 18 15 12 9 6"/>
-            </svg>
-          </span>
-        </div>
-
         {/* Tab切换 */}
         <div className="home-tabs">
           <UFilterTabs
