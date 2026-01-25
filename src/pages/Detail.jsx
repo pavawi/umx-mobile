@@ -1,6 +1,7 @@
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import { hotCollections, marketCollections, homeCollections } from '../mock/data';
+import { IconBack, IconHeart, IconShare, IconCopy, IconCheck, IconBlockchain, IconImage, IconVerified } from '../components/base/Icons';
 import './Detail.scss';
 
 // 图片比例映射
@@ -38,7 +39,7 @@ export default function Detail() {
       <div className="detail-page">
         <div className="detail-header">
           <button className="back-btn" onClick={() => navigate(-1)}>
-            <span className="back-icon">←</span>
+            <IconBack size={20} />
           </button>
           <h1 className="header-title">藏品详情</h1>
           <div className="header-placeholder"></div>
@@ -75,7 +76,7 @@ export default function Detail() {
       {/* 顶部导航栏 */}
       <div className="detail-header">
         <button className="back-btn" onClick={() => navigate(-1)}>
-          <span className="back-icon">←</span>
+          <IconBack size={20} />
         </button>
         <h1 className="header-title">藏品详情</h1>
         <div className="header-placeholder"></div>
@@ -148,7 +149,10 @@ export default function Detail() {
 
         {/* 区块链信息 */}
         <div className="detail-section">
-          <h3 className="section-title">链上信息</h3>
+          <h3 className="section-title">
+            <IconBlockchain size={16} color="var(--color-primary)" />
+            <span>链上信息</span>
+          </h3>
           <div className="blockchain-info">
             {item.blockchain && (
               <div className="blockchain-row">
@@ -164,7 +168,8 @@ export default function Detail() {
                 <div className="address-wrapper">
                   <span className="blockchain-value address">{formatAddress(item.contractAddress)}</span>
                   <button className="copy-btn" onClick={handleCopyAddress}>
-                    {copied ? '已复制' : '复制'}
+                    {copied ? <IconCheck size={14} /> : <IconCopy size={14} />}
+                    <span>{copied ? '已复制' : '复制'}</span>
                   </button>
                 </div>
               </div>
@@ -180,7 +185,10 @@ export default function Detail() {
 
         {/* 图片尺寸信息 */}
         <div className="detail-section">
-          <h3 className="section-title">图片信息</h3>
+          <h3 className="section-title">
+            <IconImage size={16} color="var(--color-primary)" />
+            <span>图片信息</span>
+          </h3>
           <div className="image-info">
             <div className="blockchain-row">
               <span className="blockchain-label">图片比例</span>
@@ -193,11 +201,11 @@ export default function Detail() {
       {/* 底部操作栏 */}
       <div className="detail-footer">
         <button className="action-btn secondary">
-          <span className="btn-icon">♡</span>
+          <IconHeart size={18} />
           <span>收藏</span>
         </button>
         <button className="action-btn secondary">
-          <span className="btn-icon">↗</span>
+          <IconShare size={18} />
           <span>分享</span>
         </button>
         <button

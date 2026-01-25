@@ -17,26 +17,28 @@
 
   &__item {
     flex-shrink: 0;
-    height: 32px;
-    padding: 0 16px;
-    background: transparent;
-    color: #666;
-    border: 1px solid #E8E8E8;
-    border-radius: 16px;
+    height: 34px;
+    padding: 0 18px;
+    background: var(--color-bg-primary);
+    color: var(--color-text-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
     font-size: 13px;
-    font-weight: 400;
+    font-weight: 500;
     white-space: nowrap;
-    transition: all 0.2s;
+    transition: all var(--duration-fast) var(--ease-out);
+    letter-spacing: 0.2px;
 
     &.is-active {
       background: var(--color-primary-bg);
       color: var(--color-primary);
-      border-color: var(--color-primary);
-      font-weight: 500;
+      border-color: rgba(201, 169, 98, 0.3);
+      font-weight: 600;
+      box-shadow: var(--shadow-glow);
     }
 
     &:active {
-      transform: scale(0.98);
+      transform: scale(0.96);
     }
   }
 }
