@@ -1,35 +1,52 @@
 // UMX数字藏品平台 - CSS变量定义
-// 基于 UI改版设计标准 V2026.01
+// NFT/艺术品平台高端设计风格 V2026.01
 
 :root {
-  // ========== 品牌色 ==========
-  --color-primary: #F5A623;
-  --color-primary-light: #FFD180;
-  --color-primary-dark: #E09000;
-  --color-primary-bg: #FFF8E1;
+  // ========== 品牌色 - 金色系（体现稀缺性和价值感）==========
+  --color-primary: #C9A962;
+  --color-primary-light: #E5D4A1;
+  --color-primary-dark: #A68B4B;
+  --color-primary-bg: rgba(201, 169, 98, 0.08);
 
-  // ========== 辅助色 ==========
-  --color-secondary: #FF6B6B;
-  --color-success: #4CAF50;
-  --color-warning: #FF9800;
-  --color-error: #F44336;
-  --color-info: #2196F3;
+  // ========== 品牌渐变 ==========
+  --gradient-primary: linear-gradient(135deg, #C9A962 0%, #E5D4A1 50%, #C9A962 100%);
+  --gradient-gold: linear-gradient(135deg, #B8860B 0%, #DAA520 25%, #FFD700 50%, #DAA520 75%, #B8860B 100%);
+  --gradient-purple: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --gradient-dark: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
 
-  // ========== 文字色 ==========
-  --color-text-primary: #1A1A1A;
-  --color-text-secondary: #666666;
-  --color-text-placeholder: #999999;
-  --color-text-disabled: #CCCCCC;
+  // ========== 辅助色 - 更精致的色调 ==========
+  --color-secondary: #8B5CF6;
+  --color-success: #10B981;
+  --color-warning: #F59E0B;
+  --color-error: #EF4444;
+  --color-info: #6366F1;
 
-  // ========== 背景色 ==========
+  // ========== 文字色 - 更柔和的层次 ==========
+  --color-text-primary: #1F2937;
+  --color-text-secondary: #6B7280;
+  --color-text-placeholder: #9CA3AF;
+  --color-text-disabled: #D1D5DB;
+
+  // ========== 背景色 - 精致的层次感 ==========
   --color-bg-primary: #FFFFFF;
-  --color-bg-secondary: #F5F5F5;
-  --color-bg-tertiary: #FAFAFA;
+  --color-bg-secondary: #F9FAFB;
+  --color-bg-tertiary: #F3F4F6;
+  --color-bg-card: #FFFFFF;
 
   // ========== 边框色 ==========
-  --color-border: #E8E8E8;
-  --color-border-light: #F0F0F0;
-  --color-divider: #EEEEEE;
+  --color-border: #E5E7EB;
+  --color-border-light: #F3F4F6;
+  --color-divider: #E5E7EB;
+
+  // ========== 特殊效果色 ==========
+  --color-glass: rgba(255, 255, 255, 0.8);
+  --color-glass-border: rgba(255, 255, 255, 0.18);
+  --color-overlay: rgba(0, 0, 0, 0.5);
+
+  // ========== 状态色 ==========
+  --color-status-selling: #EF4444;
+  --color-status-presale: #F59E0B;
+  --color-status-soldout: #9CA3AF;
 
   // ========== 字体族 ==========
   --font-family: -apple-system, BlinkMacSystemFont, "PingFang SC",
@@ -43,6 +60,7 @@
   --font-size-lg: 17px;
   --font-size-xl: 20px;
   --font-size-xxl: 24px;
+  --font-size-display: 32px;
 
   // ========== 字重 ==========
   --font-weight-normal: 400;
@@ -72,13 +90,24 @@
   --radius-xl: 20px;
   --radius-full: 9999px;
 
-  // ========== 阴影规范 ==========
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.08);
-  --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.12);
-  --shadow-card: 0 2px 12px rgba(0, 0, 0, 0.06);
+  // ========== 阴影规范 - 更精致的层次 ==========
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.03);
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.04), 0 4px 16px rgba(0, 0, 0, 0.04);
+  --shadow-glow: 0 0 20px rgba(201, 169, 98, 0.15);
+  --shadow-glow-purple: 0 0 20px rgba(139, 92, 246, 0.15);
 
   // ========== 底部安全区域 ==========
   --safe-area-bottom: env(safe-area-inset-bottom, 0px);
   --tab-bar-height: 56px;
+
+  // ========== 动画时长 ==========
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 350ms;
+  --ease-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
 }

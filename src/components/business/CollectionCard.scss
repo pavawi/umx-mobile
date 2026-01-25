@@ -1,31 +1,40 @@
 .collection-card {
   position: relative;
-  background: #fff;
-  border-radius: 12px;
+  background: var(--color-bg-card);
+  border-radius: var(--radius-md);
   overflow: hidden;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  box-shadow: var(--shadow-card);
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform var(--duration-fast) var(--ease-out),
+              box-shadow var(--duration-fast) var(--ease-out);
 
   &:active {
     transform: scale(0.98);
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    box-shadow: var(--shadow-sm);
   }
 
   &__badge {
     position: absolute;
     top: 8px;
     left: 8px;
-    padding: 4px 8px;
-    font-size: 11px;
-    font-weight: 500;
+    padding: 4px 10px;
+    font-size: 10px;
+    font-weight: 600;
     color: #fff;
-    border-radius: 4px;
+    border-radius: var(--radius-xs);
     z-index: 1;
+    letter-spacing: 0.3px;
+    backdrop-filter: blur(4px);
 
-    &.badge--selling { background: #FF6B6B; }
-    &.badge--presale { background: #F5A623; }
-    &.badge--soldout { background: #999; }
+    &.badge--selling {
+      background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+    }
+    &.badge--presale {
+      background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+    }
+    &.badge--soldout {
+      background: linear-gradient(135deg, #9CA3AF 0%, #6B7280 100%);
+    }
   }
 
   &__image-wrapper {
@@ -33,6 +42,7 @@
     width: 100%;
     aspect-ratio: 1;
     overflow: hidden;
+    background: var(--color-bg-tertiary);
 
     // 不同图片比例支持
     &.ratio-1-1 {
@@ -56,6 +66,11 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform var(--duration-slow) var(--ease-out);
+  }
+
+  &:active &__image {
+    transform: scale(1.02);
   }
 
   &__platform {
@@ -66,16 +81,17 @@
     align-items: center;
     gap: 4px;
     padding: 4px 8px;
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    border-radius: var(--radius-xs);
 
     .platform-icon {
       width: 14px;
       height: 14px;
-      background: #F5A623;
+      background: var(--gradient-gold);
       color: #fff;
-      font-size: 10px;
-      font-weight: bold;
+      font-size: 9px;
+      font-weight: 700;
       border-radius: 3px;
       display: flex;
       align-items: center;
@@ -84,37 +100,42 @@
 
     span:last-child {
       font-size: 10px;
+      font-weight: 500;
       color: #fff;
     }
   }
 
   &__content {
-    padding: 10px 12px 12px;
+    padding: 12px;
   }
 
   &__header {
     display: flex;
     align-items: center;
     gap: 6px;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
   }
 
   &__type {
     flex-shrink: 0;
-    padding: 2px 6px;
+    padding: 3px 8px;
     font-size: 10px;
-    color: #F5A623;
-    background: #FFF8E1;
-    border-radius: 4px;
+    font-weight: 600;
+    color: var(--color-primary);
+    background: var(--color-primary-bg);
+    border: 1px solid rgba(201, 169, 98, 0.15);
+    border-radius: var(--radius-xs);
+    letter-spacing: 0.3px;
   }
 
   &__title {
     font-size: 14px;
-    font-weight: 500;
-    color: #1a1a1a;
+    font-weight: 600;
+    color: var(--color-text-primary);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    letter-spacing: -0.2px;
   }
 
   &__creator {
@@ -122,14 +143,15 @@
     align-items: center;
     gap: 6px;
     font-size: 12px;
-    color: #666;
-    margin-bottom: 8px;
+    color: var(--color-text-secondary);
+    margin-bottom: 10px;
 
     .creator-avatar {
       width: 20px;
       height: 20px;
       border-radius: 50%;
       object-fit: cover;
+      border: 1.5px solid var(--color-primary-light);
     }
   }
 
@@ -141,35 +163,40 @@
       justify-content: space-between;
       align-items: center;
       font-size: 12px;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
 
       &:last-child {
         margin-bottom: 0;
       }
 
       .label {
-        color: #999;
+        color: var(--color-text-placeholder);
       }
 
       .value {
-        color: #333;
-        font-weight: 500;
+        color: var(--color-text-primary);
+        font-weight: 600;
       }
     }
 
     .price-row .value {
-      font-size: 15px;
-      color: #F5A623;
-      font-weight: 600;
+      font-size: 16px;
+      font-weight: 700;
+      background: var(--gradient-gold);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
     .limit-badge {
       display: inline-block;
-      padding: 4px 10px;
-      font-size: 12px;
+      padding: 6px 12px;
+      font-size: 11px;
+      font-weight: 600;
       color: #fff;
-      background: #F5A623;
-      border-radius: 4px;
+      background: var(--gradient-gold);
+      border-radius: var(--radius-sm);
+      letter-spacing: 0.3px;
     }
   }
 }

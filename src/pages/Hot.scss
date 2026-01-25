@@ -1,29 +1,33 @@
 .hot-page {
-  background: #fff;
+  background: var(--color-bg-secondary);
 
   .page-header {
     padding: 16px;
     padding-top: 12px;
+    background: var(--color-bg-primary);
 
     h1 {
       font-size: 24px;
       font-weight: 700;
-      color: #1a1a1a;
+      color: var(--color-text-primary);
+      letter-spacing: -0.5px;
     }
   }
 
   .search-wrapper {
     padding: 0 16px 12px;
+    background: var(--color-bg-primary);
   }
 
   .filter-tabs {
     padding-bottom: 16px;
+    background: var(--color-bg-primary);
   }
 
   .collection-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
-    padding: 0 16px 20px;
+    padding: 16px;
   }
 }
