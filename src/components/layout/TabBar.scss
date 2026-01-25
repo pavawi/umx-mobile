@@ -6,9 +6,11 @@
   display: flex;
   height: var(--tab-bar-height);
   padding-bottom: var(--safe-area-bottom);
-  background: var(--color-bg-primary);
-  border-top: 1px solid var(--color-border-light);
-  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.04);
+  background: rgba(255, 255, 255, 0.95);
+  border-top: 1px solid rgba(212, 175, 55, 0.08);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.06);
   z-index: 1000;
 
   &__item {
@@ -17,49 +19,142 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 4px;
+    gap: 5px;
     cursor: pointer;
     transition: all var(--duration-fast) var(--ease-out);
     position: relative;
 
+    // 图标容器
+    .tab-icon {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      transition: transform var(--duration-normal) var(--ease-spring);
+    }
+
     svg {
-      transition: transform var(--duration-fast) var(--ease-out);
+      transition: all var(--duration-normal) var(--ease-out);
     }
 
     span {
       font-size: 10px;
       font-weight: 500;
       color: var(--color-text-placeholder);
-      letter-spacing: 0.2px;
-      transition: color var(--duration-fast) var(--ease-out);
+      letter-spacing: 0.3px;
+      transition: all var(--duration-fast) var(--ease-out);
     }
 
+    // 激活状态
     &.is-active {
+      .tab-icon {
+        transform: translateY(-2px);
+      }
+
       svg {
-        transform: scale(1.05);
+        filter: drop-shadow(0 2px 4px rgba(212, 175, 55, 0.3));
       }
 
       span {
         color: var(--color-primary);
-        font-weight: 600;
+        font-weight: 700;
       }
 
-      // 底部指示条
-      &::after {
+      // 顶部金色指示条 - 增强版
+      &::before {
         content: '';
         position: absolute;
         top: 0;
         left: 50%;
         transform: translateX(-50%);
-        width: 24px;
-        height: 2px;
+        width: 32px;
+        height: 3px;
         background: var(--gradient-gold);
-        border-radius: 0 0 2px 2px;
+        border-radius: 0 0 3px 3px;
+        box-shadow: 0 2px 8px rgba(212, 175, 55, 0.4);
+      }
+
+      // 背景光晕
+      &::after {
+        content: '';
+        position: absolute;
+        top: 4px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 48px;
+        height: 48px;
+        background: radial-gradient(circle, rgba(212, 175, 55, 0.12) 0%, transparent 70%);
+        pointer-events: none;
+        border-radius: 50%;
       }
     }
 
+    // 按压效果
     &:active {
-      transform: scale(0.95);
+      transform: scale(0.92);
+
+      .tab-icon {
+        transform: scale(0.95);
+      }
+    }
+  }
+}
+
+// 底部导航 - 暗色主题变体（用于某些页面）
+.tab-bar--dark {
+  background: rgba(15, 15, 25, 0.95);
+  border-top-color: rgba(255, 255, 255, 0.06);
+
+  .tab-bar__item {
+    span {
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    &.is-active {
+      span {
+        color: var(--color-primary);
+      }
+
+      &::after {
+        background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, transparent 70%);
+      }
+    }
+  }
+}
+
+// 中央突出按钮变体（可选，用于特殊操作）
+.tab-bar__center-action {
+  position: relative;
+
+  .center-btn {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gradient-gold);
+    border-radius: 50%;
+    box-shadow: 0 4px 16px rgba(212, 175, 55, 0.4),
+                0 0 0 4px rgba(255, 255, 255, 0.9);
+    cursor: pointer;
+    transition: all var(--duration-fast) var(--ease-out);
+
+    svg {
+      width: 28px;
+      height: 28px;
+      color: #1a1a2e;
+    }
+
+    &:active {
+      transform: translateX(-50%) scale(0.95);
+      box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3),
+                  0 0 0 4px rgba(255, 255, 255, 0.9);
     }
   }
 }

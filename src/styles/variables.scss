@@ -1,18 +1,25 @@
 // UMX数字藏品平台 - CSS变量定义
-// NFT/艺术品平台高端设计风格 V2026.01
+// NFT/艺术品平台高端设计风格 V2026.01.25
 
 :root {
   // ========== 品牌色 - 金色系（体现稀缺性和价值感）==========
-  --color-primary: #C9A962;
-  --color-primary-light: #E5D4A1;
+  --color-primary: #D4AF37;
+  --color-primary-light: #F4E4BC;
   --color-primary-dark: #A68B4B;
-  --color-primary-bg: rgba(201, 169, 98, 0.08);
+  --color-primary-bg: rgba(212, 175, 55, 0.06);
+  --color-primary-glow: rgba(212, 175, 55, 0.4);
 
-  // ========== 品牌渐变 ==========
-  --gradient-primary: linear-gradient(135deg, #C9A962 0%, #E5D4A1 50%, #C9A962 100%);
-  --gradient-gold: linear-gradient(135deg, #B8860B 0%, #DAA520 25%, #FFD700 50%, #DAA520 75%, #B8860B 100%);
+  // ========== 品牌渐变 - 更奢华的金色质感 ==========
+  --gradient-primary: linear-gradient(135deg, #BF953F 0%, #FCF6BA 25%, #D4AF37 50%, #FCF6BA 75%, #BF953F 100%);
+  --gradient-gold: linear-gradient(135deg, #B8860B 0%, #D4AF37 25%, #FFD700 50%, #D4AF37 75%, #B8860B 100%);
+  --gradient-gold-shine: linear-gradient(90deg, transparent 0%, rgba(255, 215, 0, 0.3) 50%, transparent 100%);
   --gradient-purple: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  --gradient-dark: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+  --gradient-purple-neon: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+  --gradient-dark: linear-gradient(180deg, #0f0f1a 0%, #1a1a2e 50%, #16213e 100%);
+  --gradient-dark-card: linear-gradient(145deg, rgba(30, 30, 45, 0.95) 0%, rgba(20, 20, 35, 0.98) 100%);
+  --gradient-mesh: radial-gradient(at 40% 20%, rgba(212, 175, 55, 0.08) 0%, transparent 50%),
+                   radial-gradient(at 80% 80%, rgba(139, 92, 246, 0.06) 0%, transparent 50%);
+  --gradient-border-gold: linear-gradient(135deg, rgba(212, 175, 55, 0.5) 0%, rgba(252, 246, 186, 0.3) 50%, rgba(212, 175, 55, 0.5) 100%);
 
   // ========== 辅助色 - 更精致的色调 ==========
   --color-secondary: #8B5CF6;
@@ -39,9 +46,20 @@
   --color-divider: #E5E7EB;
 
   // ========== 特殊效果色 ==========
-  --color-glass: rgba(255, 255, 255, 0.8);
-  --color-glass-border: rgba(255, 255, 255, 0.18);
-  --color-overlay: rgba(0, 0, 0, 0.5);
+  --color-glass: rgba(255, 255, 255, 0.85);
+  --color-glass-border: rgba(255, 255, 255, 0.2);
+  --color-glass-dark: rgba(15, 15, 25, 0.85);
+  --color-glass-border-dark: rgba(255, 255, 255, 0.08);
+  --color-overlay: rgba(0, 0, 0, 0.6);
+  --color-overlay-light: rgba(0, 0, 0, 0.3);
+
+  // ========== NFT特色装饰色 ==========
+  --color-neon-gold: #FFD700;
+  --color-neon-purple: #a855f7;
+  --color-neon-blue: #38bdf8;
+  --color-rarity-legendary: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+  --color-rarity-epic: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
+  --color-rarity-rare: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
 
   // ========== 状态色 ==========
   --color-status-selling: #EF4444;
@@ -90,15 +108,20 @@
   --radius-xl: 20px;
   --radius-full: 9999px;
 
-  // ========== 阴影规范 - 更精致的层次 ==========
-  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -1px rgba(0, 0, 0, 0.04);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.03);
-  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.04), 0 4px 16px rgba(0, 0, 0, 0.04);
-  --shadow-glow: 0 0 20px rgba(201, 169, 98, 0.15);
-  --shadow-glow-purple: 0 0 20px rgba(139, 92, 246, 0.15);
+  // ========== 阴影规范 - 高端艺术品质感 ==========
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 12px -2px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 12px 24px -4px rgba(0, 0, 0, 0.12), 0 4px 8px -2px rgba(0, 0, 0, 0.06);
+  --shadow-xl: 0 24px 48px -8px rgba(0, 0, 0, 0.15), 0 12px 16px -4px rgba(0, 0, 0, 0.08);
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.06);
+  --shadow-card-hover: 0 8px 16px rgba(0, 0, 0, 0.08), 0 16px 32px rgba(0, 0, 0, 0.1);
+  --shadow-glow: 0 0 30px rgba(212, 175, 55, 0.2);
+  --shadow-glow-strong: 0 0 40px rgba(212, 175, 55, 0.35);
+  --shadow-glow-purple: 0 0 30px rgba(168, 85, 247, 0.2);
+  --shadow-glow-blue: 0 0 30px rgba(56, 189, 248, 0.2);
+  --shadow-inner-glow: inset 0 0 20px rgba(212, 175, 55, 0.1);
+  --shadow-nft: 0 4px 20px rgba(0, 0, 0, 0.1), 0 0 40px rgba(212, 175, 55, 0.08);
 
   // ========== 底部安全区域 ==========
   --safe-area-bottom: env(safe-area-inset-bottom, 0px);
@@ -108,6 +131,35 @@
   --duration-fast: 150ms;
   --duration-normal: 250ms;
   --duration-slow: 350ms;
+  --duration-slower: 500ms;
   --ease-out: cubic-bezier(0.4, 0, 0.2, 1);
   --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+  // ========== NFT特色动画 ==========
+  --animation-float: float 3s ease-in-out infinite;
+  --animation-shimmer: shimmer 2s linear infinite;
+  --animation-pulse-glow: pulse-glow 2s ease-in-out infinite;
+}
+
+// ========== NFT平台特色动画关键帧 ==========
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.15); }
+  50% { box-shadow: 0 0 35px rgba(212, 175, 55, 0.3); }
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
 }
