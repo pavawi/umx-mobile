@@ -1,3 +1,4 @@
+# Auto PR, Merge and Deploy workflow
 name: Auto PR and Merge
 
 on:
