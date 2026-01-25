@@ -463,3 +463,63 @@ export const searchHistory = ['星际漫游者', '数字山水', '赛博朋克',
 
 // 热门搜索
 export const hotSearches = ['新春限定', 'VIP专属', '合成材料', '稀有藏品'];
+
+// 我的关注列表
+export const myFollowList = [
+  {
+    id: '8acb83269bcf72c6019be8bddc026c0e',
+    name: '梅园启春',
+    image: 'https://oss.umxverse.com/image/origin/P7zyGM3SKdJ6EmxSY6w.png',
+    code: 'S/120000000/元宝M53A',
+    onSale: 4,
+    total: 843,
+  },
+  {
+    id: '8acb83259bcf72c6019be466c0e8671a',
+    name: '拾光者-四叠景',
+    image: 'https://oss.umxverse.com/image/origin/GibS3EtQrWnK52zmCsD.png',
+    code: 'S/149999/元宝M3663',
+    onSale: null,
+    total: null,
+  },
+  {
+    id: '8acb83269bcf72c6019be489ae7a7eab',
+    name: '只看好运（至福限定）',
+    image: 'https://oss.umxverse.com/image/origin/BKKYAj8Dhk6Kj4Y784N.jpg',
+    code: 'S/119999/元宝v0123',
+    onSale: 13,
+    total: 0,
+  },
+  {
+    id: '8acb83259bcf72c6019bdefb76506fe4',
+    name: 'iBox次仲春',
+    image: 'https://oss.umxverse.com/image/origin/kGY22AYNX63Thn7jG5J.jpg',
+    code: 'S/1000000/元宝e727',
+    onSale: 21,
+    total: 10,
+  },
+  {
+    id: '8acb83259bcf72c6019bdee03b526d0c',
+    name: '毛场·阿贝斯',
+    image: 'https://oss.umxverse.com/image/origin/a8nncd7fX2kJAz2YPdT.jpg',
+    code: 'S/1000000/元宝9767',
+    onSale: null,
+    total: 2242,
+  },
+  {
+    id: '8acb83239bc0ec81019bc4bd52222da4',
+    name: '大美瑶族',
+    image: 'https://oss.umxverse.com/image/origin/PWChnePBmsxjrX4AP2k.jpg',
+    code: 'S/118888/元宝9488',
+    onSale: 29,
+    total: 0,
+  },
+  {
+    id: '8acb83209bb2e21a019bc0706bcc4425',
+    name: 'iBox招福猫',
+    image: 'https://oss.umxverse.com/image/origin/tctEne76Hykk3ihKrtE.png',
+    code: 'S/1000000/元宝v122',
+    onSale: 54,
+    total: 0,
+  },
+];
