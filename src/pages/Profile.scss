@@ -1,33 +1,72 @@
 .profile-page {
   background: var(--color-bg-secondary);
+  min-height: 100vh;
 
+  // 顶部装饰背景
+  &::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 280px;
+    background: var(--gradient-dark);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  // 叠加的金色光效
+  &::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 280px;
+    background:
+      radial-gradient(ellipse at 30% 20%, rgba(212, 175, 55, 0.15) 0%, transparent 50%),
+      radial-gradient(ellipse at 70% 60%, rgba(168, 85, 247, 0.08) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  // 特色活动横幅
   .feature-banner {
+    position: relative;
+    z-index: 1;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 0 16px 16px;
-    padding: 14px 16px;
-    background: linear-gradient(135deg, #FFE0B2 0%, #FFF8E1 100%);
-    border-radius: 12px;
+    margin: 0 16px 20px;
+    padding: 18px 20px;
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(212, 175, 55, 0.05) 100%);
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(212, 175, 55, 0.2);
     cursor: pointer;
+    transition: all var(--duration-fast) var(--ease-out);
+    backdrop-filter: blur(10px);
 
     &:active {
-      opacity: 0.9;
+      transform: scale(0.98);
+      border-color: rgba(212, 175, 55, 0.4);
+      box-shadow: var(--shadow-glow);
     }
 
     .banner-content {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 12px;
 
       .banner-icon {
-        font-size: 20px;
+        font-size: 24px;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
       }
 
       .banner-text {
-        font-size: 14px;
-        font-weight: 500;
-        color: #333;
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--color-text-primary);
+        letter-spacing: 0.3px;
       }
     }
 
@@ -35,48 +74,235 @@
       display: flex;
       align-items: center;
       font-size: 13px;
-      color: #F5A623;
-      font-weight: 500;
+      color: var(--color-primary);
+      font-weight: 600;
+      gap: 2px;
+
+      svg {
+        transition: transform var(--duration-fast) var(--ease-out);
+      }
+    }
+
+    &:active .banner-action svg {
+      transform: translateX(2px);
     }
   }
 
+  // 功能菜单组
   .menu-group {
-    margin: 0 16px 12px;
-    background: #fff;
-    border-radius: 12px;
+    position: relative;
+    z-index: 1;
+    margin: 0 16px 16px;
+    background: var(--color-bg-primary);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-card);
     overflow: hidden;
+    border: 1px solid rgba(212, 175, 55, 0.06);
 
     .group-title {
-      padding: 12px 16px 8px;
+      padding: 16px 20px 8px;
       font-size: 13px;
-      color: #999;
+      font-weight: 600;
+      color: var(--color-text-secondary);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
     }
 
     .menu-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      padding: 8px 0 16px;
+      padding: 12px 8px 20px;
+      gap: 4px;
 
       .menu-item {
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 8px;
-        padding: 8px;
+        gap: 10px;
+        padding: 12px 8px;
         cursor: pointer;
+        border-radius: var(--radius-md);
+        transition: all var(--duration-fast) var(--ease-out);
 
         &:active {
-          opacity: 0.7;
+          background: var(--color-primary-bg);
+          transform: scale(0.95);
         }
 
         .menu-icon {
-          font-size: 24px;
+          position: relative;
+          width: 48px;
+          height: 48px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 26px;
+          background: linear-gradient(145deg, var(--color-bg-tertiary) 0%, var(--color-bg-secondary) 100%);
+          border-radius: var(--radius-md);
+          border: 1px solid var(--color-border-light);
+          transition: all var(--duration-fast) var(--ease-out);
+        }
+
+        &:active .menu-icon {
+          border-color: rgba(212, 175, 55, 0.3);
+          box-shadow: var(--shadow-glow);
         }
 
         .menu-label {
           font-size: 12px;
-          color: #333;
+          font-weight: 500;
+          color: var(--color-text-primary);
+          text-align: center;
+          line-height: 1.3;
         }
+      }
+    }
+  }
+}
+
+// 个人资料卡片增强（在BlockchainInfo组件中使用）
+.profile-card-enhanced {
+  position: relative;
+  z-index: 1;
+  margin: 16px;
+  padding: 24px;
+  background: var(--gradient-dark-card);
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+
+  // 装饰光效
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -30%;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .profile-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .profile-avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    border: 3px solid var(--color-primary);
+    box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.2),
+                var(--shadow-glow);
+    object-fit: cover;
+  }
+
+  .profile-info {
+    flex: 1;
+
+    .profile-name {
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+      letter-spacing: -0.3px;
+    }
+
+    .profile-id {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.6);
+      font-family: 'SF Mono', monospace;
+    }
+  }
+
+  .profile-settings {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+    transition: all var(--duration-fast) var(--ease-out);
+
+    &:active {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: rgba(212, 175, 55, 0.4);
+    }
+  }
+
+  // 用户资产统计
+  .profile-stats {
+    display: flex;
+    gap: 24px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    z-index: 1;
+
+    .stat-item {
+      flex: 1;
+      text-align: center;
+
+      .stat-value {
+        font-size: 22px;
+        font-weight: 700;
+        background: var(--gradient-gold);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 4px;
+      }
+
+      .stat-label {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.5);
+        font-weight: 500;
+      }
+    }
+  }
+
+  // 钱包地址
+  .profile-wallet {
+    margin-top: 16px;
+    padding: 14px 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 1;
+
+    .wallet-address {
+      font-size: 13px;
+      font-family: 'SF Mono', monospace;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .wallet-copy {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      color: var(--color-primary);
+      font-weight: 600;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: var(--radius-xs);
+      transition: background var(--duration-fast) var(--ease-out);
+
+      &:active {
+        background: rgba(212, 175, 55, 0.15);
       }
     }
   }
