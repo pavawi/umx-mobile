@@ -1,5 +1,5 @@
 // UMX数字藏品平台 - CSS变量定义
-// NFT/艺术品平台高端设计风格 V2026.01.25
+// 统一色彩系统 V2026.01.25
 
 :root {
   // ========== 品牌色 - 金色系（体现稀缺性和价值感）==========
@@ -9,32 +9,38 @@
   --color-primary-bg: rgba(212, 175, 55, 0.06);
   --color-primary-glow: rgba(212, 175, 55, 0.4);
 
-  // ========== 品牌渐变 - 更奢华的金色质感 ==========
+  // ========== 品牌渐变 ==========
   --gradient-primary: linear-gradient(135deg, #BF953F 0%, #FCF6BA 25%, #D4AF37 50%, #FCF6BA 75%, #BF953F 100%);
   --gradient-gold: linear-gradient(135deg, #B8860B 0%, #D4AF37 25%, #FFD700 50%, #D4AF37 75%, #B8860B 100%);
   --gradient-gold-shine: linear-gradient(90deg, transparent 0%, rgba(255, 215, 0, 0.3) 50%, transparent 100%);
-  --gradient-purple: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  --gradient-purple-neon: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
   --gradient-dark: linear-gradient(180deg, #0f0f1a 0%, #1a1a2e 50%, #16213e 100%);
   --gradient-dark-card: linear-gradient(145deg, rgba(30, 30, 45, 0.95) 0%, rgba(20, 20, 35, 0.98) 100%);
   --gradient-mesh: radial-gradient(at 40% 20%, rgba(212, 175, 55, 0.08) 0%, transparent 50%),
                    radial-gradient(at 80% 80%, rgba(139, 92, 246, 0.06) 0%, transparent 50%);
   --gradient-border-gold: linear-gradient(135deg, rgba(212, 175, 55, 0.5) 0%, rgba(252, 246, 186, 0.3) 50%, rgba(212, 175, 55, 0.5) 100%);
 
-  // ========== 辅助色 - 更精致的色调 ==========
+  // ========== 功能渐变（运营推荐位用）==========
+  --gradient-feature-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --gradient-feature-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  --gradient-feature-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  --gradient-badge: linear-gradient(135deg, #EF4444 0%, #F59E0B 100%);
+
+  // ========== 辅助色 ==========
   --color-secondary: #8B5CF6;
   --color-success: #10B981;
   --color-warning: #F59E0B;
   --color-error: #EF4444;
   --color-info: #6366F1;
 
-  // ========== 文字色 - 更柔和的层次 ==========
+  // ========== 文字色 ==========
   --color-text-primary: #1F2937;
   --color-text-secondary: #6B7280;
+  --color-text-tertiary: #9CA3AF;
   --color-text-placeholder: #9CA3AF;
   --color-text-disabled: #D1D5DB;
+  --color-text-inverse: #FFFFFF;
 
-  // ========== 背景色 - 精致的层次感 ==========
+  // ========== 背景色 ==========
   --color-bg-primary: #FFFFFF;
   --color-bg-secondary: #F9FAFB;
   --color-bg-tertiary: #F3F4F6;
@@ -45,6 +51,13 @@
   --color-border-light: #F3F4F6;
   --color-divider: #E5E7EB;
 
+  // ========== 通知/提示专用色 ==========
+  --color-notice-bg: #FFF8E6;
+  --color-notice-icon: #D4AF37;
+  --color-notice-text: #8C6D1F;
+  --color-notice-arrow: #C9A24D;
+  --color-badge-dot: #EF4444;
+
   // ========== 特殊效果色 ==========
   --color-glass: rgba(255, 255, 255, 0.85);
   --color-glass-border: rgba(255, 255, 255, 0.2);
@@ -53,15 +66,12 @@
   --color-overlay: rgba(0, 0, 0, 0.6);
   --color-overlay-light: rgba(0, 0, 0, 0.3);
 
-  // ========== NFT特色装饰色 ==========
-  --color-neon-gold: #FFD700;
-  --color-neon-purple: #a855f7;
-  --color-neon-blue: #38bdf8;
+  // ========== NFT稀有度色 ==========
   --color-rarity-legendary: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
   --color-rarity-epic: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
   --color-rarity-rare: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
 
-  // ========== 状态色 ==========
+  // ========== 状态色（统一）==========
   --color-status-selling: #EF4444;
   --color-status-presale: #F59E0B;
   --color-status-soldout: #9CA3AF;

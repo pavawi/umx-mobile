@@ -4,7 +4,7 @@
   height: 28px;
   padding: 0 10px;
   margin: 8px 12px;
-  background: linear-gradient(90deg, #FFF8E6 0%, #FFF4D9 100%);
+  background: var(--color-notice-bg);
   border-radius: 14px;
   cursor: pointer;
   transition: opacity var(--duration-fast) var(--ease-out);
@@ -21,7 +21,7 @@
     align-items: center;
     justify-content: center;
     margin-right: 6px;
-    color: #F5A623;
+    color: var(--color-notice-icon);
   }
 
   &__content {
@@ -31,7 +31,7 @@
     .notice-text {
       display: block;
       font-size: 11px;
-      color: #8C6D1F;
+      color: var(--color-notice-text);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -45,6 +45,6 @@
     align-items: center;
     justify-content: center;
     margin-left: 4px;
-    color: #C9A24D;
+    color: var(--color-notice-arrow);
   }
 }

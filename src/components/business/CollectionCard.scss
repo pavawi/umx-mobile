@@ -21,19 +21,19 @@
     padding: 3px 8px;
     font-size: 9px;
     font-weight: 600;
-    color: #fff;
+    color: var(--color-text-inverse);
     border-radius: var(--radius-xs);
     z-index: 3;
     letter-spacing: 0.3px;
 
     &.badge--selling {
-      background: #ef4444;
+      background: var(--color-status-selling);
     }
     &.badge--presale {
-      background: #f59e0b;
+      background: var(--color-status-presale);
     }
     &.badge--soldout {
-      background: #9ca3af;
+      background: var(--color-status-soldout);
     }
   }
 

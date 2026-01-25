@@ -6,12 +6,12 @@
     align-items: center;
     height: 40px;
     padding: 0 12px;
-    background: #F5F5F5;
+    background: var(--color-bg-tertiary);
     border-radius: 20px;
 
     .icon-search {
       flex-shrink: 0;
-      color: #999;
+      color: var(--color-text-tertiary);
       margin-right: 8px;
     }
 
@@ -19,17 +19,17 @@
       flex: 1;
       height: 100%;
       font-size: 14px;
-      color: #333;
+      color: var(--color-text-primary);
       background: transparent;
 
       &::placeholder {
-        color: #999;
+        color: var(--color-text-placeholder);
       }
     }
 
     .btn-clear {
       padding: 4px;
-      color: #999;
+      color: var(--color-text-tertiary);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -39,7 +39,7 @@
       margin-left: 8px;
       padding: 6px 14px;
       background: var(--color-primary);
-      color: #fff;
+      color: var(--color-text-inverse);
       border-radius: 14px;
       font-size: 13px;
       font-weight: 500;
@@ -51,9 +51,9 @@
     top: calc(100% + 8px);
     left: 0;
     right: 0;
-    background: #fff;
+    background: var(--color-bg-primary);
     border-radius: 12px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    box-shadow: var(--shadow-lg);
     z-index: 100;
     max-height: 300px;
     overflow-y: auto;
@@ -63,7 +63,7 @@
       justify-content: space-between;
       padding: 12px 16px 8px;
       font-size: 12px;
-      color: #999;
+      color: var(--color-text-tertiary);
 
       .clear-history {
         color: var(--color-primary);
@@ -74,11 +74,11 @@
     .dropdown-item {
       padding: 12px 16px;
       font-size: 14px;
-      color: #333;
+      color: var(--color-text-primary);
       cursor: pointer;
 
       &:active {
-        background: #F5F5F5;
+        background: var(--color-bg-tertiary);
       }
     }
   }
