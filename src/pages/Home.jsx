@@ -49,15 +49,15 @@ export default function Home() {
         <BannerSwiper banners={banners} />
       </div>
 
-      {/* 运营推荐位 - 宫格入口 */}
-      <FeatureGrid
-        items={featureGridItems}
+      {/* 活动中心入口 - 紧跟Banner */}
+      <ActivitySection
+        items={activityEntries}
         onItemClick={(item) => navigate(item.link)}
       />
 
-      {/* 活动中心入口 */}
-      <ActivitySection
-        items={activityEntries}
+      {/* 运营推荐位 - 宫格入口 */}
+      <FeatureGrid
+        items={featureGridItems}
         onItemClick={(item) => navigate(item.link)}
       />
 
