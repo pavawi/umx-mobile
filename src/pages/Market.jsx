@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import USearch from '../components/base/USearch';
 import UFilterTabs from '../components/base/UFilterTabs';
 import CollectionCard from '../components/business/CollectionCard';
@@ -17,6 +18,11 @@ export default function Market() {
   const [activeSort, setActiveSort] = useState('latest');
   const [activeYear, setActiveYear] = useState('all');
   const [history, setHistory] = useState(searchHistory);
+  const navigate = useNavigate();
+
+  const handleCardClick = (item) => {
+    navigate(`/detail/${item.id}`, { state: { item } });
+  };
 
   const handleSearch = (keyword) => {
     console.log('Search:', keyword);
@@ -103,7 +109,7 @@ export default function Market() {
             key={item.id}
             item={item}
             variant="market"
-            onClick={(item) => console.log('Card clicked:', item)}
+            onClick={handleCardClick}
           />
         ))}
       </div>

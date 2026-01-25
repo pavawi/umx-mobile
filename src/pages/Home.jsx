@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import BannerSwiper from '../components/business/BannerSwiper';
 import NoticeMarquee from '../components/business/NoticeMarquee';
 import RecommendBanner from '../components/business/RecommendBanner';
@@ -17,6 +18,11 @@ import './Home.scss';
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState('hot');
+  const navigate = useNavigate();
+
+  const handleCardClick = (item) => {
+    navigate(`/detail/${item.id}`, { state: { item } });
+  };
 
   return (
     <div className="page-container home-page">
@@ -66,7 +72,7 @@ export default function Home() {
             key={item.id}
             item={item}
             variant={activeTab === 'hot' ? 'hot' : 'default'}
-            onClick={(item) => console.log('Card clicked:', item)}
+            onClick={handleCardClick}
           />
         ))}
       </div>

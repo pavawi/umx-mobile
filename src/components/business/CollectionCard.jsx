@@ -6,6 +6,14 @@ const statusTextMap = {
   soldout: '已售罄'
 };
 
+// 图片比例映射
+const ratioClassMap = {
+  '1:1': 'ratio-1-1',
+  '3:4': 'ratio-3-4',
+  '4:3': 'ratio-4-3',
+  '16:9': 'ratio-16-9',
+};
+
 export default function CollectionCard({
   item,
   variant = 'default', // 'default' | 'market' | 'hot'
@@ -14,6 +22,9 @@ export default function CollectionCard({
   const handleClick = () => {
     onClick?.(item);
   };
+
+  // 获取图片比例类名，默认为1:1
+  const ratioClass = ratioClassMap[item.imageRatio] || 'ratio-1-1';
 
   return (
     <div className="collection-card" onClick={handleClick}>
@@ -25,7 +36,7 @@ export default function CollectionCard({
       )}
 
       {/* 藏品图片 */}
-      <div className="collection-card__image-wrapper">
+      <div className={`collection-card__image-wrapper ${ratioClass}`}>
         <img src={item.image} alt={item.name} className="collection-card__image" />
         {item.platform && (
           <div className="collection-card__platform">
