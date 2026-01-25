@@ -8,32 +8,9 @@
   transition: transform var(--duration-normal) var(--ease-out),
               box-shadow var(--duration-normal) var(--ease-out);
 
-  // 卡片金色边框装饰（悬浮时显示）
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: var(--radius-lg);
-    padding: 1px;
-    background: var(--gradient-border-gold);
-    -webkit-mask:
-      linear-gradient(#fff 0 0) content-box,
-      linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    opacity: 0;
-    transition: opacity var(--duration-normal) var(--ease-out);
-    pointer-events: none;
-    z-index: 2;
-  }
-
   &:active {
-    transform: scale(0.98) translateY(-2px);
-    box-shadow: var(--shadow-card-hover);
-
-    &::before {
-      opacity: 1;
-    }
+    transform: scale(0.98);
+    box-shadow: var(--shadow-md);
   }
 
   // 顶部状态标签
@@ -48,20 +25,15 @@
     border-radius: var(--radius-sm);
     z-index: 3;
     letter-spacing: 0.5px;
-    backdrop-filter: blur(8px);
-    text-transform: uppercase;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 
     &.badge--selling {
-      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-      box-shadow: 0 2px 12px rgba(239, 68, 68, 0.4);
+      background: #ef4444;
     }
     &.badge--presale {
-      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-      box-shadow: 0 2px 12px rgba(245, 158, 11, 0.4);
+      background: #f59e0b;
     }
     &.badge--soldout {
-      background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+      background: #9ca3af;
     }
   }
 
@@ -71,21 +43,7 @@
     width: 100%;
     aspect-ratio: 1;
     overflow: hidden;
-    background: linear-gradient(145deg, #f8f9fa 0%, #e9ecef 100%);
-
-    // 图片上方的渐变遮罩（增加层次感）
-    &::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        180deg,
-        rgba(0, 0, 0, 0) 60%,
-        rgba(0, 0, 0, 0.03) 100%
-      );
-      pointer-events: none;
-      z-index: 1;
-    }
+    background: var(--color-bg-tertiary);
 
     // 不同图片比例支持
     &.ratio-1-1 {
@@ -113,7 +71,7 @@
   }
 
   &:active &__image {
-    transform: scale(1.05);
+    transform: scale(1.02);
   }
 
   // 平台标识
@@ -125,31 +83,28 @@
     align-items: center;
     gap: 5px;
     padding: 5px 10px;
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(8px);
     border-radius: var(--radius-sm);
-    border: 1px solid rgba(255, 255, 255, 0.1);
     z-index: 2;
 
     .platform-icon {
       width: 16px;
       height: 16px;
-      background: var(--gradient-gold);
-      color: #1a1a2e;
+      background: var(--color-bg-primary);
+      color: var(--color-text-primary);
       font-size: 9px;
       font-weight: 800;
       border-radius: 4px;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 0 8px rgba(212, 175, 55, 0.5);
     }
 
     span:last-child {
       font-size: 10px;
       font-weight: 500;
       color: rgba(255, 255, 255, 0.9);
-      letter-spacing: 0.3px;
     }
   }
 
@@ -166,18 +121,16 @@
     margin-bottom: 10px;
   }
 
-  // 类型标签（艺术品分类）
+  // 类型标签
   &__type {
     flex-shrink: 0;
     padding: 4px 10px;
     font-size: 10px;
     font-weight: 600;
-    color: var(--color-primary-dark);
-    background: linear-gradient(135deg, rgba(212, 175, 55, 0.12) 0%, rgba(212, 175, 55, 0.06) 100%);
-    border: 1px solid rgba(212, 175, 55, 0.2);
+    color: var(--color-text-secondary);
+    background: var(--color-bg-tertiary);
     border-radius: var(--radius-sm);
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
+    letter-spacing: 0.3px;
   }
 
   &__title {
@@ -187,7 +140,6 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    letter-spacing: -0.2px;
     line-height: 1.3;
   }
 
@@ -205,8 +157,7 @@
       height: 22px;
       border-radius: 50%;
       object-fit: cover;
-      border: 2px solid var(--color-primary-light);
-      box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.2);
+      border: 1px solid var(--color-border);
     }
 
     span {
@@ -243,15 +194,11 @@
       }
     }
 
-    // 价格特殊样式 - 金色渐变
+    // 价格样式
     .price-row .value {
       font-size: 18px;
       font-weight: 700;
-      background: var(--gradient-gold);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      letter-spacing: -0.3px;
+      color: var(--color-text-primary);
     }
 
     // 限量徽章
@@ -263,57 +210,10 @@
       padding: 10px 16px;
       font-size: 12px;
       font-weight: 600;
-      color: #1a1a2e;
-      background: var(--gradient-gold);
+      color: var(--color-text-primary);
+      background: var(--color-bg-tertiary);
       border-radius: var(--radius-sm);
-      letter-spacing: 0.5px;
-      box-shadow: 0 2px 12px rgba(212, 175, 55, 0.3);
-      transition: all var(--duration-fast) var(--ease-out);
-
-      &::before {
-        content: '';
-        display: inline-block;
-        width: 6px;
-        height: 6px;
-        background: #1a1a2e;
-        border-radius: 50%;
-        margin-right: 8px;
-        opacity: 0.6;
-      }
-    }
-  }
-}
-
-// 暗色卡片变体（用于深色背景区域）
-.collection-card--dark {
-  background: var(--gradient-dark-card);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-
-  &::before {
-    background: linear-gradient(135deg, rgba(212, 175, 55, 0.6) 0%, rgba(168, 85, 247, 0.4) 100%);
-  }
-
-  .collection-card__content {
-    background: transparent;
-  }
-
-  .collection-card__title {
-    color: rgba(255, 255, 255, 0.95);
-  }
-
-  .collection-card__creator {
-    color: rgba(255, 255, 255, 0.6);
-  }
-
-  .collection-card__footer {
-    border-top-color: rgba(255, 255, 255, 0.08);
-
-    .label {
-      color: rgba(255, 255, 255, 0.5);
-    }
-
-    .value {
-      color: rgba(255, 255, 255, 0.9);
+      letter-spacing: 0.3px;
     }
   }
 }

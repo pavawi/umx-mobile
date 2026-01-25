@@ -1,94 +1,59 @@
 .blockchain-info {
-  position: relative;
-  background: var(--gradient-dark-card);
-  border-radius: var(--radius-xl);
-  padding: 24px 20px;
+  background: var(--color-bg-primary);
+  border-radius: var(--radius-lg);
+  padding: 20px;
   margin: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  overflow: hidden;
-
-  // 装饰光效
-  &::before {
-    content: '';
-    position: absolute;
-    top: -60%;
-    right: -40%;
-    width: 250px;
-    height: 250px;
-    background: radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, transparent 60%);
-    pointer-events: none;
-  }
-
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -40%;
-    left: -30%;
-    width: 180px;
-    height: 180px;
-    background: radial-gradient(circle, rgba(168, 85, 247, 0.1) 0%, transparent 60%);
-    pointer-events: none;
-  }
+  box-shadow: var(--shadow-card);
 
   // 用户头部信息
   .user-header {
     display: flex;
     align-items: center;
     margin-bottom: 20px;
-    position: relative;
-    z-index: 1;
 
     .user-avatar {
-      width: 64px;
-      height: 64px;
+      width: 56px;
+      height: 56px;
       border-radius: 50%;
-      border: 3px solid var(--color-primary);
-      box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.2),
-                  var(--shadow-glow);
+      border: 2px solid var(--color-border);
       object-fit: cover;
     }
 
     .user-meta {
       flex: 1;
-      margin-left: 16px;
+      margin-left: 14px;
     }
 
     .user-name {
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 700;
-      color: #fff;
+      color: var(--color-text-primary);
       display: flex;
       align-items: center;
-      gap: 10px;
-      letter-spacing: -0.3px;
+      gap: 8px;
 
       .verified-badge {
-        padding: 3px 10px;
+        padding: 3px 8px;
         font-size: 10px;
-        font-weight: 700;
-        color: #1a1a2e;
-        background: var(--gradient-gold);
+        font-weight: 600;
+        color: var(--color-text-secondary);
+        background: var(--color-bg-tertiary);
         border-radius: var(--radius-full);
-        letter-spacing: 0.5px;
-        text-transform: uppercase;
-        box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
       }
     }
 
     .user-id {
       font-size: 13px;
-      color: rgba(255, 255, 255, 0.5);
-      margin-top: 6px;
-      font-family: 'SF Mono', monospace;
+      color: var(--color-text-placeholder);
+      margin-top: 4px;
     }
 
     .btn-settings {
-      width: 40px;
-      height: 40px;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      width: 36px;
+      height: 36px;
+      background: var(--color-bg-tertiary);
       border-radius: 50%;
-      color: rgba(255, 255, 255, 0.7);
+      color: var(--color-text-secondary);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -96,54 +61,33 @@
       transition: all var(--duration-fast) var(--ease-out);
 
       &:active {
-        background: rgba(255, 255, 255, 0.15);
-        border-color: rgba(212, 175, 55, 0.3);
-        transform: scale(0.95);
+        background: var(--color-bg-secondary);
       }
     }
   }
 
   // 链上地址信息
   .chain-address {
-    padding: 16px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 14px;
+    background: var(--color-bg-secondary);
     border-radius: var(--radius-md);
-    margin-bottom: 20px;
-    position: relative;
-    z-index: 1;
+    margin-bottom: 16px;
 
     .address-label {
       display: flex;
       align-items: center;
       gap: 8px;
       font-size: 12px;
-      color: rgba(255, 255, 255, 0.5);
-      margin-bottom: 10px;
-      font-weight: 500;
+      color: var(--color-text-placeholder);
+      margin-bottom: 8px;
 
       .chain-logo {
-        display: inline-flex;
-        align-items: center;
-        gap: 4px;
-        padding: 4px 10px;
+        padding: 3px 8px;
         font-size: 10px;
-        font-weight: 700;
-        color: var(--color-secondary);
-        background: linear-gradient(135deg, rgba(139, 92, 246, 0.2) 0%, rgba(139, 92, 246, 0.1) 100%);
-        border: 1px solid rgba(139, 92, 246, 0.2);
-        border-radius: var(--radius-sm);
-        letter-spacing: 0.5px;
-        text-transform: uppercase;
-
-        &::before {
-          content: '';
-          width: 6px;
-          height: 6px;
-          background: var(--color-secondary);
-          border-radius: 50%;
-          animation: pulse-glow 2s ease-in-out infinite;
-        }
+        font-weight: 600;
+        color: var(--color-text-secondary);
+        background: var(--color-bg-primary);
+        border-radius: var(--radius-xs);
       }
     }
 
@@ -153,29 +97,23 @@
       justify-content: space-between;
 
       .address {
-        font-size: 14px;
+        font-size: 13px;
         font-family: 'SF Mono', monospace;
-        color: rgba(255, 255, 255, 0.8);
-        letter-spacing: 0.3px;
+        color: var(--color-text-secondary);
       }
 
       .btn-copy {
         display: flex;
         align-items: center;
-        gap: 5px;
-        padding: 6px 12px;
-        font-size: 12px;
-        font-weight: 600;
-        color: var(--color-primary);
-        background: rgba(212, 175, 55, 0.1);
-        border: 1px solid rgba(212, 175, 55, 0.2);
+        padding: 6px;
+        color: var(--color-text-secondary);
+        background: var(--color-bg-primary);
         border-radius: var(--radius-sm);
         cursor: pointer;
         transition: all var(--duration-fast) var(--ease-out);
 
         &:active {
-          background: rgba(212, 175, 55, 0.2);
-          transform: scale(0.96);
+          background: var(--color-bg-tertiary);
         }
       }
     }
@@ -183,72 +121,56 @@
 
   // 资产估值
   .asset-valuation {
-    position: relative;
-    z-index: 1;
-
     .valuation-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 12px;
+      margin-bottom: 8px;
 
       .label {
         font-size: 13px;
-        color: rgba(255, 255, 255, 0.5);
-        font-weight: 500;
+        color: var(--color-text-secondary);
       }
 
       .hint {
         font-size: 11px;
-        color: rgba(255, 255, 255, 0.4);
+        color: var(--color-text-placeholder);
         display: flex;
         align-items: center;
         gap: 4px;
         cursor: pointer;
-        transition: color var(--duration-fast) var(--ease-out);
-
-        &:active {
-          color: var(--color-primary);
-        }
       }
     }
 
     .valuation-value {
-      margin-bottom: 12px;
+      margin-bottom: 8px;
 
       .currency {
-        font-size: 18px;
+        font-size: 16px;
+        color: var(--color-text-primary);
         font-weight: 500;
-        background: var(--gradient-gold);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
       }
 
       .amount {
-        font-size: 36px;
-        font-weight: 800;
-        background: var(--gradient-gold);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        margin-left: 4px;
-        letter-spacing: -1px;
+        font-size: 32px;
+        font-weight: 700;
+        color: var(--color-text-primary);
+        margin-left: 2px;
+        letter-spacing: -0.5px;
       }
     }
 
     .valuation-detail {
       font-size: 13px;
-      color: rgba(255, 255, 255, 0.4);
+      color: var(--color-text-placeholder);
 
       .divider {
-        margin: 0 10px;
-        color: rgba(255, 255, 255, 0.2);
+        margin: 0 8px;
+        color: var(--color-border);
       }
 
       .count {
-        color: rgba(255, 255, 255, 0.6);
-        font-weight: 600;
+        color: var(--color-text-secondary);
       }
     }
   }

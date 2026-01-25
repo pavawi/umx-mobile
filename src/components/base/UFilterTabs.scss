@@ -14,17 +14,6 @@
     &::-webkit-scrollbar {
       display: none;
     }
-
-    // 右侧渐变遮罩提示可滚动
-    &::after {
-      content: '';
-      position: sticky;
-      right: 0;
-      width: 24px;
-      height: 100%;
-      background: linear-gradient(90deg, transparent 0%, var(--color-bg-secondary) 100%);
-      pointer-events: none;
-    }
   }
 
   &__item {
@@ -41,34 +30,18 @@
     transition: all var(--duration-fast) var(--ease-out);
     letter-spacing: 0.3px;
     position: relative;
-    overflow: hidden;
 
-    // 激活状态
+    // 激活状态 - 简洁设计
     &.is-active {
-      background: linear-gradient(135deg, rgba(212, 175, 55, 0.12) 0%, rgba(212, 175, 55, 0.06) 100%);
-      color: var(--color-primary-dark);
-      border-color: rgba(212, 175, 55, 0.35);
-      font-weight: 700;
-      box-shadow: 0 0 16px rgba(212, 175, 55, 0.15);
-
-      // 金色底部高亮线
-      &::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 60%;
-        height: 2px;
-        background: var(--gradient-gold);
-        border-radius: 2px 2px 0 0;
-      }
+      background: var(--color-text-primary);
+      color: var(--color-bg-primary);
+      border-color: var(--color-text-primary);
+      font-weight: 600;
     }
 
     // 按压效果
     &:active {
       transform: scale(0.95);
-      background: var(--color-bg-tertiary);
     }
 
     // 数量徽章
@@ -82,14 +55,14 @@
       margin-left: 6px;
       font-size: 10px;
       font-weight: 700;
-      color: #fff;
+      color: var(--color-bg-primary);
       background: var(--color-text-placeholder);
       border-radius: var(--radius-full);
     }
 
     &.is-active .tab-count {
-      background: var(--gradient-gold);
-      color: #1a1a2e;
+      background: var(--color-bg-primary);
+      color: var(--color-text-primary);
     }
   }
 }
@@ -110,7 +83,6 @@
 
     &.is-active svg {
       opacity: 1;
-      color: var(--color-primary);
     }
   }
 }
