@@ -23,7 +23,7 @@
     justify-content: center;
   }
 
-  // 快捷入口区域 - 高端NFT风格
+  // 快捷入口区域 - 简洁风格
   .quick-entries {
     position: relative;
     z-index: 1;
@@ -34,20 +34,6 @@
     background: var(--color-bg-primary);
     border-radius: var(--radius-xl);
     box-shadow: var(--shadow-card);
-    border: 1px solid rgba(212, 175, 55, 0.08);
-
-    // 顶部金色装饰线
-    &::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 20%;
-      right: 20%;
-      height: 2px;
-      background: var(--gradient-gold);
-      border-radius: 0 0 2px 2px;
-      opacity: 0.6;
-    }
 
     .entry-item {
       display: flex;
@@ -68,24 +54,10 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background: linear-gradient(145deg, rgba(212, 175, 55, 0.08) 0%, rgba(212, 175, 55, 0.04) 100%);
+        background: var(--color-bg-tertiary);
         border-radius: var(--radius-lg);
-        color: var(--color-primary);
-        border: 1px solid rgba(212, 175, 55, 0.15);
+        color: var(--color-text-secondary);
         transition: all var(--duration-normal) var(--ease-out);
-
-        // 悬浮光晕效果
-        &::after {
-          content: '';
-          position: absolute;
-          inset: -3px;
-          border-radius: calc(var(--radius-lg) + 3px);
-          background: var(--gradient-gold);
-          opacity: 0;
-          z-index: -1;
-          filter: blur(8px);
-          transition: opacity var(--duration-normal) var(--ease-out);
-        }
 
         svg {
           width: 26px;
@@ -94,18 +66,13 @@
       }
 
       &:active .entry-icon {
-        background: linear-gradient(145deg, rgba(212, 175, 55, 0.15) 0%, rgba(212, 175, 55, 0.08) 100%);
-        border-color: rgba(212, 175, 55, 0.3);
-        box-shadow: var(--shadow-glow);
-
-        &::after {
-          opacity: 0.3;
-        }
+        background: var(--color-bg-secondary);
+        color: var(--color-text-primary);
       }
 
       .entry-title {
         font-size: 12px;
-        font-weight: 600;
+        font-weight: 500;
         color: var(--color-text-primary);
         letter-spacing: 0.3px;
       }
@@ -117,18 +84,6 @@
     position: relative;
     z-index: 1;
     padding: 20px 0 16px;
-
-    // 标题装饰
-    &::before {
-      content: '';
-      position: absolute;
-      left: 16px;
-      top: 20px;
-      width: 3px;
-      height: 16px;
-      background: var(--gradient-gold);
-      border-radius: 2px;
-    }
   }
 
   // 推荐位区域
@@ -157,21 +112,10 @@
     margin-bottom: 16px;
 
     .section-title {
-      display: flex;
-      align-items: center;
-      gap: 8px;
       font-size: 18px;
       font-weight: 700;
       color: var(--color-text-primary);
       letter-spacing: -0.3px;
-
-      &::before {
-        content: '';
-        width: 4px;
-        height: 18px;
-        background: var(--gradient-gold);
-        border-radius: 2px;
-      }
     }
 
     .section-more {
@@ -185,7 +129,7 @@
       transition: color var(--duration-fast) var(--ease-out);
 
       &:active {
-        color: var(--color-primary);
+        color: var(--color-text-primary);
       }
 
       svg {
