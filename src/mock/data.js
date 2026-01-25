@@ -333,26 +333,26 @@ export const profileMenus = [
   {
     title: '',
     items: [
-      { icon: '💰', label: '钱包', path: '/wallet' },
-      { icon: '📋', label: '交易历史', path: '/history' },
-      { icon: '📤', label: '出售签发', path: '/sell' },
-      { icon: '👥', label: '邀请好友', path: '/invite' },
+      { icon: 'wallet', label: '钱包', path: '/wallet' },
+      { icon: 'history', label: '交易历史', path: '/history' },
+      { icon: 'sell', label: '出售签发', path: '/sell' },
+      { icon: 'invite', label: '邀请好友', path: '/invite' },
     ],
   },
   {
     title: '',
     items: [
-      { icon: '📚', label: '作品清单', path: '/collections' },
-      { icon: '📊', label: '资产记录', path: '/assets' },
-      { icon: '🏆', label: 'UMX资质', path: '/qualification' },
-      { icon: '📞', label: '联系我们', path: '/contact' },
+      { icon: 'collection', label: '作品清单', path: '/collections' },
+      { icon: 'asset', label: '资产记录', path: '/assets' },
+      { icon: 'badge', label: 'UMX资质', path: '/qualification' },
+      { icon: 'contact', label: '联系我们', path: '/contact' },
     ],
   },
   {
     title: '',
     items: [
-      { icon: '📢', label: '官方公告', path: '/announcement' },
-      { icon: '🌐', label: '社区', path: '/community' },
+      { icon: 'notice', label: '官方公告', path: '/announcement' },
+      { icon: 'community', label: '社区', path: '/community' },
     ],
   },
 ];
