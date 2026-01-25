@@ -53,14 +53,27 @@ export default function Home() {
         onItemClick={(item) => navigate(item.link)}
       />
 
-      {/* Tab切换 */}
-      <div className="home-tabs">
-        <UFilterTabs
-          tabs={homeTabs}
-          value={activeTab}
-          onChange={setActiveTab}
-          scrollable={false}
-        />
+      {/* 藏品区域 */}
+      <div className="collection-section">
+        <div className="section-header">
+          <span className="section-title">精选藏品</span>
+          <span className="section-more">
+            查看更多
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="9 18 15 12 9 6"/>
+            </svg>
+          </span>
+        </div>
+
+        {/* Tab切换 */}
+        <div className="home-tabs">
+          <UFilterTabs
+            tabs={homeTabs}
+            value={activeTab}
+            onChange={setActiveTab}
+            scrollable={false}
+          />
+        </div>
       </div>
 
       {/* 藏品列表 */}

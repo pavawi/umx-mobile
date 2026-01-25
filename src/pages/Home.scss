@@ -79,11 +79,22 @@
     }
   }
 
+  // 藏品区域容器
+  .collection-section {
+    position: relative;
+    z-index: 1;
+    margin-top: 20px;
+    padding-top: 16px;
+    background: var(--color-bg-primary);
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.03);
+  }
+
   // Tab切换区域
   .home-tabs {
     position: relative;
     z-index: 1;
-    padding: 12px 0 10px;
+    padding: 10px 0 12px;
   }
 
   // 藏品网格列表 - 紧凑间距
