@@ -3,7 +3,7 @@
   align-items: center;
   height: 30px;
   padding: 0 10px;
-  background: #FFFBF0;
+  background: var(--color-notice-bg);
   border-radius: 15px;
   margin: 8px 12px;
   cursor: pointer;
@@ -17,7 +17,7 @@
     width: 16px;
     height: 16px;
     margin-right: 6px;
-    color: #F5A623;
+    color: var(--color-notice-icon);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -34,7 +34,7 @@
 
     .marquee-text {
       font-size: 11px;
-      color: #666;
+      color: var(--color-notice-text);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -50,7 +50,7 @@
     .dot {
       width: 5px;
       height: 5px;
-      background: #FF6B6B;
+      background: var(--color-badge-dot);
       border-radius: 50%;
       margin-right: 3px;
       animation: pulse 2s infinite;
@@ -58,13 +58,13 @@
 
     .text {
       font-size: 10px;
-      color: #999;
+      color: var(--color-text-tertiary);
     }
 
     svg {
       width: 10px;
       height: 10px;
-      color: #999;
+      color: var(--color-text-tertiary);
     }
   }
 }
