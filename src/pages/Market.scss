@@ -1,0 +1,77 @@
+.market-page {
+  background: #fff;
+
+  .page-header {
+    padding: 16px;
+    padding-top: 12px;
+
+    h1 {
+      font-size: 24px;
+      font-weight: 700;
+      color: #1a1a1a;
+    }
+  }
+
+  .search-wrapper {
+    padding: 0 16px 12px;
+  }
+
+  .filter-section {
+    padding-bottom: 12px;
+  }
+
+  .sub-filters {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px 16px;
+
+    .sort-tabs {
+      display: flex;
+      gap: 16px;
+
+      .sort-btn {
+        font-size: 13px;
+        color: #999;
+        position: relative;
+
+        &.is-active {
+          color: #F5A623;
+          font-weight: 500;
+
+          &::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 16px;
+            height: 2px;
+            background: #F5A623;
+            border-radius: 1px;
+          }
+        }
+      }
+    }
+
+    .year-select {
+      select {
+        padding: 6px 12px;
+        font-size: 13px;
+        color: #666;
+        background: #F5F5F5;
+        border: none;
+        border-radius: 16px;
+        outline: none;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .collection-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding: 0 16px 20px;
+  }
+}

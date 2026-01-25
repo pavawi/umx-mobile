@@ -1,0 +1,163 @@
+.blockchain-info {
+  background: linear-gradient(135deg, #FFF8E1 0%, #FFFFFF 100%);
+  border-radius: 16px;
+  padding: 20px 16px;
+  margin: 16px;
+
+  .user-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+
+    .user-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      border: 2px solid #F5A623;
+      object-fit: cover;
+    }
+
+    .user-meta {
+      flex: 1;
+      margin-left: 12px;
+    }
+
+    .user-name {
+      font-size: 17px;
+      font-weight: 600;
+      color: #1a1a1a;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      .verified-badge {
+        padding: 2px 8px;
+        font-size: 10px;
+        font-weight: 400;
+        color: #fff;
+        background: #F5A623;
+        border-radius: 10px;
+      }
+    }
+
+    .user-id {
+      font-size: 12px;
+      color: #999;
+      margin-top: 4px;
+    }
+
+    .btn-settings {
+      width: 36px;
+      height: 36px;
+      background: rgba(0, 0, 0, 0.05);
+      border-radius: 50%;
+      color: #666;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:active {
+        background: rgba(0, 0, 0, 0.1);
+      }
+    }
+  }
+
+  .chain-address {
+    padding: 12px;
+    background: #fff;
+    border-radius: 10px;
+    margin-bottom: 16px;
+
+    .address-label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: #999;
+      margin-bottom: 6px;
+
+      .chain-logo {
+        padding: 2px 6px;
+        font-size: 10px;
+        font-weight: bold;
+        color: #fff;
+        background: #2196F3;
+        border-radius: 4px;
+      }
+    }
+
+    .address-value {
+      display: flex;
+      align-items: center;
+
+      .address {
+        font-size: 13px;
+        font-family: monospace;
+        color: #333;
+      }
+
+      .btn-copy {
+        margin-left: 8px;
+        padding: 4px;
+        color: #F5A623;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:active {
+          opacity: 0.7;
+        }
+      }
+    }
+  }
+
+  .asset-valuation {
+    .valuation-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+
+      .label {
+        font-size: 13px;
+        color: #666;
+      }
+
+      .hint {
+        font-size: 11px;
+        color: #999;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        cursor: pointer;
+      }
+    }
+
+    .valuation-value {
+      margin-bottom: 8px;
+
+      .currency {
+        font-size: 16px;
+        color: #F5A623;
+        font-weight: 500;
+      }
+
+      .amount {
+        font-size: 28px;
+        font-weight: 700;
+        color: #F5A623;
+        margin-left: 4px;
+      }
+    }
+
+    .valuation-detail {
+      font-size: 12px;
+      color: #999;
+
+      .divider {
+        margin: 0 8px;
+        color: #E8E8E8;
+      }
+    }
+  }
+}

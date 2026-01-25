@@ -1,0 +1,36 @@
+.u-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  font-size: 11px;
+  font-weight: 500;
+  border-radius: 4px;
+
+  &--status {
+    color: #fff;
+
+    &.selling { background: #FF6B6B; }
+    &.presale { background: #F5A623; }
+    &.soldout { background: #999; }
+  }
+
+  &--category {
+    color: #F5A623;
+    background: #FFF8E1;
+    border: 1px solid #FFE0B2;
+  }
+
+  &--notice {
+    padding: 4px 10px;
+    font-size: 12px;
+    border-radius: 6px;
+
+    &.system,
+    &.lock,
+    &.compose,
+    &.new {
+      color: #F5A623;
+      background: #FFF8E1;
+    }
+  }
+}

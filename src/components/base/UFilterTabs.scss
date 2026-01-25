@@ -1,0 +1,42 @@
+.u-filter-tabs {
+  &__wrapper {
+    display: flex;
+    gap: 10px;
+    padding: 0 16px;
+  }
+
+  &.is-scrollable &__wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  &__item {
+    flex-shrink: 0;
+    height: 32px;
+    padding: 0 16px;
+    background: transparent;
+    color: #666;
+    border: 1px solid #E8E8E8;
+    border-radius: 16px;
+    font-size: 13px;
+    font-weight: 400;
+    white-space: nowrap;
+    transition: all 0.2s;
+
+    &.is-active {
+      background: var(--color-primary-bg);
+      color: var(--color-primary);
+      border-color: var(--color-primary);
+      font-weight: 500;
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+}
