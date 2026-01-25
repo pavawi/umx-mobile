@@ -8,10 +8,18 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
 
 jobs:
   create-and-merge-pr:
     runs-on: ubuntu-latest
+    outputs:
+      merged: ${{ steps.merge.outputs.merged }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -70,6 +78,7 @@ jobs:
           echo "Existing PR: $PR_URL"
 
       - name: Auto Merge PR
+        id: merge
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -77,14 +86,51 @@ jobs:
 
           if [ -n "$PR_URL" ]; then
             echo "Merging PR: $PR_URL"
-            # 等待 PR 检查完成（如果有的话）
             sleep 5
-            gh pr merge "$PR_URL" --squash --delete-branch --admin || echo "Merge failed or already merged"
+            if gh pr merge "$PR_URL" --squash --delete-branch --admin; then
+              echo "merged=true" >> $GITHUB_OUTPUT
+            else
+              echo "merged=false" >> $GITHUB_OUTPUT
+              echo "Merge failed or already merged"
+            fi
+          else
+            echo "merged=false" >> $GITHUB_OUTPUT
           fi
 
-      - name: Trigger Deploy Workflow
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          # 手动触发部署工作流
-          gh workflow run deploy.yml --ref claude/umx-platform-frontend-0HjNk || echo "Failed to trigger deploy workflow"
+  # 合并成功后直接执行部署
+  deploy:
+    needs: create-and-merge-pr
+    if: needs.create-and-merge-pr.outputs.merged == 'true'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout target branch
+        uses: actions/checkout@v4
+        with:
+          ref: claude/umx-platform-frontend-0HjNk
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './dist'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
