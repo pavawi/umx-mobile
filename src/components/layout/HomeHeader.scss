@@ -89,7 +89,7 @@
     }
 
     &__search {
-      max-width: 400px;
+      // 移除 max-width 限制，让搜索框填满可用空间
       height: 40px;
       padding: 0 16px;
       border-radius: 20px;
@@ -119,7 +119,8 @@
     padding: 16px 32px;
 
     &__search {
-      max-width: 480px;
+      // 桌面端限制最大宽度，避免搜索框过长
+      max-width: 560px;
     }
   }
 }
