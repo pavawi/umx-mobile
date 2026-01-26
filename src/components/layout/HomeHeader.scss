@@ -77,3 +77,49 @@
     }
   }
 }
+
+// iPad 响应式
+@media (min-width: 768px) {
+  .home-header {
+    padding: 12px 24px;
+    gap: 16px;
+
+    &__logo .logo-text {
+      font-size: 24px;
+    }
+
+    &__search {
+      max-width: 400px;
+      height: 40px;
+      padding: 0 16px;
+      border-radius: 20px;
+
+      .placeholder {
+        font-size: 14px;
+      }
+    }
+
+    &__notice {
+      width: 40px;
+      height: 40px;
+
+      svg {
+        width: 24px;
+        height: 24px;
+      }
+    }
+  }
+}
+
+// 桌面响应式 - 居中布局
+@media (min-width: 1024px) {
+  .home-header {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding: 16px 32px;
+
+    &__search {
+      max-width: 480px;
+    }
+  }
+}

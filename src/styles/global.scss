@@ -11,6 +11,8 @@
 html {
   font-size: 16px;
   -webkit-tap-highlight-color: transparent;
+  // 平滑过渡主题切换
+  color-scheme: light dark;
 }
 
 body {
@@ -20,6 +22,9 @@ body {
   color: var(--color-text-primary);
   background-color: var(--color-bg-secondary);
   -webkit-font-smoothing: antialiased;
+  // 主题切换过渡
+  transition: background-color var(--duration-normal) var(--ease-out),
+              color var(--duration-normal) var(--ease-out);
 }
 
 a {
@@ -53,6 +58,7 @@ ul, ol {
   min-height: 100vh;
   padding-bottom: calc(var(--tab-bar-height) + var(--safe-area-bottom));
   background-color: var(--color-bg-secondary);
+  transition: background-color var(--duration-normal) var(--ease-out);
 }
 
 .text-ellipsis {
@@ -61,13 +67,18 @@ ul, ol {
   white-space: nowrap;
 }
 
+// 骨架屏动画
 @keyframes shimmer {
   0% { background-position: 200% 0; }
   100% { background-position: -200% 0; }
 }
 
 .skeleton {
-  background: linear-gradient(90deg, #F0F0F0 25%, #E8E8E8 50%, #F0F0F0 75%);
+  background: linear-gradient(90deg,
+    var(--color-bg-tertiary) 25%,
+    var(--color-bg-secondary) 50%,
+    var(--color-bg-tertiary) 75%
+  );
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
 }
@@ -75,4 +86,88 @@ ul, ol {
 @keyframes marquee {
   0% { transform: translateX(100%); }
   100% { transform: translateX(-100%); }
+}
+
+// ========== 响应式容器 ==========
+.responsive-container {
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 var(--page-padding);
+}
+
+// ========== 隐藏/显示工具类 ==========
+.hide-mobile {
+  @media (max-width: 767px) {
+    display: none !important;
+  }
+}
+
+.hide-tablet {
+  @media (min-width: 768px) and (max-width: 1023px) {
+    display: none !important;
+  }
+}
+
+.hide-desktop {
+  @media (min-width: 1024px) {
+    display: none !important;
+  }
+}
+
+.show-mobile-only {
+  @media (min-width: 768px) {
+    display: none !important;
+  }
+}
+
+.show-tablet-up {
+  @media (max-width: 767px) {
+    display: none !important;
+  }
+}
+
+.show-desktop-only {
+  @media (max-width: 1023px) {
+    display: none !important;
+  }
+}
+
+// ========== iPad 响应式调整 ==========
+@media (min-width: 768px) {
+  html {
+    font-size: 17px;
+  }
+
+  .page-container {
+    padding-bottom: calc(64px + var(--safe-area-bottom));
+  }
+}
+
+// ========== 桌面响应式调整 ==========
+@media (min-width: 1024px) {
+  html {
+    font-size: 18px;
+  }
+}
+
+// ========== 安全的触摸区域 ==========
+@media (pointer: coarse) {
+  button,
+  [role="button"],
+  .clickable {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+// ========== 减少动画（无障碍）==========
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

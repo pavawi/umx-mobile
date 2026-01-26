@@ -1,0 +1,130 @@
+.theme-toggle {
+  // ========== 图标按钮模式 ==========
+  &--icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-sm);
+    background: var(--color-bg-tertiary);
+    color: var(--color-text-secondary);
+    transition: all var(--duration-fast) var(--ease-out);
+
+    &:active {
+      transform: scale(0.95);
+      background: var(--color-bg-secondary);
+    }
+
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  // ========== 分段选择器模式 ==========
+  &--segmented {
+    display: flex;
+    gap: 4px;
+    padding: 4px;
+    background: var(--color-bg-tertiary);
+    border-radius: var(--radius-md);
+
+    .segment {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      flex: 1;
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      color: var(--color-text-secondary);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
+      transition: all var(--duration-fast) var(--ease-out);
+
+      svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      &.is-active {
+        background: var(--color-bg-primary);
+        color: var(--color-primary);
+        box-shadow: var(--shadow-sm);
+      }
+
+      &:active:not(.is-active) {
+        background: rgba(0, 0, 0, 0.05);
+      }
+    }
+  }
+
+  // ========== 列表项模式 ==========
+  &--list {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 0;
+
+    .label {
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-primary);
+    }
+
+    .options {
+      display: flex;
+      gap: 8px;
+
+      .option {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        padding: 6px 10px;
+        border-radius: var(--radius-sm);
+        font-size: var(--font-size-sm);
+        color: var(--color-text-tertiary);
+        background: var(--color-bg-tertiary);
+        transition: all var(--duration-fast) var(--ease-out);
+
+        svg {
+          width: 14px;
+          height: 14px;
+        }
+
+        &.is-active {
+          background: var(--color-primary-bg);
+          color: var(--color-primary);
+          border: 1px solid var(--color-primary);
+        }
+
+        &:active:not(.is-active) {
+          transform: scale(0.96);
+        }
+      }
+    }
+  }
+}
+
+// iPad 响应式
+@media (min-width: 768px) {
+  .theme-toggle {
+    &--icon {
+      width: 40px;
+      height: 40px;
+
+      svg {
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+    &--segmented {
+      .segment {
+        padding: 10px 16px;
+        font-size: var(--font-size-base);
+      }
+    }
+  }
+}

@@ -238,3 +238,128 @@
     }
   }
 }
+
+// ========== iPad 响应式 ==========
+@media (min-width: 768px) {
+  .home-page {
+    .home-banner {
+      padding-top: 12px;
+    }
+
+    .quick-entries {
+      margin: 0 24px;
+      padding: 20px 24px;
+      gap: 24px;
+
+      .entry-item {
+        gap: 8px;
+
+        .entry-icon {
+          width: 52px;
+          height: 52px;
+
+          svg {
+            width: 24px;
+            height: 24px;
+          }
+        }
+
+        .entry-title {
+          font-size: 13px;
+        }
+      }
+    }
+
+    .collection-section {
+      margin-top: 16px;
+      padding-top: 12px;
+      border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    }
+
+    .home-tabs {
+      padding: 12px 0 16px;
+    }
+
+    // iPad 上显示 3 列
+    .collection-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      padding: 0 24px 32px;
+    }
+
+    .section-header {
+      padding: 0 24px;
+      margin-bottom: 16px;
+
+      .section-title {
+        font-size: 18px;
+      }
+
+      .section-more {
+        font-size: 14px;
+      }
+    }
+  }
+
+  .featured-section {
+    margin: 16px 24px;
+    padding: 20px 20px;
+
+    .featured-title {
+      font-size: 16px;
+    }
+  }
+
+  .stats-section {
+    margin: 0 24px 16px;
+    padding: 20px 24px;
+
+    .stat-item {
+      .stat-value {
+        font-size: 22px;
+      }
+
+      .stat-label {
+        font-size: 13px;
+      }
+    }
+  }
+}
+
+// ========== 桌面响应式 ==========
+@media (min-width: 1024px) {
+  .home-page {
+    // 桌面上显示 4 列
+    .collection-grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      padding: 0 32px 40px;
+      max-width: var(--container-max-width);
+      margin: 0 auto;
+    }
+
+    .collection-section {
+      max-width: var(--container-max-width);
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .section-header {
+      padding: 0 32px;
+      max-width: var(--container-max-width);
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .home-banner {
+      max-width: var(--container-max-width);
+      margin: 0 auto;
+    }
+  }
+
+  .featured-section {
+    max-width: var(--container-max-width);
+    margin: 20px auto;
+    padding: 24px;
+  }
+}

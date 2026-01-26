@@ -32,121 +32,61 @@
     transition: all var(--duration-fast) var(--ease-out);
     overflow: hidden;
 
-    // 玻璃拟态基础效果
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    // 统一金色调背景 - 深色优雅风格
+    background: var(--color-activity-card-bg);
+    border: 1px solid var(--color-activity-card-border);
+    box-shadow: var(--shadow-activity-card);
 
     &:active {
       transform: scale(0.96);
       opacity: 0.9;
     }
 
-    // 竞赛类型 - 黑金奢华风
-    &--competition {
-      background: linear-gradient(145deg, #2a2520 0%, #1a1612 100%);
-      border: 1px solid rgba(212, 175, 55, 0.4);
-      box-shadow:
-        0 2px 8px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(212, 175, 55, 0.2);
-
-      .activity-icon {
-        color: #d4af37;
-        filter: drop-shadow(0 0 4px rgba(212, 175, 55, 0.4));
-      }
-
-      .activity-title {
-        color: #e8d5a3;
-      }
+    // 图标和标题使用统一的金色调
+    .activity-icon {
+      color: var(--color-primary);
+      filter: drop-shadow(0 0 4px var(--color-primary-glow));
     }
 
-    // 寻宝岛 - 深海青绿
-    &--treasure {
-      background: linear-gradient(145deg, #1a2f38 0%, #0f1d22 100%);
-      border: 1px solid rgba(0, 200, 180, 0.3);
-      box-shadow:
-        0 2px 8px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(0, 200, 180, 0.15);
-
-      .activity-icon {
-        color: #00c8b4;
-        filter: drop-shadow(0 0 4px rgba(0, 200, 180, 0.4));
-      }
-
-      .activity-title {
-        color: #a8e6e0;
-      }
+    .activity-title {
+      color: var(--color-activity-text);
     }
 
-    // 深海宝箱 - 深邃蓝紫
-    &--chest {
-      background: linear-gradient(145deg, #1e1b3a 0%, #12102a 100%);
-      border: 1px solid rgba(130, 100, 255, 0.3);
-      box-shadow:
-        0 2px 8px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(130, 100, 255, 0.15);
-
-      .activity-icon {
-        color: #8264ff;
-        filter: drop-shadow(0 0 4px rgba(130, 100, 255, 0.4));
-      }
-
-      .activity-title {
-        color: #c4b8ff;
-      }
+    // 不同类型通过图标底色微调区分
+    &--competition .activity-icon {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(212, 175, 55, 0.1) 100%);
+      border-radius: 8px;
+      padding: 4px;
     }
 
-    // 珍珠宝箱 - 珠光银白
-    &--pearl {
-      background: linear-gradient(145deg, #2a2a30 0%, #1a1a1f 100%);
-      border: 1px solid rgba(200, 200, 220, 0.3);
-      box-shadow:
-        0 2px 8px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-
-      .activity-icon {
-        color: #e8e8f0;
-        filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.3));
-      }
-
-      .activity-title {
-        color: #d0d0d8;
-      }
+    &--treasure .activity-icon {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(166, 139, 75, 0.1) 100%);
+      border-radius: 8px;
+      padding: 4px;
     }
 
-    // 藏品库 - 翡翠深绿
-    &--library {
-      background: linear-gradient(145deg, #1a2e24 0%, #0f1a16 100%);
-      border: 1px solid rgba(80, 200, 120, 0.3);
-      box-shadow:
-        0 2px 8px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(80, 200, 120, 0.15);
-
-      .activity-icon {
-        color: #50c878;
-        filter: drop-shadow(0 0 4px rgba(80, 200, 120, 0.4));
-      }
-
-      .activity-title {
-        color: #a8e6c0;
-      }
+    &--chest .activity-icon {
+      background: linear-gradient(135deg, rgba(166, 139, 75, 0.2) 0%, rgba(212, 175, 55, 0.1) 100%);
+      border-radius: 8px;
+      padding: 4px;
     }
 
-    // U贝池 - 琥珀橙金
-    &--upool {
-      background: linear-gradient(145deg, #2e2418 0%, #1a150e 100%);
-      border: 1px solid rgba(255, 170, 50, 0.3);
-      box-shadow:
-        0 2px 8px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 170, 50, 0.15);
+    &--pearl .activity-icon {
+      background: linear-gradient(135deg, rgba(244, 228, 188, 0.2) 0%, rgba(212, 175, 55, 0.1) 100%);
+      border-radius: 8px;
+      padding: 4px;
+    }
 
-      .activity-icon {
-        color: #ffaa32;
-        filter: drop-shadow(0 0 4px rgba(255, 170, 50, 0.4));
-      }
+    &--library .activity-icon {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.18) 0%, rgba(191, 149, 63, 0.1) 100%);
+      border-radius: 8px;
+      padding: 4px;
+    }
 
-      .activity-title {
-        color: #ffd699;
-      }
+    &--upool .activity-icon {
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.2) 0%, rgba(212, 175, 55, 0.1) 100%);
+      border-radius: 8px;
+      padding: 4px;
     }
   }
 
@@ -155,13 +95,13 @@
     top: 6px;
     right: 6px;
     padding: 2px 6px;
-    background: rgba(255, 255, 255, 0.15);
+    background: var(--color-activity-badge-bg);
     backdrop-filter: blur(4px);
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--color-activity-badge-text);
     font-size: 9px;
     font-weight: 500;
     border-radius: 4px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--color-activity-badge-border);
   }
 
   .activity-icon {
@@ -182,5 +122,33 @@
     font-weight: 500;
     text-align: center;
     letter-spacing: 0.3px;
+  }
+}
+
+// iPad 响应式
+@media (min-width: 768px) {
+  .activity-section {
+    margin: 0 24px;
+
+    .activity-card {
+      width: 140px;
+      height: 90px;
+      border-radius: 16px;
+      gap: 8px;
+    }
+
+    .activity-icon {
+      width: 36px;
+      height: 36px;
+
+      svg {
+        width: 28px;
+        height: 28px;
+      }
+    }
+
+    .activity-title {
+      font-size: 13px;
+    }
   }
 }

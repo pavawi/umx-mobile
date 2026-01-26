@@ -1,4 +1,5 @@
 import { HashRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { ThemeProvider } from './contexts/ThemeContext';
 import TabBar from './components/layout/TabBar';
 import Home from './pages/Home';
 import Hot from './pages/Hot';
@@ -28,9 +29,11 @@ function AppContent() {
 
 function App() {
   return (
-    <HashRouter>
-      <AppContent />
-    </HashRouter>
+    <ThemeProvider>
+      <HashRouter>
+        <AppContent />
+      </HashRouter>
+    </ThemeProvider>
   );
 }
 

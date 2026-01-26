@@ -1,5 +1,11 @@
 // UMX数字藏品平台 - CSS变量定义
-// 统一色彩系统 V2026.01.25
+// 统一色彩系统 V2026.01.26
+// 支持浅色/深色模式切换
+
+// ========== 响应式断点 ==========
+$breakpoint-tablet: 768px;   // iPad 竖屏
+$breakpoint-desktop: 1024px; // iPad 横屏 / 桌面
+$breakpoint-wide: 1280px;    // 宽屏桌面
 
 :root {
   // ========== 品牌色 - 金色系（体现稀缺性和价值感）==========
@@ -57,6 +63,15 @@
   --color-notice-text: #8C6D1F;
   --color-notice-arrow: #C9A24D;
   --color-badge-dot: #EF4444;
+
+  // ========== 活动卡片专用色（统一金色调）==========
+  --color-activity-card-bg: linear-gradient(145deg, #2a2520 0%, #1a1612 100%);
+  --color-activity-card-border: rgba(212, 175, 55, 0.35);
+  --color-activity-text: #e8d5a3;
+  --color-activity-badge-bg: rgba(212, 175, 55, 0.2);
+  --color-activity-badge-text: #f4e4bc;
+  --color-activity-badge-border: rgba(212, 175, 55, 0.3);
+  --shadow-activity-card: 0 2px 8px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(212, 175, 55, 0.15);
 
   // ========== 特殊效果色 ==========
   --color-glass: rgba(255, 255, 255, 0.85);
@@ -137,6 +152,10 @@
   --safe-area-bottom: env(safe-area-inset-bottom, 0px);
   --tab-bar-height: 56px;
 
+  // ========== 容器最大宽度（响应式）==========
+  --container-max-width: 100%;
+  --content-max-width: 600px;
+
   // ========== 动画时长 ==========
   --duration-fast: 150ms;
   --duration-normal: 250ms;
@@ -151,6 +170,128 @@
   --animation-float: float 3s ease-in-out infinite;
   --animation-shimmer: shimmer 2s linear infinite;
   --animation-pulse-glow: pulse-glow 2s ease-in-out infinite;
+}
+
+// ========== 深色模式 ==========
+[data-theme="dark"] {
+  // 文字色 - 深色模式
+  --color-text-primary: #F9FAFB;
+  --color-text-secondary: #D1D5DB;
+  --color-text-tertiary: #9CA3AF;
+  --color-text-placeholder: #6B7280;
+  --color-text-disabled: #4B5563;
+  --color-text-inverse: #1F2937;
+
+  // 背景色 - 深色模式
+  --color-bg-primary: #111827;
+  --color-bg-secondary: #1F2937;
+  --color-bg-tertiary: #374151;
+  --color-bg-card: #1F2937;
+
+  // 边框色 - 深色模式
+  --color-border: #374151;
+  --color-border-light: #4B5563;
+  --color-divider: #374151;
+
+  // 通知色 - 深色模式
+  --color-notice-bg: rgba(212, 175, 55, 0.12);
+  --color-notice-text: #F4E4BC;
+
+  // 活动卡片 - 深色模式（保持一致）
+  --color-activity-card-bg: linear-gradient(145deg, #1a1815 0%, #0f0d0a 100%);
+  --color-activity-card-border: rgba(212, 175, 55, 0.4);
+  --shadow-activity-card: 0 2px 12px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(212, 175, 55, 0.2);
+
+  // 特殊效果 - 深色模式
+  --color-glass: rgba(31, 41, 55, 0.85);
+  --color-glass-border: rgba(255, 255, 255, 0.1);
+  --color-overlay: rgba(0, 0, 0, 0.75);
+  --color-overlay-light: rgba(0, 0, 0, 0.5);
+
+  // 阴影 - 深色模式（更深的阴影）
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.2), 0 8px 24px rgba(0, 0, 0, 0.3);
+  --shadow-card-hover: 0 8px 16px rgba(0, 0, 0, 0.25), 0 16px 32px rgba(0, 0, 0, 0.35);
+  --shadow-glow: 0 0 30px rgba(212, 175, 55, 0.3);
+  --shadow-glow-strong: 0 0 40px rgba(212, 175, 55, 0.5);
+
+  // 渐变背景 - 深色模式
+  --gradient-mesh: radial-gradient(at 40% 20%, rgba(212, 175, 55, 0.12) 0%, transparent 50%),
+                   radial-gradient(at 80% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+}
+
+// ========== 系统深色模式自动检测 ==========
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    // 文字色 - 深色模式
+    --color-text-primary: #F9FAFB;
+    --color-text-secondary: #D1D5DB;
+    --color-text-tertiary: #9CA3AF;
+    --color-text-placeholder: #6B7280;
+    --color-text-disabled: #4B5563;
+    --color-text-inverse: #1F2937;
+
+    // 背景色 - 深色模式
+    --color-bg-primary: #111827;
+    --color-bg-secondary: #1F2937;
+    --color-bg-tertiary: #374151;
+    --color-bg-card: #1F2937;
+
+    // 边框色 - 深色模式
+    --color-border: #374151;
+    --color-border-light: #4B5563;
+    --color-divider: #374151;
+
+    // 通知色 - 深色模式
+    --color-notice-bg: rgba(212, 175, 55, 0.12);
+    --color-notice-text: #F4E4BC;
+
+    // 活动卡片 - 深色模式
+    --color-activity-card-bg: linear-gradient(145deg, #1a1815 0%, #0f0d0a 100%);
+    --color-activity-card-border: rgba(212, 175, 55, 0.4);
+    --shadow-activity-card: 0 2px 12px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(212, 175, 55, 0.2);
+
+    // 特殊效果 - 深色模式
+    --color-glass: rgba(31, 41, 55, 0.85);
+    --color-glass-border: rgba(255, 255, 255, 0.1);
+    --color-overlay: rgba(0, 0, 0, 0.75);
+    --color-overlay-light: rgba(0, 0, 0, 0.5);
+
+    // 阴影 - 深色模式
+    --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.2), 0 8px 24px rgba(0, 0, 0, 0.3);
+    --shadow-card-hover: 0 8px 16px rgba(0, 0, 0, 0.25), 0 16px 32px rgba(0, 0, 0, 0.35);
+    --shadow-glow: 0 0 30px rgba(212, 175, 55, 0.3);
+    --shadow-glow-strong: 0 0 40px rgba(212, 175, 55, 0.5);
+
+    // 渐变背景 - 深色模式
+    --gradient-mesh: radial-gradient(at 40% 20%, rgba(212, 175, 55, 0.12) 0%, transparent 50%),
+                     radial-gradient(at 80% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+  }
+}
+
+// ========== iPad 响应式变量 ==========
+@media (min-width: 768px) {
+  :root {
+    --page-padding: 24px;
+    --section-gap: 28px;
+    --card-gap: 16px;
+    --content-max-width: 720px;
+
+    // 字号适当增大
+    --font-size-base: 15px;
+    --font-size-md: 16px;
+    --font-size-lg: 18px;
+  }
+}
+
+// ========== 桌面响应式变量 ==========
+@media (min-width: 1024px) {
+  :root {
+    --page-padding: 32px;
+    --section-gap: 32px;
+    --card-gap: 20px;
+    --content-max-width: 960px;
+    --container-max-width: 1200px;
+  }
 }
 
 // ========== NFT平台特色动画关键帧 ==========

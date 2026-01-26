@@ -217,3 +217,116 @@
     }
   }
 }
+
+// iPad 响应式
+@media (min-width: 768px) {
+  .collection-card {
+    border-radius: var(--radius-lg);
+
+    // hover 效果（非触屏设备）
+    @media (hover: hover) {
+      &:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-card-hover);
+      }
+
+      &:hover &__image {
+        transform: scale(1.05);
+      }
+    }
+
+    &__badge {
+      top: 8px;
+      left: 8px;
+      padding: 4px 10px;
+      font-size: 10px;
+      border-radius: var(--radius-sm);
+    }
+
+    &__platform {
+      bottom: 8px;
+      left: 8px;
+      padding: 4px 8px;
+      border-radius: var(--radius-sm);
+
+      .platform-icon {
+        width: 16px;
+        height: 16px;
+        font-size: 9px;
+      }
+
+      span:last-child {
+        font-size: 10px;
+      }
+    }
+
+    &__content {
+      padding: 14px;
+    }
+
+    &__header {
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    &__type {
+      padding: 3px 8px;
+      font-size: 10px;
+    }
+
+    &__title {
+      font-size: 14px;
+    }
+
+    &__creator {
+      font-size: 12px;
+      gap: 8px;
+      margin-bottom: 10px;
+
+      .creator-avatar {
+        width: 22px;
+        height: 22px;
+      }
+    }
+
+    &__footer {
+      padding-top: 10px;
+
+      .price-row,
+      .stock-row,
+      .info-row {
+        font-size: 12px;
+        margin-bottom: 6px;
+      }
+
+      .price-row .value {
+        font-size: 16px;
+      }
+
+      .limit-badge {
+        padding: 8px 12px;
+        font-size: 12px;
+        border-radius: var(--radius-sm);
+      }
+    }
+  }
+}
+
+// 桌面响应式
+@media (min-width: 1024px) {
+  .collection-card {
+    &__content {
+      padding: 16px;
+    }
+
+    &__title {
+      font-size: 15px;
+    }
+
+    &__footer {
+      .price-row .value {
+        font-size: 18px;
+      }
+    }
+  }
+}
