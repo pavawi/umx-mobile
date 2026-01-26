@@ -7,9 +7,9 @@ const THEME_KEY = 'umx-theme-preference';
 
 export function ThemeProvider({ children }) {
   const [theme, setTheme] = useState(() => {
-    // 优先读取本地存储
+    // 优先读取本地存储，默认使用浅色模式
     const saved = localStorage.getItem(THEME_KEY);
-    return saved || 'system';
+    return saved || 'light';
   });
 
   const [resolvedTheme, setResolvedTheme] = useState('light');
@@ -37,7 +37,8 @@ export function ThemeProvider({ children }) {
     const root = document.documentElement;
 
     if (theme === 'system') {
-      root.removeAttribute('data-theme');
+      // 跟随系统时，根据实际解析的主题设置属性
+      root.setAttribute('data-theme', resolvedTheme);
     } else {
       root.setAttribute('data-theme', theme);
     }
