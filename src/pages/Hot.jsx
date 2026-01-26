@@ -1,10 +1,13 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import USearch from '../components/base/USearch';
 import UFilterTabs from '../components/base/UFilterTabs';
 import CollectionCard from '../components/business/CollectionCard';
 import CollectionListItem from '../components/business/CollectionListItem';
-import { hotCategories, hotCollections, searchHistory, myFollowList } from '../mock/data';
+import { IconSearch, IconFilter, IconSortDown, IconSortUp, IconAdd, IconBack, IconCheckCircle } from '../components/base/Icons';
+import useDebouncedValue from '../hooks/useDebouncedValue';
+import useSearchHistory from '../hooks/useSearchHistory';
+import { hotCategories, hotCollections, searchHistory as defaultHistory, myFollowList } from '../mock/data';
 import './Hot.scss';
 
 // 顶部Tab选项
@@ -43,26 +46,29 @@ export default function Hot() {
   const [searchKeyword, setSearchKeyword] = useState('');
   const [activeCategory, setActiveCategory] = useState('all');
   const [activeSort, setActiveSort] = useState('hot');
-  const [history, setHistory] = useState(searchHistory);
   const [isSearching, setIsSearching] = useState(false);
   const [activeTopTab, setActiveTopTab] = useState('shoufa');
   const [showMyFollow, setShowMyFollow] = useState(false);
   const navigate = useNavigate();
 
-  const handleCardClick = (item) => {
+  // 搜索防抖
+  const debouncedKeyword = useDebouncedValue(searchKeyword, 300);
+
+  // 搜索历史（持久化）
+  const { history, addHistory, clearHistory } = useSearchHistory(defaultHistory);
+
+  const handleCardClick = useCallback((item) => {
     navigate(`/detail/${item.id}`, { state: { item } });
-  };
+  }, [navigate]);
 
   const handleSearch = (keyword) => {
     console.log('Search:', keyword);
-    if (keyword && !history.includes(keyword)) {
-      setHistory([keyword, ...history.slice(0, 9)]);
-    }
+    addHistory(keyword);
     setIsSearching(!!keyword);
   };
 
   const handleClearHistory = () => {
-    setHistory([]);
+    clearHistory();
   };
 
   const handleInputChange = (value) => {
@@ -100,15 +106,15 @@ export default function Hot() {
     return sorted;
   }, [categoryFilteredCollections, activeSort]);
 
-  // 搜索过滤
+  // 搜索过滤（使用防抖后的关键词）
   const searchResults = useMemo(() => {
-    if (!searchKeyword.trim()) return [];
+    if (!debouncedKeyword.trim()) return [];
 
     const filtered = hotCollections.filter(item =>
-      fuzzyMatch(item.name, searchKeyword) ||
-      fuzzyMatch(item.creator, searchKeyword) ||
-      fuzzyMatch(item.type, searchKeyword) ||
-      fuzzyMatch(item.typeLabel, searchKeyword)
+      fuzzyMatch(item.name, debouncedKeyword) ||
+      fuzzyMatch(item.creator, debouncedKeyword) ||
+      fuzzyMatch(item.type, debouncedKeyword) ||
+      fuzzyMatch(item.typeLabel, debouncedKeyword)
     );
 
     // 排序
@@ -118,7 +124,7 @@ export default function Hot() {
 
     // 默认按热门（在售数量）
     return [...filtered].sort((a, b) => (b.onSale || 0) - (a.onSale || 0));
-  }, [searchKeyword, activeSort]);
+  }, [debouncedKeyword, activeSort]);
 
   // 是否显示搜索结果视图
   const showSearchResults = isSearching && searchKeyword.trim();
@@ -143,7 +149,7 @@ export default function Hot() {
                 }}
               />
             </div>
-            <button className="cancel-btn" onClick={handleCancelSearch}>取消</button>
+            <button className="cancel-btn" onClick={handleCancelSearch} aria-label="取消搜索">取消</button>
           </div>
         ) : (
           <>
@@ -161,10 +167,15 @@ export default function Hot() {
                 ))}
               </div>
               {/* 搜索图标 - 点击展开搜索框 */}
-              <div className="search-trigger" onClick={() => setIsSearching(true)}>
-                <svg viewBox="0 0 24 24" width="20" height="20">
-                  <path fill="currentColor" d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
-                </svg>
+              <div
+                className="search-trigger"
+                onClick={() => setIsSearching(true)}
+                onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && setIsSearching(true)}
+                role="button"
+                tabIndex={0}
+                aria-label="打开搜索"
+              >
+                <IconSearch size={20} />
               </div>
             </div>
           </>
@@ -185,17 +196,18 @@ export default function Hot() {
                 >
                   {option.label}
                   {option.value === 'price_asc' && (
-                    <svg className="sort-icon" viewBox="0 0 24 24" width="12" height="12">
-                      <path fill="currentColor" d="M7 10l5 5 5-5H7z"/>
-                    </svg>
+                    <IconSortDown size={12} className="sort-icon" />
                   )}
                 </button>
               ))}
             </div>
-            <div className="filter-icon">
-              <svg viewBox="0 0 24 24" width="18" height="18">
-                <path fill="currentColor" d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z"/>
-              </svg>
+            <div
+              className="filter-icon"
+              role="button"
+              tabIndex={0}
+              aria-label="筛选选项"
+            >
+              <IconFilter size={18} />
             </div>
           </div>
 
@@ -224,9 +236,7 @@ export default function Hot() {
           {/* 顶部：我的关注标题 */}
           <div className="my-follow-header">
             <button className="back-btn" onClick={() => setShowMyFollow(false)}>
-              <svg viewBox="0 0 24 24" width="20" height="20">
-                <path fill="currentColor" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
-              </svg>
+              <IconBack size={20} />
             </button>
             <h2>我的关注</h2>
           </div>
@@ -247,9 +257,7 @@ export default function Hot() {
                   <div className="stat-value">{item.total !== null ? item.total : '--'}</div>
                 </div>
                 <button className="follow-item-action">
-                  <svg viewBox="0 0 24 24" width="16" height="16">
-                    <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                  </svg>
+                  <IconCheckCircle size={16} />
                 </button>
               </div>
             ))}
@@ -262,9 +270,7 @@ export default function Hot() {
           <div className="filter-section">
             <div className="filter-row">
               <button className="my-follow-btn" onClick={handleMyFollowClick}>
-                <svg viewBox="0 0 24 24" width="14" height="14">
-                  <path fill="currentColor" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
-                </svg>
+                <IconAdd size={14} />
                 <span>我的关注</span>
               </button>
               <div className="filter-tabs-wrapper">
@@ -288,9 +294,7 @@ export default function Hot() {
                 >
                   {option.label}
                   {option.value === 'price_asc' && (
-                    <svg className="sort-icon" viewBox="0 0 24 24" width="12" height="12">
-                      <path fill="currentColor" d="M7 14l5-5 5 5H7z"/>
-                    </svg>
+                    <IconSortUp size={12} className="sort-icon" />
                   )}
                 </button>
               ))}

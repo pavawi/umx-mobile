@@ -168,3 +168,44 @@ export const IconTrendingUp = ({ size = 14, color = 'currentColor' }) => (
     <polyline points="17 6 23 6 23 12"/>
   </svg>
 );
+
+// 筛选图标
+export const IconFilter = ({ size = 24, color = 'currentColor', ...props }) => (
+  <svg viewBox="0 0 24 24" width={size} height={size} {...props}>
+    <path
+      fill={color}
+      d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z"
+    />
+  </svg>
+);
+
+// 排序箭头（向下）
+export const IconSortDown = ({ size = 24, color = 'currentColor', ...props }) => (
+  <svg viewBox="0 0 24 24" width={size} height={size} {...props}>
+    <path fill={color} d="M7 10l5 5 5-5H7z" />
+  </svg>
+);
+
+// 排序箭头（向上）
+export const IconSortUp = ({ size = 24, color = 'currentColor', ...props }) => (
+  <svg viewBox="0 0 24 24" width={size} height={size} {...props}>
+    <path fill={color} d="M7 14l5-5 5 5H7z" />
+  </svg>
+);
+
+// 添加图标
+export const IconAdd = ({ size = 24, color = 'currentColor', ...props }) => (
+  <svg viewBox="0 0 24 24" width={size} height={size} {...props}>
+    <path fill={color} d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+  </svg>
+);
+
+// 圆形勾选图标
+export const IconCheckCircle = ({ size = 24, color = 'currentColor', ...props }) => (
+  <svg viewBox="0 0 24 24" width={size} height={size} {...props}>
+    <path
+      fill={color}
+      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+    />
+  </svg>
+);

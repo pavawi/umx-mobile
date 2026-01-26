@@ -1,3 +1,5 @@
+import { memo } from 'react';
+import LazyImage from '../base/LazyImage';
 import './CollectionCard.scss';
 
 const statusTextMap = {
@@ -6,7 +8,7 @@ const statusTextMap = {
   soldout: '已售罄'
 };
 
-export default function CollectionCard({
+function CollectionCard({
   item,
   variant = 'default', // 'default' | 'market' | 'hot'
   onClick
@@ -15,8 +17,22 @@ export default function CollectionCard({
     onClick?.(item);
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      handleClick();
+    }
+  };
+
   return (
-    <div className="collection-card" onClick={handleClick}>
+    <div
+      className="collection-card"
+      onClick={handleClick}
+      onKeyDown={handleKeyDown}
+      role="button"
+      tabIndex={0}
+      aria-label={`${item.name}，创作者 ${item.creator || '未知'}`}
+    >
       {/* 状态标签 */}
       {item.status && (
         <div className={`collection-card__badge badge--${item.status}`}>
@@ -26,7 +42,11 @@ export default function CollectionCard({
 
       {/* 藏品图片 - 统一使用 1:1 比例 */}
       <div className="collection-card__image-wrapper">
-        <img src={item.image} alt={item.name} className="collection-card__image" />
+        <LazyImage
+          src={item.image}
+          alt={item.name}
+          className="collection-card__image"
+        />
         {item.platform && (
           <div className="collection-card__platform">
             <span className="platform-icon">U</span>
@@ -94,3 +114,5 @@ export default function CollectionCard({
     </div>
   );
 }
+
+export default memo(CollectionCard);

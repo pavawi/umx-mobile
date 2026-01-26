@@ -25,16 +25,20 @@
     opacity: 0.6;
   }
 
-  &__track {
+  &__viewport {
+    overflow: hidden;
+  }
+
+  &__container {
     display: flex;
-    transition: transform 0.4s var(--ease-out);
   }
 
   &__slide {
-    flex-shrink: 0;
-    width: 100%;
+    flex: 0 0 100%;
+    min-width: 0;
     aspect-ratio: 16 / 9;
     position: relative;
+    cursor: pointer;
 
     img {
       width: 100%;
@@ -76,6 +80,8 @@
     .dot {
       width: 5px;
       height: 5px;
+      padding: 0;
+      border: none;
       background: rgba(255, 255, 255, 0.4);
       border-radius: 50%;
       cursor: pointer;

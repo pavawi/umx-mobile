@@ -1,51 +1,61 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useCallback, useEffect } from 'react';
+import useEmblaCarousel from 'embla-carousel-react';
+import Autoplay from 'embla-carousel-autoplay';
 import './BannerSwiper.scss';
 
-export default function BannerSwiper({ banners = [], autoplay = true, interval = 3000 }) {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const timerRef = useRef(null);
+export default function BannerSwiper({ banners = [], onBannerClick }) {
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    { loop: true },
+    [Autoplay({ delay: 4000, stopOnInteraction: false })]
+  );
+
+  const onSelect = useCallback(() => {
+    if (!emblaApi) return;
+    setSelectedIndex(emblaApi.selectedScrollSnap());
+  }, [emblaApi]);
 
   useEffect(() => {
-    if (!autoplay || banners.length <= 1) return;
+    if (!emblaApi) return;
+    onSelect();
+    emblaApi.on('select', onSelect);
+    return () => emblaApi.off('select', onSelect);
+  }, [emblaApi, onSelect]);
 
-    timerRef.current = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % banners.length);
-    }, interval);
+  const handleClick = useCallback((banner) => {
+    onBannerClick?.(banner);
+  }, [onBannerClick]);
 
-    return () => {
-      if (timerRef.current) {
-        clearInterval(timerRef.current);
-      }
-    };
-  }, [autoplay, banners.length, interval]);
+  const scrollTo = useCallback((index) => {
+    if (emblaApi) emblaApi.scrollTo(index);
+  }, [emblaApi]);
 
-  const handleDotClick = (index) => {
-    setCurrentIndex(index);
-  };
-
-  if (!banners.length) return null;
+  if (!banners?.length) return null;
 
   return (
     <div className="banner-swiper">
-      <div
-        className="banner-swiper__track"
-        style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-      >
-        {banners.map((banner, index) => (
-          <div key={banner.id || index} className="banner-swiper__slide">
-            <img src={banner.image} alt={banner.title} />
-          </div>
-        ))}
+      <div className="banner-swiper__viewport" ref={emblaRef}>
+        <div className="banner-swiper__container">
+          {banners.map((banner) => (
+            <div
+              key={banner.id}
+              className="banner-swiper__slide"
+              onClick={() => handleClick(banner)}
+            >
+              <img src={banner.image} alt={banner.title} />
+            </div>
+          ))}
+        </div>
       </div>
-
       {banners.length > 1 && (
         <div className="banner-swiper__dots">
           {banners.map((_, index) => (
-            <span
+            <button
               key={index}
-              className={`dot ${index === currentIndex ? 'is-active' : ''}`}
-              onClick={() => handleDotClick(index)}
+              className={`dot ${index === selectedIndex ? 'is-active' : ''}`}
+              onClick={() => scrollTo(index)}
+              aria-label={`跳转到第 ${index + 1} 张`}
             />
           ))}
         </div>

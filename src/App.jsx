@@ -1,5 +1,6 @@
 import { HashRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { ThemeProvider } from './contexts/ThemeContext';
+import ErrorBoundary from './components/base/ErrorBoundary';
 import TabBar from './components/layout/TabBar';
 import Home from './pages/Home';
 import Hot from './pages/Hot';
@@ -15,13 +16,15 @@ function AppContent() {
 
   return (
     <div className="app">
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/hot" element={<Hot />} />
-        <Route path="/market" element={<Market />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/detail/:id" element={<Detail />} />
-      </Routes>
+      <ErrorBoundary>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/hot" element={<Hot />} />
+          <Route path="/market" element={<Market />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/detail/:id" element={<Detail />} />
+        </Routes>
+      </ErrorBoundary>
       {!hideTabBar && <TabBar />}
     </div>
   );

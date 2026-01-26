@@ -322,3 +322,18 @@
     }
   }
 }
+
+// 骨架屏状态
+.collection-card--skeleton {
+  pointer-events: none;
+
+  .collection-card__content {
+    .skeleton-title {
+      margin-top: var(--spacing-xs);
+    }
+  }
+
+  .collection-card__creator {
+    gap: var(--spacing-xs);
+  }
+}

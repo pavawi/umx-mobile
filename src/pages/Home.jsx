@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import HomeHeader from '../components/layout/HomeHeader';
 import BannerSwiper from '../components/business/BannerSwiper';
@@ -22,9 +22,9 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState('hot');
   const navigate = useNavigate();
 
-  const handleCardClick = (item) => {
+  const handleCardClick = useCallback((item) => {
     navigate(`/detail/${item.id}`, { state: { item } });
-  };
+  }, [navigate]);
 
   const handleNoticeClick = () => {
     navigate('/notifications');
