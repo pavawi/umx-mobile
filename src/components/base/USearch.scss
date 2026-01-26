@@ -7,7 +7,7 @@
     height: 40px;
     padding: 0 12px;
     background: var(--color-bg-tertiary);
-    border-radius: 20px;
+    border-radius: var(--radius-full);
 
     .icon-search {
       flex-shrink: 0;
@@ -37,13 +37,13 @@
 
     .btn-search {
       flex-shrink: 0;
-      margin-left: 8px;
+      margin-left: var(--spacing-sm);
       padding: 6px 14px;
       background: var(--color-primary);
       color: var(--color-text-inverse);
-      border-radius: 14px;
-      font-size: 13px;
-      font-weight: 500;
+      border-radius: var(--radius-md);
+      font-size: var(--font-size-sm);
+      font-weight: var(--font-weight-medium);
     }
   }
 

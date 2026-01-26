@@ -9,7 +9,7 @@
     position: relative;
     flex: 1;
     min-height: 120px;
-    border-radius: 10px;
+    border-radius: var(--radius-sm);
     overflow: hidden;
     cursor: pointer;
 
@@ -73,8 +73,8 @@
       gap: 8px;
       padding: 8px;
       background: var(--color-bg-primary);
-      border-radius: 10px;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-xs);
       cursor: pointer;
       transition: all var(--duration-fast) var(--ease-out);
 
@@ -203,7 +203,7 @@
         .item-icon {
           width: 40px;
           height: 40px;
-          border-radius: 10px;
+          border-radius: var(--radius-sm);
 
           svg {
             width: 20px;

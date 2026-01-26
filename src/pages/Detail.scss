@@ -100,7 +100,7 @@
   width: 100%;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  background: #000;
+  background: var(--color-text-primary);
 
   &.ratio-1-1 {
     aspect-ratio: 1;
@@ -171,7 +171,7 @@
       border-radius: var(--radius-xs);
 
       &.compose {
-        background: #10B981;
+        background: var(--color-success);
       }
 
       &.direct {
@@ -206,9 +206,9 @@
   }
 
   .price-display {
-    margin-top: 16px;
-    font-size: 32px;
-    font-weight: 700;
+    margin-top: var(--spacing-base);
+    font-size: var(--font-size-display);
+    font-weight: var(--font-weight-bold);
     color: var(--color-primary);
   }
 

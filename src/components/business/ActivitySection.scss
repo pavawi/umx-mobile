@@ -6,7 +6,7 @@
 
   .activity-scroll {
     display: flex;
-    gap: 10px;
+    gap: var(--spacing-sm);
     overflow-x: auto;
     padding-bottom: 4px;
     -webkit-overflow-scrolling: touch;
