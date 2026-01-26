@@ -1,4 +1,5 @@
 import BlockchainInfo from '../components/business/BlockchainInfo';
+import ThemeToggle from '../components/base/ThemeToggle';
 import { userInfo, profileMenus } from '../mock/data';
 import './Profile.scss';
 
@@ -129,6 +130,14 @@ export default function Profile() {
           </div>
         </div>
       ))}
+
+      {/* 设置 */}
+      <div className="settings-section">
+        <div className="settings-title">设置</div>
+        <div className="settings-item">
+          <ThemeToggle variant="segmented" />
+        </div>
+      </div>
     </div>
   );
 }
