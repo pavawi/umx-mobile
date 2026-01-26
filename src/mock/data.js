@@ -454,6 +454,7 @@ export const profileMenus = [
     items: [
       { icon: 'notice', label: '官方公告', path: '/announcement' },
       { icon: 'community', label: '社区', path: '/community' },
+      { icon: 'yuanyu', label: '圆域', path: '/yuanyu' },
     ],
   },
 ];
