@@ -77,6 +77,8 @@
     .dot {
       width: 4px;
       height: 4px;
+      min-width: 4px;
+      min-height: 4px;
       padding: 0;
       border: none;
       background: rgba(255, 255, 255, 0.45);
@@ -86,7 +88,9 @@
 
       &.is-active {
         width: 14px;
+        min-width: 14px;
         height: 4px;
+        min-height: 4px;
         background: linear-gradient(90deg, #D4AF37 0%, #FFD700 100%);
         border-radius: 2px;
         box-shadow: 0 0 8px rgba(212, 175, 55, 0.6);
