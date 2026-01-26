@@ -3,69 +3,6 @@
   min-height: 100vh;
   padding-bottom: calc(var(--tab-bar-height) + var(--safe-area-bottom) + 20px);
 
-  // 特色活动横幅
-  .feature-banner {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0 16px 16px;
-    padding: 16px 20px;
-    background: var(--color-bg-primary);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-card);
-    cursor: pointer;
-    transition: all var(--duration-fast) var(--ease-out);
-
-    &:active {
-      transform: scale(0.98);
-    }
-
-    .banner-content {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-
-      .banner-icon {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 40px;
-        height: 40px;
-        background: var(--color-bg-tertiary);
-        border-radius: var(--radius-md);
-        color: var(--color-text-secondary);
-
-        svg {
-          width: 20px;
-          height: 20px;
-        }
-      }
-
-      .banner-text {
-        font-size: 15px;
-        font-weight: 600;
-        color: var(--color-text-primary);
-      }
-    }
-
-    .banner-action {
-      display: flex;
-      align-items: center;
-      font-size: 13px;
-      color: var(--color-text-secondary);
-      font-weight: 500;
-      gap: 2px;
-
-      svg {
-        transition: transform var(--duration-fast) var(--ease-out);
-      }
-    }
-
-    &:active .banner-action svg {
-      transform: translateX(2px);
-    }
-  }
-
   // 功能菜单组
   .menu-group {
     margin: 0 16px 16px;
@@ -159,11 +96,6 @@
 // iPad 响应式
 @media (min-width: 768px) {
   .profile-page {
-    .feature-banner {
-      margin: 0 24px 20px;
-      padding: 20px 24px;
-    }
-
     .menu-group {
       margin: 0 24px 20px;
 

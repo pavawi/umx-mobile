@@ -76,16 +76,14 @@ const MenuIcons = {
       <path d="M2 12h20"/>
     </svg>
   ),
+  yuanyu: (
+    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="10"/>
+      <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
+      <path d="M2 12h20"/>
+    </svg>
+  ),
 };
-
-// 特色横幅图标
-const FeatureBannerIcon = () => (
-  <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="12" cy="12" r="10"/>
-    <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
-    <path d="M2 12h20"/>
-  </svg>
-);
 
 export default function Profile() {
   return (
@@ -95,22 +93,6 @@ export default function Profile() {
         user={userInfo}
         onSettings={() => console.log('Settings clicked')}
       />
-
-      {/* 圆域积分土地兑换 */}
-      <div className="feature-banner">
-        <div className="banner-content">
-          <span className="banner-icon">
-            <FeatureBannerIcon />
-          </span>
-          <span className="banner-text">圆域积分土地兑换</span>
-        </div>
-        <div className="banner-action">
-          前往
-          <svg viewBox="0 0 24 24" width="16" height="16">
-            <path fill="currentColor" d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
-          </svg>
-        </div>
-      </div>
 
       {/* 功能菜单 */}
       {profileMenus.map((group, groupIndex) => (
