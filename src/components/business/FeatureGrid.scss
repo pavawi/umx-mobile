@@ -140,7 +140,7 @@
   }
 }
 
-// 响应式调整
+// 小屏手机适配
 @media (max-width: 320px) {
   .feature-grid {
     &__side {
@@ -154,6 +154,96 @@
           width: 28px;
           height: 28px;
         }
+      }
+    }
+  }
+}
+
+// iPad 响应式
+@media (min-width: 768px) {
+  .feature-grid {
+    gap: 12px;
+    padding: 0 24px;
+    margin-bottom: 16px;
+
+    &__main {
+      min-height: 160px;
+      border-radius: 14px;
+
+      .badge {
+        top: 10px;
+        left: 10px;
+        padding: 4px 10px;
+        font-size: 11px;
+        border-radius: 8px;
+      }
+
+      .overlay {
+        padding: 12px 14px;
+
+        .title {
+          font-size: 15px;
+        }
+
+        .subtitle {
+          font-size: 12px;
+          margin-top: 4px;
+        }
+      }
+    }
+
+    &__side {
+      width: 180px;
+      gap: 8px;
+
+      .feature-item {
+        padding: 12px;
+        border-radius: 12px;
+
+        .item-icon {
+          width: 40px;
+          height: 40px;
+          border-radius: 10px;
+
+          svg {
+            width: 20px;
+            height: 20px;
+          }
+        }
+
+        .item-info {
+          .item-title {
+            font-size: 13px;
+          }
+
+          .item-subtitle {
+            font-size: 11px;
+            margin-top: 2px;
+          }
+        }
+      }
+    }
+  }
+}
+
+// 桌面响应式
+@media (min-width: 1024px) {
+  .feature-grid {
+    gap: 16px;
+    padding: 0 32px;
+    max-width: var(--container-max-width);
+    margin: 0 auto 20px;
+
+    &__main {
+      min-height: 200px;
+    }
+
+    &__side {
+      width: 220px;
+      gap: 10px;
+
+      .feature-item {
+        padding: 14px;
       }
     }
   }

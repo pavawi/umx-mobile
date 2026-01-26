@@ -68,3 +68,40 @@
     }
   }
 }
+
+// iPad 响应式
+@media (min-width: 768px) {
+  .tab-bar {
+    height: 64px;
+
+    &__item {
+      gap: 6px;
+
+      svg {
+        width: 26px;
+        height: 26px;
+      }
+
+      span {
+        font-size: 12px;
+      }
+
+      &.is-active::before {
+        width: 24px;
+        height: 3px;
+      }
+    }
+  }
+}
+
+// 桌面响应式 - 居中且限制宽度
+@media (min-width: 1024px) {
+  .tab-bar {
+    max-width: var(--container-max-width);
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    border-left: 1px solid var(--color-border-light);
+    border-right: 1px solid var(--color-border-light);
+  }
+}
