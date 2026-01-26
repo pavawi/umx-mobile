@@ -348,6 +348,7 @@
     &.expanded {
       max-height: 1000px;
     }
+  }
 
     &.notice-content {
       max-height: 120px;
@@ -381,6 +382,41 @@
       &:last-child {
         margin-bottom: 0;
       }
+    }
+  }
+
+  .expand-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    width: 100%;
+    padding: 12px 0;
+    font-size: 13px;
+    color: var(--color-text-tertiary);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: color var(--duration-fast) var(--ease-out);
+
+    &:active {
+      color: var(--color-text-secondary);
+    }
+  }
+}
+
+// 作品公告Tab空状态
+.notice-tab-content {
+  .empty-notice {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 24px;
+
+    p {
+      font-size: 14px;
+      color: var(--color-text-tertiary);
     }
   }
 
