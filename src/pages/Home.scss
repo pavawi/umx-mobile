@@ -97,14 +97,14 @@
     padding: 10px 0 12px;
   }
 
-  // 藏品网格列表 - 紧凑间距
+  // 藏品网格列表 - 统一间距
   .collection-grid {
     position: relative;
     z-index: 1;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-    padding: 0 12px 20px;
+    gap: 12px;
+    padding: 0 16px 20px;
   }
 
   // Section标题样式（可复用）

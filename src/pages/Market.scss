@@ -89,3 +89,85 @@
     padding: 16px;
   }
 }
+
+// ========== iPad 响应式 ==========
+@media (min-width: 768px) {
+  .market-page {
+    .page-header {
+      padding: 20px 24px;
+
+      h1 {
+        font-size: 28px;
+      }
+    }
+
+    .search-wrapper {
+      padding: 0 24px 16px;
+    }
+
+    .filter-section {
+      padding-bottom: 16px;
+    }
+
+    .sub-filters {
+      padding: 0 24px 20px;
+
+      .sort-tabs {
+        gap: 28px;
+
+        .sort-btn {
+          font-size: 14px;
+        }
+      }
+
+      .year-select select {
+        padding: 10px 16px;
+        font-size: 14px;
+      }
+    }
+
+    // iPad 上显示 3 列，与首页一致
+    .collection-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      padding: 20px 24px;
+    }
+  }
+}
+
+// ========== 桌面响应式 ==========
+@media (min-width: 1024px) {
+  .market-page {
+    .page-header {
+      max-width: var(--container-max-width);
+      margin: 0 auto;
+      padding: 24px 32px;
+    }
+
+    .search-wrapper {
+      max-width: var(--container-max-width);
+      margin: 0 auto;
+      padding: 0 32px 20px;
+    }
+
+    .filter-section {
+      max-width: var(--container-max-width);
+      margin: 0 auto;
+    }
+
+    .sub-filters {
+      max-width: var(--container-max-width);
+      margin: 0 auto;
+      padding: 0 32px 24px;
+    }
+
+    // 桌面上显示 4 列，与首页一致
+    .collection-grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      padding: 24px 32px;
+      max-width: var(--container-max-width);
+      margin: 0 auto;
+    }
+  }
+}
