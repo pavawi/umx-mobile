@@ -2,7 +2,7 @@
   position: relative;
   z-index: 1;
   padding: 8px 0 12px;
-  margin: 0 12px;
+  margin: 0 16px;
 
   .activity-scroll {
     display: flex;
@@ -21,72 +21,24 @@
     position: relative;
     flex-shrink: 0;
     width: 110px;
-    height: 72px;
-    border-radius: 12px;
+    padding: 12px 8px;
+    border-radius: var(--radius-lg);
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 6px;
+    gap: 8px;
     cursor: pointer;
     transition: all var(--duration-fast) var(--ease-out);
     overflow: hidden;
 
-    // 统一金色调背景 - 深色优雅风格
+    // 白色卡片背景，参考个人中心风格
     background: var(--color-activity-card-bg);
     border: 1px solid var(--color-activity-card-border);
     box-shadow: var(--shadow-activity-card);
 
     &:active {
       transform: scale(0.96);
-      opacity: 0.9;
-    }
-
-    // 图标和标题使用统一的金色调
-    .activity-icon {
-      color: var(--color-primary);
-      filter: drop-shadow(0 0 4px var(--color-primary-glow));
-    }
-
-    .activity-title {
-      color: var(--color-activity-text);
-    }
-
-    // 不同类型通过图标底色微调区分
-    &--competition .activity-icon {
-      background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(212, 175, 55, 0.1) 100%);
-      border-radius: 8px;
-      padding: 4px;
-    }
-
-    &--treasure .activity-icon {
-      background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(166, 139, 75, 0.1) 100%);
-      border-radius: 8px;
-      padding: 4px;
-    }
-
-    &--chest .activity-icon {
-      background: linear-gradient(135deg, rgba(166, 139, 75, 0.2) 0%, rgba(212, 175, 55, 0.1) 100%);
-      border-radius: 8px;
-      padding: 4px;
-    }
-
-    &--pearl .activity-icon {
-      background: linear-gradient(135deg, rgba(244, 228, 188, 0.2) 0%, rgba(212, 175, 55, 0.1) 100%);
-      border-radius: 8px;
-      padding: 4px;
-    }
-
-    &--library .activity-icon {
-      background: linear-gradient(135deg, rgba(212, 175, 55, 0.18) 0%, rgba(191, 149, 63, 0.1) 100%);
-      border-radius: 8px;
-      padding: 4px;
-    }
-
-    &--upool .activity-icon {
-      background: linear-gradient(135deg, rgba(255, 215, 0, 0.2) 0%, rgba(212, 175, 55, 0.1) 100%);
-      border-radius: 8px;
-      padding: 4px;
+      background: var(--color-bg-tertiary);
     }
   }
 
@@ -96,25 +48,32 @@
     right: 6px;
     padding: 2px 6px;
     background: var(--color-activity-badge-bg);
-    backdrop-filter: blur(4px);
     color: var(--color-activity-badge-text);
     font-size: 9px;
     font-weight: 500;
-    border-radius: 4px;
+    border-radius: var(--radius-xs);
     border: 1px solid var(--color-activity-badge-border);
   }
 
   .activity-icon {
-    width: 28px;
-    height: 28px;
+    width: 40px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
+    background: var(--color-activity-icon-bg);
+    border-radius: var(--radius-md);
+    color: var(--color-activity-icon-color);
+    transition: all var(--duration-fast) var(--ease-out);
 
     svg {
-      width: 24px;
-      height: 24px;
+      width: 22px;
+      height: 22px;
     }
+  }
+
+  .activity-card:active .activity-icon {
+    color: var(--color-primary-dark);
   }
 
   .activity-title {
@@ -122,6 +81,8 @@
     font-weight: 500;
     text-align: center;
     letter-spacing: 0.3px;
+    color: var(--color-activity-text);
+    line-height: 1.3;
   }
 }
 
@@ -131,19 +92,19 @@
     margin: 0 24px;
 
     .activity-card {
-      width: 140px;
-      height: 90px;
-      border-radius: 16px;
-      gap: 8px;
+      width: 130px;
+      padding: 14px 10px;
+      border-radius: var(--radius-lg);
+      gap: 10px;
     }
 
     .activity-icon {
-      width: 36px;
-      height: 36px;
+      width: 48px;
+      height: 48px;
 
       svg {
-        width: 28px;
-        height: 28px;
+        width: 26px;
+        height: 26px;
       }
     }
 

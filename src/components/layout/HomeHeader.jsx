@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom';
-import ThemeToggle from '../base/ThemeToggle';
 import './HomeHeader.scss';
 
 export default function HomeHeader({ hasUnreadNotice = false, onNoticeClick }) {
@@ -23,9 +22,6 @@ export default function HomeHeader({ hasUnreadNotice = false, onNoticeClick }) {
         </svg>
         <span className="placeholder">搜索藏品、艺术家</span>
       </div>
-
-      {/* 主题切换 */}
-      <ThemeToggle variant="icon" />
 
       {/* 通知图标 */}
       <div className="home-header__notice" onClick={onNoticeClick}>
