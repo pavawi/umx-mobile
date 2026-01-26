@@ -100,6 +100,18 @@ export const IconChevronRight = ({ size = 16, color = 'currentColor' }) => (
   </svg>
 );
 
+export const IconChevronDown = ({ size = 16, color = 'currentColor' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <polyline points="6 9 12 15 18 9"/>
+  </svg>
+);
+
+export const IconChevronUp = ({ size = 16, color = 'currentColor' }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <polyline points="18 15 12 9 6 15"/>
+  </svg>
+);
+
 export const IconVerified = ({ size = 14, color = '#8B5CF6' }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill={color}>
     <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
