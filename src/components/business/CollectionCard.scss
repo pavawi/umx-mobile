@@ -162,7 +162,8 @@
 
     .price-row,
     .stock-row,
-    .info-row {
+    .info-row,
+    .locked-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -284,7 +285,8 @@
 
       .price-row,
       .stock-row,
-      .info-row {
+      .info-row,
+      .locked-row {
         font-size: 12px;
         margin-bottom: 6px;
       }
