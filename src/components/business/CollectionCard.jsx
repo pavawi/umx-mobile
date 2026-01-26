@@ -65,6 +65,12 @@ export default function CollectionCard({
                 <span className="label">在售/流通</span>
                 <span className="value">{item.onSale}/{item.total}</span>
               </div>
+              {item.lockedCount !== undefined && (
+                <div className="locked-row">
+                  <span className="label">锁仓数量</span>
+                  <span className="value">{item.lockedCount}</span>
+                </div>
+              )}
             </>
           )}
 

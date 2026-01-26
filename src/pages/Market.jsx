@@ -8,7 +8,8 @@ import {
   sortOptions,
   yearFilters,
   marketCollections,
-  searchHistory
+  searchHistory,
+  collectionSources
 } from '../mock/data';
 import './Market.scss';
 
@@ -17,6 +18,8 @@ export default function Market() {
   const [activeCategory, setActiveCategory] = useState('all');
   const [activeSort, setActiveSort] = useState('latest');
   const [activeYear, setActiveYear] = useState('all');
+  const [activeSource, setActiveSource] = useState('all');
+  const [showSourceDropdown, setShowSourceDropdown] = useState(false);
   const [history, setHistory] = useState(searchHistory);
   const navigate = useNavigate();
 
@@ -35,6 +38,13 @@ export default function Market() {
     setHistory([]);
   };
 
+  const handleSourceSelect = (value) => {
+    setActiveSource(value);
+    setShowSourceDropdown(false);
+  };
+
+  const currentSource = collectionSources.find(s => s.value === activeSource) || collectionSources[0];
+
   // 模拟筛选
   let filteredCollections = [...marketCollections];
   if (activeSort === 'price_asc') {
@@ -45,15 +55,10 @@ export default function Market() {
 
   return (
     <div className="page-container market-page">
-      {/* 页面标题 - 改名为"藏品库" */}
-      <div className="page-header">
-        <h1>藏品库</h1>
-      </div>
-
       {/* 搜索框 */}
       <div className="search-wrapper">
         <USearch
-          placeholder="搜索藏品名称"
+          placeholder="搜索作品名称"
           value={searchKeyword}
           onChange={setSearchKeyword}
           onSearch={handleSearch}
@@ -63,20 +68,12 @@ export default function Market() {
             setSearchKeyword(item);
             handleSearch(item);
           }}
+          compact
         />
       </div>
 
-      {/* 分类筛选 */}
-      <div className="filter-section">
-        <UFilterTabs
-          tabs={marketCategories}
-          value={activeCategory}
-          onChange={setActiveCategory}
-        />
-      </div>
-
-      {/* 排序和年份筛选 */}
-      <div className="sub-filters">
+      {/* 排序选项 */}
+      <div className="sort-section">
         <div className="sort-tabs">
           {sortOptions.map((opt) => (
             <button
@@ -88,17 +85,55 @@ export default function Market() {
             </button>
           ))}
         </div>
-        <div className="year-select">
-          <select
-            value={activeYear}
-            onChange={(e) => setActiveYear(e.target.value)}
+      </div>
+
+      {/* 来源选择器 + 分类筛选 */}
+      <div className="filter-row">
+        <div className="source-selector">
+          <button
+            className="source-btn"
+            onClick={() => setShowSourceDropdown(!showSourceDropdown)}
           >
-            {yearFilters.map((year) => (
-              <option key={year.value} value={year.value}>
-                {year.label}
-              </option>
-            ))}
-          </select>
+            <span>{currentSource.label}</span>
+            <svg className={`dropdown-arrow ${showSourceDropdown ? 'is-open' : ''}`} viewBox="0 0 24 24" width="16" height="16">
+              <path fill="currentColor" d="M7 10l5 5 5-5z"/>
+            </svg>
+          </button>
+          {showSourceDropdown && (
+            <div className="source-dropdown">
+              {collectionSources.map((source) => (
+                <div
+                  key={source.value}
+                  className={`source-option ${activeSource === source.value ? 'is-active' : ''}`}
+                  onClick={() => handleSourceSelect(source.value)}
+                >
+                  {source.label}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+        <div className="category-tabs">
+          <UFilterTabs
+            tabs={marketCategories}
+            value={activeCategory}
+            onChange={setActiveCategory}
+          />
+        </div>
+      </div>
+
+      {/* 年份筛选 - 横向标签 */}
+      <div className="year-filter-section">
+        <div className="year-pills">
+          {yearFilters.map((year) => (
+            <button
+              key={year.value}
+              className={`year-pill ${activeYear === year.value ? 'is-active' : ''}`}
+              onClick={() => setActiveYear(year.value)}
+            >
+              {year.label}
+            </button>
+          ))}
         </div>
       </div>
 
