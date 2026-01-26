@@ -16,7 +16,7 @@ export default function Detail() {
   const { id } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
-  const [activeTab, setActiveTab] = useState('detail'); // detail | notice
+  const [activeTab, setActiveTab] = useState('detail');
   const [descExpanded, setDescExpanded] = useState(false);
   const [noticeExpanded, setNoticeExpanded] = useState(false);
 
@@ -24,7 +24,6 @@ export default function Detail() {
   let item = location.state?.item;
 
   if (!item) {
-    // 尝试从所有数据源中查找
     item = hotCollections.find(c => c.id === id) ||
            marketCollections.find(c => c.id === id) ||
            homeCollections.find(c => c.id === id);
@@ -53,7 +52,6 @@ export default function Detail() {
   const isSoldOut = item.status === 'soldout';
   const isEnded = item.status === 'ended';
 
-  // 获取按钮文案
   const getButtonText = () => {
     if (isSoldOut || isEnded) return '兑换结束';
     if (isDirectSale) return '立即购买';
@@ -215,7 +213,6 @@ export default function Detail() {
             </div>
           </>
         ) : (
-          // 作品公告Tab内容
           <div className="notice-tab-content">
             <div className="empty-notice">
               <p>暂无公告</p>
