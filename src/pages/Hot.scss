@@ -410,3 +410,109 @@
     }
   }
 }
+
+// ========== iPad 响应式 ==========
+@media (min-width: 768px) {
+  .hot-page {
+    .page-header {
+      padding: 20px 24px;
+    }
+
+    .top-tabs {
+      gap: 40px;
+    }
+
+    .top-tab {
+      font-size: 20px;
+
+      &.active {
+        font-size: 22px;
+      }
+    }
+
+    .filter-section {
+      padding: 0 24px 16px;
+    }
+
+    .sort-filter-bar {
+      padding: 12px 24px;
+
+      .sort-options {
+        gap: 24px;
+      }
+
+      .sort-btn {
+        font-size: 14px;
+      }
+    }
+
+    // iPad 上显示 3 列，与首页一致
+    .collection-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      padding: 20px 24px;
+    }
+
+    .search-filter-bar {
+      padding: 14px 24px;
+
+      .sort-options {
+        gap: 20px;
+      }
+    }
+
+    .my-follow-header {
+      padding: 16px 24px;
+
+      h2 {
+        font-size: 20px;
+      }
+    }
+
+    .follow-item {
+      padding: 14px 24px;
+      gap: 16px;
+    }
+
+    .follow-item-image {
+      width: 56px;
+      height: 56px;
+    }
+
+    .follow-item-name {
+      font-size: 15px;
+    }
+  }
+}
+
+// ========== 桌面响应式 ==========
+@media (min-width: 1024px) {
+  .hot-page {
+    // 桌面上显示 4 列，与首页一致
+    .collection-grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      padding: 24px 32px;
+      max-width: var(--container-max-width);
+      margin: 0 auto;
+    }
+
+    .page-header {
+      max-width: var(--container-max-width);
+      margin: 0 auto;
+      padding: 24px 32px;
+    }
+
+    .filter-section {
+      max-width: var(--container-max-width);
+      margin: 0 auto;
+      padding: 0 32px 20px;
+    }
+
+    .sort-filter-bar {
+      max-width: var(--container-max-width);
+      margin: 0 auto;
+      padding: 14px 32px;
+    }
+  }
+}
