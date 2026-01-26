@@ -1,7 +1,7 @@
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import { hotCollections, marketCollections, homeCollections } from '../mock/data';
-import { IconBack, IconHeart, IconShare, IconCopy, IconCheck, IconBlockchain, IconImage, IconVerified } from '../components/base/Icons';
+import { IconBack, IconHeart, IconShare, IconCopy, IconCheck, IconBlockchain } from '../components/base/Icons';
 import './Detail.scss';
 
 // 图片比例映射
@@ -84,17 +84,43 @@ export default function Detail() {
 
       {/* 主内容区 */}
       <div className="detail-content">
-        {/* 藏品图片 */}
-        <div className={`detail-image-wrapper ${ratioClass}`}>
-          <img src={item.image} alt={item.name} className="detail-image" />
-          {item.status && (
-            <div className={`detail-status status--${item.status}`}>
-              {statusTextMap[item.status] || ''}
+        {/* 艺术品展示区 - Gallery风格 */}
+        <div className="artwork-showcase">
+          <div className="artwork-frame">
+            <div className={`detail-image-wrapper ${ratioClass}`}>
+              <img src={item.image} alt={item.name} className="detail-image" />
             </div>
-          )}
-          {item.type && (
-            <div className="detail-type-badge">{item.type}</div>
-          )}
+          </div>
+          {/* 标签浮层 */}
+          <div className="artwork-badges">
+            {item.status && (
+              <div className={`detail-status status--${item.status}`}>
+                {statusTextMap[item.status] || ''}
+              </div>
+            )}
+            {item.type && (
+              <div className="detail-type-badge">{item.type}</div>
+            )}
+          </div>
+          {/* 展品信息栏 */}
+          <div className="artwork-info-bar">
+            <div className="info-item">
+              <span className="info-label">比例</span>
+              <span className="info-value">{item.imageRatio || '1:1'}</span>
+            </div>
+            {item.creator && (
+              <div className="info-item">
+                <span className="info-label">创作者</span>
+                <span className="info-value">{item.creator}</span>
+              </div>
+            )}
+            {item.issueCount && (
+              <div className="info-item">
+                <span className="info-label">限量</span>
+                <span className="info-value">{item.issueCount}份</span>
+              </div>
+            )}
+          </div>
         </div>
 
         {/* 藏品基本信息 */}
@@ -177,25 +203,12 @@ export default function Detail() {
             {item.tokenId && (
               <div className="blockchain-row">
                 <span className="blockchain-label">Token ID</span>
-                <span className="blockchain-value">#{item.tokenId}</span>
+                <span className="token-id">#{item.tokenId}</span>
               </div>
             )}
           </div>
         </div>
 
-        {/* 图片尺寸信息 */}
-        <div className="detail-section">
-          <h3 className="section-title">
-            <IconImage size={16} color="var(--color-primary)" />
-            <span>图片信息</span>
-          </h3>
-          <div className="image-info">
-            <div className="blockchain-row">
-              <span className="blockchain-label">图片比例</span>
-              <span className="blockchain-value">{item.imageRatio || '1:1'}</span>
-            </div>
-          </div>
-        </div>
       </div>
 
       {/* 底部操作栏 */}
