@@ -1,7 +1,7 @@
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useState } from 'react';
-import { hotCollections, marketCollections, homeCollections } from '../mock/data';
-import { IconBack, IconHeart, IconShare, IconCopy, IconCheck, IconBlockchain } from '../components/base/Icons';
+import { hotCollections, marketCollections, homeCollections, tradingNotices } from '../mock/data';
+import { IconBack, IconShare, IconChevronDown, IconChevronUp } from '../components/base/Icons';
 import './Detail.scss';
 
 // 图片比例映射
@@ -12,23 +12,18 @@ const ratioClassMap = {
   '16:9': 'ratio-16-9',
 };
 
-const statusTextMap = {
-  selling: '首发在售',
-  presale: '预售中',
-  soldout: '已售罄'
-};
-
 export default function Detail() {
   const { id } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
-  const [copied, setCopied] = useState(false);
+  const [activeTab, setActiveTab] = useState('detail');
+  const [descExpanded, setDescExpanded] = useState(false);
+  const [noticeExpanded, setNoticeExpanded] = useState(false);
 
   // 从 location.state 获取传递的数据，或从 mock 数据中查找
   let item = location.state?.item;
 
   if (!item) {
-    // 尝试从所有数据源中查找
     item = hotCollections.find(c => c.id === id) ||
            marketCollections.find(c => c.id === id) ||
            homeCollections.find(c => c.id === id);
@@ -53,22 +48,14 @@ export default function Detail() {
   }
 
   const ratioClass = ratioClassMap[item.imageRatio] || 'ratio-1-1';
+  const isDirectSale = item.saleType === 'direct';
+  const isSoldOut = item.status === 'soldout';
+  const isEnded = item.status === 'ended';
 
-  const handleCopyAddress = async () => {
-    if (item.contractAddress) {
-      try {
-        await navigator.clipboard.writeText(item.contractAddress);
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
-      } catch (err) {
-        console.error('复制失败:', err);
-      }
-    }
-  };
-
-  const formatAddress = (address) => {
-    if (!address) return '';
-    return `${address.slice(0, 10)}...${address.slice(-8)}`;
+  const getButtonText = () => {
+    if (isSoldOut || isEnded) return '兑换结束';
+    if (isDirectSale) return '立即购买';
+    return '立即兑换';
   };
 
   return (
@@ -78,135 +65,169 @@ export default function Detail() {
         <button className="back-btn" onClick={() => navigate(-1)}>
           <IconBack size={20} />
         </button>
-        <h1 className="header-title">藏品详情</h1>
+        <h1 className="header-title">{item.name}</h1>
         <div className="header-placeholder"></div>
+      </div>
+
+      {/* Tab导航 */}
+      <div className="detail-tabs">
+        <button
+          className={`tab-item ${activeTab === 'detail' ? 'active' : ''}`}
+          onClick={() => setActiveTab('detail')}
+        >
+          作品详情
+        </button>
+        <button
+          className={`tab-item ${activeTab === 'notice' ? 'active' : ''}`}
+          onClick={() => setActiveTab('notice')}
+        >
+          作品公告
+        </button>
       </div>
 
       {/* 主内容区 */}
       <div className="detail-content">
-        {/* 艺术品展示区 - Gallery风格 */}
-        <div className="artwork-showcase">
-          <div className="artwork-frame">
+        {activeTab === 'detail' ? (
+          <>
+            {/* 藏品图片 */}
             <div className={`detail-image-wrapper ${ratioClass}`}>
               <img src={item.image} alt={item.name} className="detail-image" />
-            </div>
-          </div>
-          {/* 标签浮层 */}
-          <div className="artwork-badges">
-            {item.status && (
-              <div className={`detail-status status--${item.status}`}>
-                {statusTextMap[item.status] || ''}
+              <div className="watermark">
+                <span className="watermark-icon">©</span>
+                <span>umx.art</span>
               </div>
-            )}
-            {item.type && (
-              <div className="detail-type-badge">{item.type}</div>
-            )}
-          </div>
-        </div>
+            </div>
 
-        {/* 藏品基本信息 */}
-        <div className="detail-info">
-          <h2 className="detail-name">{item.name}</h2>
+            {/* VIP版税惠品标签 */}
+            {item.vipRoyalty && (
+              <div className="vip-tag">VIP版税惠品</div>
+            )}
 
-          {/* 创作者信息 */}
-          {item.creator && (
-            <div className="detail-creator">
-              {item.creatorAvatar && (
-                <img src={item.creatorAvatar} alt={item.creator} className="creator-avatar" />
+            {/* 标题区域 */}
+            <div className="detail-title-section">
+              <div className="title-row">
+                <span className={`type-badge ${isDirectSale ? 'direct' : 'compose'}`}>
+                  {item.typeLabel || item.type}
+                </span>
+                <h2 className="detail-name">{item.name}</h2>
+                <button className="share-btn">
+                  <IconShare size={20} />
+                </button>
+              </div>
+
+              {/* 价格 - 仅直卖显示 */}
+              {isDirectSale && item.price && (
+                <div className="price-display">
+                  ¥{item.price.toFixed(2)}
+                </div>
               )}
-              <span className="creator-name">{item.creator}</span>
-              <span className="creator-label">创作者</span>
-            </div>
-          )}
 
-          {/* 价格信息 */}
-          <div className="detail-price-section">
-            <div className="price-row">
-              <span className="price-label">价格</span>
-              <span className="price-value">¥{item.price || '---'}</span>
+              {/* 创作者和发行方 */}
+              <div className="creator-info">
+                <div className="info-row">
+                  <span className="label">创作者：</span>
+                  <span className="value">{item.creator}</span>
+                </div>
+                <div className="info-row">
+                  <span className="label">发行方：</span>
+                  <span className="value highlight">{item.issuer || '热卖专区'}</span>
+                </div>
+              </div>
             </div>
-            {item.issueCount && (
-              <div className="info-row">
-                <span className="info-label">发行份数</span>
-                <span className="info-value">{item.issueCount}份</span>
-              </div>
-            )}
-            {item.total && (
-              <div className="info-row">
-                <span className="info-label">限量</span>
-                <span className="info-value">{item.total}份</span>
-              </div>
-            )}
-            {item.onSale !== undefined && (
-              <div className="info-row">
-                <span className="info-label">在售/流通</span>
-                <span className="info-value">{item.onSale}/{item.total}</span>
-              </div>
-            )}
-          </div>
-        </div>
 
-        {/* 藏品描述 */}
-        {item.description && (
-          <div className="detail-section">
-            <h3 className="section-title">藏品介绍</h3>
-            <p className="detail-description">{item.description}</p>
+            {/* 区块链信息卡片 */}
+            <div className="blockchain-card">
+              <div className="blockchain-row">
+                <span className="blockchain-label">合约地址</span>
+                <span className="blockchain-value address">{item.contractAddress}</span>
+              </div>
+              <div className="blockchain-row">
+                <span className="blockchain-label">
+                  <span className="bsn-logo">BSN</span>
+                </span>
+                <span className="blockchain-value"></span>
+              </div>
+              <div className="blockchain-row">
+                <span className="blockchain-label">版税比例</span>
+                <span className="blockchain-value">{item.royaltyRate || '0%'}</span>
+              </div>
+              <div className="blockchain-row">
+                <span className="blockchain-label">总发行量</span>
+                <span className="blockchain-value">{item.issueCount}</span>
+              </div>
+              <div className="blockchain-row">
+                <span className="blockchain-label">已售数量</span>
+                <span className="blockchain-value">{item.soldCount || 0}</span>
+              </div>
+              <div className="blockchain-row">
+                <span className="blockchain-label">开售时段</span>
+                <span className="blockchain-value">{item.salePeriod || '---'}</span>
+              </div>
+            </div>
+
+            {/* 前往寄售市场链接 */}
+            {!isDirectSale && (
+              <div className="market-link-wrapper">
+                <a className="market-link" onClick={() => navigate('/market')}>
+                  前往寄售市场
+                </a>
+              </div>
+            )}
+
+            {/* 作品详情描述 */}
+            <div className="section-card">
+              <div className="section-title">作品详情描述</div>
+              <div className="section-divider"></div>
+              <div className={`section-content ${descExpanded ? 'expanded' : ''}`}>
+                <p className="description-text highlight">{item.description}</p>
+              </div>
+              {item.description && item.description.length > 50 && (
+                <button
+                  className="expand-btn"
+                  onClick={() => setDescExpanded(!descExpanded)}
+                >
+                  {descExpanded ? '收起' : '查看更多'}
+                  {descExpanded ? <IconChevronUp size={14} /> : <IconChevronDown size={14} />}
+                </button>
+              )}
+            </div>
+
+            {/* 交易须知 */}
+            <div className="section-card">
+              <div className="section-title">交易须知</div>
+              <div className="section-divider"></div>
+              <div className={`section-content notice-content ${noticeExpanded ? 'expanded' : ''}`}>
+                <ol className="notice-list">
+                  {tradingNotices.map((notice, index) => (
+                    <li key={index}>{notice}</li>
+                  ))}
+                </ol>
+              </div>
+              <button
+                className="expand-btn"
+                onClick={() => setNoticeExpanded(!noticeExpanded)}
+              >
+                {noticeExpanded ? '收起' : '查看更多'}
+                {noticeExpanded ? <IconChevronUp size={14} /> : <IconChevronDown size={14} />}
+              </button>
+            </div>
+          </>
+        ) : (
+          <div className="notice-tab-content">
+            <div className="empty-notice">
+              <p>暂无公告</p>
+            </div>
           </div>
         )}
-
-        {/* 区块链信息 */}
-        <div className="detail-section">
-          <h3 className="section-title">
-            <IconBlockchain size={16} color="var(--color-primary)" />
-            <span>链上信息</span>
-          </h3>
-          <div className="blockchain-info">
-            {item.blockchain && (
-              <div className="blockchain-row">
-                <span className="blockchain-label">区块链</span>
-                <span className="chain-tag">{item.blockchain}</span>
-              </div>
-            )}
-            {item.tokenId && (
-              <div className="blockchain-row">
-                <span className="blockchain-label">Token ID</span>
-                <span className="token-id">#{item.tokenId}</span>
-              </div>
-            )}
-            {item.contractAddress && (
-              <div className="blockchain-row address-row">
-                <div className="row-header">
-                  <span className="blockchain-label">合约地址</span>
-                  <button className="copy-btn" onClick={handleCopyAddress}>
-                    {copied ? <IconCheck size={14} /> : <IconCopy size={14} />}
-                    <span>{copied ? '已复制' : '复制'}</span>
-                  </button>
-                </div>
-                <div className="address-value">
-                  {item.contractAddress}
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-
       </div>
 
       {/* 底部操作栏 */}
       <div className="detail-footer">
-        <button className="action-btn secondary">
-          <IconHeart size={18} />
-          <span>收藏</span>
-        </button>
-        <button className="action-btn secondary">
-          <IconShare size={18} />
-          <span>分享</span>
-        </button>
         <button
-          className={`action-btn primary ${item.status === 'soldout' ? 'disabled' : ''}`}
-          disabled={item.status === 'soldout'}
+          className={`action-btn primary ${isSoldOut || isEnded ? 'disabled' : ''}`}
+          disabled={isSoldOut || isEnded}
         >
-          {item.status === 'soldout' ? '已售罄' : item.status === 'presale' ? '预约购买' : '立即购买'}
+          {getButtonText()}
         </button>
       </div>
     </div>

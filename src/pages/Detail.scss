@@ -1,6 +1,6 @@
 .detail-page {
   min-height: 100vh;
-  background: var(--color-bg-secondary);
+  background: var(--color-bg-primary);
   padding-bottom: 90px;
 }
 
@@ -14,7 +14,6 @@
   justify-content: space-between;
   padding: 12px 16px;
   background: var(--color-bg-primary);
-  border-bottom: 1px solid var(--color-border-light);
 
   .back-btn {
     width: 40px;
@@ -22,7 +21,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--color-bg-tertiary);
+    background: transparent;
+    border: none;
     border-radius: 50%;
     cursor: pointer;
     color: var(--color-text-primary);
@@ -35,13 +35,57 @@
   }
 
   .header-title {
+    flex: 1;
     font-size: 17px;
-    font-weight: 700;
+    font-weight: 600;
     color: var(--color-text-primary);
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 12px;
   }
 
   .header-placeholder {
     width: 40px;
+  }
+}
+
+// Tab导航
+.detail-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 48px;
+  padding: 12px 16px;
+  background: var(--color-bg-primary);
+  border-bottom: 1px solid var(--color-border-light);
+
+  .tab-item {
+    position: relative;
+    padding: 8px 0;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: color var(--duration-fast) var(--ease-out);
+
+    &.active {
+      color: var(--color-primary);
+      font-weight: 600;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: var(--color-primary);
+        border-radius: 2px 2px 0 0;
+      }
+    }
   }
 }
 
@@ -50,72 +94,14 @@
   padding: 16px;
 }
 
-// 艺术品展示区 - Gallery风格
-.artwork-showcase {
-  position: relative;
-  padding: 24px 20px 28px;
-  background: linear-gradient(180deg, #1a1a1a 0%, #0d0d0d 100%);
-  border-radius: var(--radius-xl);
-  margin-bottom: 16px;
-  overflow: hidden;
-
-  // 背景光效
-  &::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 120%;
-    height: 100%;
-    background: radial-gradient(ellipse at center, rgba(212, 175, 55, 0.08) 0%, transparent 60%);
-    pointer-events: none;
-  }
-
-  // 底部反射光
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 120px;
-    background: linear-gradient(180deg, transparent 0%, rgba(212, 175, 55, 0.03) 100%);
-    pointer-events: none;
-  }
-}
-
-// 画框效果
-.artwork-frame {
-  position: relative;
-  padding: 8px;
-  background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 50%, #2a2a2a 100%);
-  border-radius: var(--radius-lg);
-  box-shadow:
-    0 20px 60px rgba(0, 0, 0, 0.5),
-    0 0 80px rgba(212, 175, 55, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
-
-  // 画框内边框
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 6px;
-    border: 1px solid rgba(212, 175, 55, 0.15);
-    border-radius: calc(var(--radius-lg) - 2px);
-    pointer-events: none;
-  }
-}
-
 // 藏品图片展示
 .detail-image-wrapper {
   position: relative;
   width: 100%;
-  border-radius: calc(var(--radius-lg) - 4px);
+  border-radius: var(--radius-lg);
   overflow: hidden;
   background: #000;
 
-  // 不同图片比例支持
   &.ratio-1-1 {
     aspect-ratio: 1;
   }
@@ -136,330 +122,300 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform var(--duration-slow) var(--ease-out);
   }
 
-  // 图片高光叠加
-  &::after {
-    content: '';
+  .watermark {
     position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.03) 0%,
-      transparent 50%,
-      rgba(0, 0, 0, 0.1) 100%
-    );
-    pointer-events: none;
-  }
-}
-
-// 展品标签区域
-.artwork-badges {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  right: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  z-index: 10;
-  pointer-events: none;
-
-  > * {
-    pointer-events: auto;
-  }
-}
-
-// 销售状态标签 - 独立样式
-.detail-status {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 14px;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--color-text-inverse);
-  border-radius: var(--radius-full);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-
-  &.status--selling {
-    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-  }
-
-  &.status--presale {
-    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-  }
-
-  &.status--soldout {
-    background: rgba(107, 114, 128, 0.9);
-  }
-}
-
-// 类型徽章
-.detail-type-badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 8px 14px;
-  font-size: 11px;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.9);
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: var(--radius-full);
-}
-
-
-// 藏品基本信息卡片
-.detail-info {
-  margin-top: 16px;
-  padding: 20px;
-  background: var(--color-bg-primary);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-card);
-
-  .detail-name {
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--color-text-primary);
-    margin-bottom: 16px;
-    line-height: 1.3;
-  }
-
-  // 创作者信息
-  .detail-creator {
+    top: 16px;
+    left: 16px;
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid var(--color-border-light);
-    margin-bottom: 16px;
+    gap: 6px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
 
-    .creator-avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid var(--color-border);
+    .watermark-icon {
+      font-size: 16px;
     }
+  }
+}
 
-    .creator-name {
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--color-text-primary);
-    }
+// VIP版税惠品标签
+.vip-tag {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-primary);
+  background: transparent;
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-sm);
+}
 
-    .creator-label {
+// 标题区域
+.detail-title-section {
+  margin-top: 16px;
+
+  .title-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+
+    .type-badge {
+      flex-shrink: 0;
+      padding: 4px 8px;
       font-size: 11px;
-      font-weight: 500;
+      font-weight: 600;
+      color: var(--color-text-inverse);
+      border-radius: var(--radius-xs);
+
+      &.compose {
+        background: #10B981;
+      }
+
+      &.direct {
+        background: var(--color-primary);
+      }
+    }
+
+    .detail-name {
+      flex: 1;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--color-text-primary);
+      line-height: 1.4;
+    }
+
+    .share-btn {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: none;
       color: var(--color-text-secondary);
-      padding: 3px 8px;
-      background: var(--color-bg-tertiary);
-      border-radius: var(--radius-sm);
+      cursor: pointer;
+
+      &:active {
+        color: var(--color-primary);
+      }
     }
   }
 
-  // 价格信息区
-  .detail-price-section {
-    .price-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
-      padding: 14px;
-      background: var(--color-bg-secondary);
-      border-radius: var(--radius-md);
+  .price-display {
+    margin-top: 16px;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--color-primary);
+  }
 
-      .price-label {
-        font-size: 14px;
-        color: var(--color-text-secondary);
-      }
-
-      .price-value {
-        font-size: 28px;
-        font-weight: 700;
-        color: var(--color-text-primary);
-      }
-    }
+  .creator-info {
+    margin-top: 16px;
 
     .info-row {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      padding: 12px 0;
-      border-top: 1px solid var(--color-border-light);
+      margin-bottom: 8px;
 
-      &:first-of-type {
-        border-top: none;
+      &:last-child {
+        margin-bottom: 0;
       }
 
-      .info-label {
+      .label {
         font-size: 14px;
         color: var(--color-text-secondary);
       }
 
-      .info-value {
-        font-size: 15px;
-        font-weight: 600;
+      .value {
+        font-size: 14px;
         color: var(--color-text-primary);
+
+        &.highlight {
+          color: var(--color-primary);
+        }
       }
+    }
+  }
+}
+
+// 区块链信息卡片
+.blockchain-card {
+  margin-top: 20px;
+  padding: 16px;
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-lg);
+
+  .blockchain-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--color-border-light);
+
+    &:first-child {
+      padding-top: 0;
+    }
+
+    &:last-child {
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .blockchain-label {
+      font-size: 14px;
+      color: var(--color-text-secondary);
+      flex-shrink: 0;
+
+      .bsn-logo {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2px 6px;
+        font-size: 10px;
+        font-weight: 700;
+        color: #fff;
+        background: linear-gradient(135deg, #E53E3E 0%, #38A169 33%, #3182CE 66%);
+        border-radius: 3px;
+        letter-spacing: 1px;
+      }
+    }
+
+    .blockchain-value {
+      font-size: 14px;
+      color: var(--color-text-primary);
+      text-align: right;
+      word-break: break-all;
+      margin-left: 16px;
+      flex: 1;
+
+      &.address {
+        font-family: 'SF Mono', 'Monaco', monospace;
+        font-size: 12px;
+        color: var(--color-text-secondary);
+      }
+    }
+  }
+}
+
+// 前往寄售市场链接
+.market-link-wrapper {
+  margin-top: 16px;
+  text-align: center;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--color-border-light);
+
+  .market-link {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--color-primary);
+    cursor: pointer;
+    transition: opacity var(--duration-fast) var(--ease-out);
+
+    &:active {
+      opacity: 0.7;
     }
   }
 }
 
 // 通用信息区块
-.detail-section {
+.section-card {
   margin-top: 16px;
-  padding: 20px;
-  background: var(--color-bg-primary);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-card);
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border-light);
 
   .section-title {
-    display: flex;
-    align-items: center;
-    gap: 8px;
     font-size: 16px;
     font-weight: 700;
     color: var(--color-text-primary);
-    margin-bottom: 14px;
+    margin-bottom: 12px;
+  }
 
-    svg {
-      flex-shrink: 0;
-      color: var(--color-text-secondary);
+  .section-divider {
+    height: 1px;
+    background: var(--color-primary);
+    margin-bottom: 16px;
+    opacity: 0.3;
+  }
+
+  .section-content {
+    max-height: 80px;
+    overflow: hidden;
+    transition: max-height var(--duration-normal) var(--ease-out);
+
+    &.expanded {
+      max-height: 1000px;
+    }
+
+    &.notice-content {
+      max-height: 120px;
+
+      &.expanded {
+        max-height: 2000px;
+      }
     }
   }
 
-  .detail-description {
+  .description-text {
     font-size: 14px;
     line-height: 1.8;
     color: var(--color-text-secondary);
-  }
-}
 
-// 区块链信息 - 链上信息区块
-.blockchain-info {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-
-  .blockchain-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 14px 16px;
-    background: var(--color-bg-secondary);
-    border-radius: var(--radius-md);
-    border: 1px solid var(--color-border-light);
-
-    .blockchain-label {
-      font-size: 13px;
-      color: var(--color-text-tertiary);
-      flex-shrink: 0;
-    }
-
-    .blockchain-value {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--color-text-primary);
-      text-align: right;
-    }
-
-    // 区块链标签
-    .chain-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 6px 14px;
-      font-size: 12px;
-      font-weight: 600;
-      color: #10B981;
-      background: rgba(16, 185, 129, 0.1);
-      border-radius: var(--radius-full);
-    }
-
-    // 合约地址行 - 特殊布局
-    &.address-row {
-      flex-direction: column;
-      align-items: stretch;
-      gap: 10px;
-
-      .row-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-
-      .address-value {
-        font-family: 'SF Mono', 'Menlo', monospace;
-        font-size: 12px;
-        font-weight: 500;
-        color: var(--color-text-secondary);
-        padding: 10px 12px;
-        background: var(--color-bg-primary);
-        border: 1px solid var(--color-border-light);
-        border-radius: var(--radius-sm);
-        word-break: break-all;
-        line-height: 1.5;
-      }
-    }
-
-    // 复制按钮
-    .copy-btn {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      padding: 6px 12px;
-      font-size: 12px;
-      font-weight: 500;
+    &.highlight {
       color: var(--color-primary);
-      background: var(--color-primary-bg);
-      border: none;
-      border-radius: var(--radius-sm);
-      cursor: pointer;
-      transition: all var(--duration-fast) var(--ease-out);
-
-      &:active {
-        background: rgba(212, 175, 55, 0.15);
-        transform: scale(0.96);
-      }
-    }
-
-    // Token ID 特殊样式
-    .token-id {
-      font-family: 'SF Mono', 'Menlo', monospace;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--color-primary-dark);
     }
   }
-}
 
-// 图片信息区块
-.image-info {
-  background: var(--color-bg-secondary);
-  border-radius: var(--radius-md);
-  padding: 4px;
+  .notice-list {
+    padding-left: 20px;
+    margin: 0;
 
-  .blockchain-row {
+    li {
+      font-size: 14px;
+      line-height: 1.8;
+      color: var(--color-text-secondary);
+      margin-bottom: 12px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .expand-btn {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 12px 14px;
-    background: var(--color-bg-primary);
-    border-radius: var(--radius-sm);
+    justify-content: center;
+    gap: 4px;
+    width: 100%;
+    padding: 12px 0;
+    font-size: 13px;
+    color: var(--color-text-tertiary);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: color var(--duration-fast) var(--ease-out);
 
-    .blockchain-label {
-      font-size: 13px;
+    &:active {
       color: var(--color-text-secondary);
     }
+  }
+}
 
-    .blockchain-value {
+// 作品公告Tab空状态
+.notice-tab-content {
+  .empty-notice {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 24px;
+
+    p {
       font-size: 14px;
-      font-weight: 600;
-      color: var(--color-text-primary);
+      color: var(--color-text-tertiary);
     }
   }
 }
@@ -503,52 +459,41 @@
   right: 0;
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 16px 16px;
+  padding: 16px 24px;
   padding-bottom: calc(16px + var(--safe-area-bottom));
   background: var(--color-bg-primary);
-  border-top: 1px solid var(--color-border-light);
-  box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.04);
   z-index: 100;
 
   .action-btn {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    padding: 14px 20px;
-    font-size: 15px;
+    width: 100%;
+    padding: 16px 24px;
+    font-size: 17px;
     font-weight: 600;
     border: none;
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-full);
     cursor: pointer;
     transition: all var(--duration-fast) var(--ease-out);
 
-    // 次要按钮
-    &.secondary {
-      flex: 0 0 auto;
-      color: var(--color-text-primary);
-      background: var(--color-bg-tertiary);
-
-      &:active {
-        background: var(--color-bg-secondary);
-        transform: scale(0.96);
-      }
-    }
-
-    // 主要按钮
     &.primary {
-      flex: 1;
-      color: var(--color-bg-primary);
-      background: var(--color-text-primary);
+      color: var(--color-text-inverse);
+      background: var(--color-primary);
 
       &:active {
         transform: scale(0.98);
+        opacity: 0.9;
       }
 
       &.disabled {
         background: var(--color-text-disabled);
         cursor: not-allowed;
+
+        &:active {
+          transform: none;
+          opacity: 1;
+        }
       }
     }
   }
