@@ -1,27 +1,34 @@
 .system-notice-bar {
   display: flex;
   align-items: center;
-  height: 28px;
-  padding: 0 10px;
-  margin: 8px 12px;
-  background: var(--color-notice-bg);
-  border-radius: 14px;
+  height: 32px;
+  padding: 0 12px;
+  margin: 10px 16px 4px;
+  background: linear-gradient(135deg, #FFF9E6 0%, #FFF5D6 100%);
+  border-radius: 8px;
   cursor: pointer;
-  transition: opacity var(--duration-fast) var(--ease-out);
+  transition: all var(--duration-fast) var(--ease-out);
+  border: 1px solid rgba(212, 175, 55, 0.12);
 
   &:active {
-    opacity: 0.85;
+    transform: scale(0.99);
+    background: linear-gradient(135deg, #FFF5D6 0%, #FFEFC6 100%);
   }
 
   &__icon {
     flex-shrink: 0;
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 6px;
-    color: var(--color-notice-icon);
+    margin-right: 8px;
+    color: #C9A24D;
+
+    svg {
+      width: 14px;
+      height: 14px;
+    }
   }
 
   &__content {
@@ -30,12 +37,13 @@
 
     .notice-text {
       display: block;
-      font-size: 11px;
-      color: var(--color-notice-text);
+      font-size: 12px;
+      font-weight: 500;
+      color: #8C6D1F;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      line-height: 1.4;
+      line-height: 1.3;
     }
   }
 
@@ -44,7 +52,25 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-left: 4px;
-    color: var(--color-notice-arrow);
+    margin-left: 6px;
+    color: #C9A24D;
+
+    svg {
+      width: 12px;
+      height: 12px;
+    }
+  }
+}
+
+// iPad 响应式
+@media (min-width: 768px) {
+  .system-notice-bar {
+    height: 36px;
+    margin: 12px 24px 6px;
+    padding: 0 14px;
+
+    &__content .notice-text {
+      font-size: 13px;
+    }
   }
 }

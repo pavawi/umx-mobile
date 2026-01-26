@@ -1,16 +1,18 @@
 .home-page {
-  background: var(--color-bg-secondary);
+  background: var(--color-bg-primary);
   min-height: 100vh;
 
-  // 页面顶部装饰性渐变
+  // 页面顶部装饰性渐变 - 更柔和的金色氛围
   &::before {
     content: '';
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    height: 200px;
-    background: var(--gradient-mesh);
+    height: 320px;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% 0%, rgba(212, 175, 55, 0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 10%, rgba(139, 92, 246, 0.04) 0%, transparent 50%);
     pointer-events: none;
     z-index: 0;
   }
@@ -18,7 +20,7 @@
   .home-banner {
     position: relative;
     z-index: 1;
-    padding-top: 6px;
+    padding-top: 8px;
     display: flex;
     justify-content: center;
   }
@@ -79,22 +81,19 @@
     }
   }
 
-  // 藏品区域容器
+  // 藏品区域容器 - 去掉多余圆角，保持页面一体感
   .collection-section {
     position: relative;
     z-index: 1;
-    margin-top: 12px;
-    padding-top: 8px;
-    background: var(--color-bg-primary);
-    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.03);
+    margin-top: 8px;
+    padding-top: 4px;
   }
 
   // Tab切换区域
   .home-tabs {
     position: relative;
     z-index: 1;
-    padding: 10px 0 12px;
+    padding: 6px 0 14px;
   }
 
   // 藏品网格列表 - 统一间距
@@ -103,8 +102,8 @@
     z-index: 1;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-    padding: 0 16px 20px;
+    gap: 14px;
+    padding: 0 16px calc(var(--tab-bar-height) + var(--safe-area-bottom) + 20px);
   }
 
   // Section标题样式（可复用）

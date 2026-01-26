@@ -63,39 +63,38 @@
     }
   }
 
-  // 指示点 - 紧凑设计
+  // 指示点 - 精致小巧设计
   &__dots {
     position: absolute;
-    bottom: 10px;
+    bottom: 12px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
-    gap: 6px;
-    padding: 4px 8px;
-    background: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(8px);
-    border-radius: var(--radius-full);
+    align-items: center;
+    gap: 5px;
     z-index: 3;
 
     .dot {
-      width: 5px;
-      height: 5px;
+      width: 4px;
+      height: 4px;
       padding: 0;
       border: none;
-      background: rgba(255, 255, 255, 0.4);
+      background: rgba(255, 255, 255, 0.45);
       border-radius: 50%;
       cursor: pointer;
       transition: all var(--duration-normal) var(--ease-out);
 
       &.is-active {
-        width: 16px;
-        background: var(--gradient-gold);
-        border-radius: 2.5px;
-        box-shadow: 0 0 6px rgba(212, 175, 55, 0.5);
+        width: 14px;
+        height: 4px;
+        background: linear-gradient(90deg, #D4AF37 0%, #FFD700 100%);
+        border-radius: 2px;
+        box-shadow: 0 0 8px rgba(212, 175, 55, 0.6);
       }
 
       &:hover:not(.is-active) {
-        background: rgba(255, 255, 255, 0.6);
+        background: rgba(255, 255, 255, 0.7);
+        transform: scale(1.2);
       }
     }
   }

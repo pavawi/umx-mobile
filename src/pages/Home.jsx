@@ -38,18 +38,18 @@ export default function Home() {
         onNoticeClick={handleNoticeClick}
       />
 
-      {/* 系统通知小喇叭 - 平台通知 */}
-      <SystemNoticeBar
-        notices={systemNotices}
-        onClick={(notice) => navigate('/notifications')}
-      />
-
       {/* 轮播Banner */}
       <div className="home-banner">
         <BannerSwiper banners={banners} />
       </div>
 
-      {/* 活动中心入口 - 紧跟Banner */}
+      {/* 系统通知小喇叭 - 放在Banner下方 */}
+      <SystemNoticeBar
+        notices={systemNotices}
+        onClick={(notice) => navigate('/notifications')}
+      />
+
+      {/* 活动中心入口 */}
       <ActivitySection
         items={activityEntries}
         onItemClick={(item) => navigate(item.link)}
