@@ -37,30 +37,13 @@
     }
   }
 
-  // 图片容器
+  // 图片容器 - 统一使用 1:1 正方形比例
   &__image-wrapper {
     position: relative;
     width: 100%;
     aspect-ratio: 1;
     overflow: hidden;
     background: var(--color-bg-tertiary);
-
-    // 不同图片比例支持
-    &.ratio-1-1 {
-      aspect-ratio: 1;
-    }
-
-    &.ratio-3-4 {
-      aspect-ratio: 3/4;
-    }
-
-    &.ratio-4-3 {
-      aspect-ratio: 4/3;
-    }
-
-    &.ratio-16-9 {
-      aspect-ratio: 16/9;
-    }
   }
 
   &__image {

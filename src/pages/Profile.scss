@@ -134,4 +134,72 @@
       }
     }
   }
+
+  // 设置区域
+  .settings-section {
+    margin: 0 16px 16px;
+    padding: 16px 20px;
+    background: var(--color-bg-primary);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+
+    .settings-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--color-text-primary);
+      margin-bottom: 16px;
+    }
+
+    .settings-item {
+      // ThemeToggle 组件样式会自动适配
+    }
+  }
+}
+
+// iPad 响应式
+@media (min-width: 768px) {
+  .profile-page {
+    .feature-banner {
+      margin: 0 24px 20px;
+      padding: 20px 24px;
+    }
+
+    .menu-group {
+      margin: 0 24px 20px;
+
+      .menu-grid {
+        padding: 16px 12px 24px;
+        gap: 8px;
+
+        .menu-item {
+          padding: 16px 12px;
+          gap: 12px;
+
+          .menu-icon {
+            width: 56px;
+            height: 56px;
+
+            svg {
+              width: 28px;
+              height: 28px;
+            }
+          }
+
+          .menu-label {
+            font-size: 14px;
+          }
+        }
+      }
+    }
+
+    .settings-section {
+      margin: 0 24px 20px;
+      padding: 20px 24px;
+
+      .settings-title {
+        font-size: 16px;
+        margin-bottom: 20px;
+      }
+    }
+  }
 }
