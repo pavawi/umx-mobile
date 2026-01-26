@@ -211,36 +211,6 @@
   border-radius: var(--radius-full);
 }
 
-// 展品信息栏
-.artwork-info-bar {
-  display: flex;
-  justify-content: center;
-  gap: 24px;
-  margin-top: 16px;
-  padding-top: 16px;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-
-  .info-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-
-    .info-label {
-      font-size: 10px;
-      font-weight: 500;
-      color: rgba(255, 255, 255, 0.4);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .info-value {
-      font-size: 13px;
-      font-weight: 600;
-      color: rgba(255, 255, 255, 0.85);
-    }
-  }
-}
 
 // 藏品基本信息卡片
 .detail-info {
@@ -371,70 +341,30 @@
 
 // 区块链信息 - 链上信息区块
 .blockchain-info {
-  position: relative;
-  background: linear-gradient(135deg, #1a1f2e 0%, #141821 100%);
-  border-radius: var(--radius-md);
-  padding: 16px;
-  overflow: hidden;
-
-  // 科技感装饰线
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent 0%, var(--color-primary) 50%, transparent 100%);
-    opacity: 0.6;
-  }
-
-  // 网格背景
-  &::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(212, 175, 55, 0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(212, 175, 55, 0.03) 1px, transparent 1px);
-    background-size: 20px 20px;
-    pointer-events: none;
-  }
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 
   .blockchain-row {
-    position: relative;
-    z-index: 1;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 14px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-
-    &:first-child {
-      padding-top: 0;
-    }
-
-    &:last-child {
-      padding-bottom: 0;
-      border-bottom: none;
-    }
+    padding: 14px 16px;
+    background: var(--color-bg-secondary);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border-light);
 
     .blockchain-label {
       font-size: 13px;
-      color: rgba(255, 255, 255, 0.5);
+      color: var(--color-text-tertiary);
+      flex-shrink: 0;
     }
 
     .blockchain-value {
       font-size: 14px;
       font-weight: 600;
-      color: rgba(255, 255, 255, 0.9);
-
-      &.address {
-        font-family: 'SF Mono', 'Menlo', monospace;
-        font-size: 11px;
-        font-weight: 500;
-        color: rgba(255, 255, 255, 0.6);
-      }
+      color: var(--color-text-primary);
+      text-align: right;
     }
 
     // 区块链标签
@@ -442,21 +372,38 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 6px 12px;
+      padding: 6px 14px;
       font-size: 12px;
       font-weight: 600;
-      color: var(--color-primary);
-      background: rgba(212, 175, 55, 0.1);
-      border: 1px solid rgba(212, 175, 55, 0.2);
+      color: #10B981;
+      background: rgba(16, 185, 129, 0.1);
       border-radius: var(--radius-full);
     }
 
-    .address-wrapper {
-      display: flex;
-      align-items: center;
+    // 合约地址行 - 特殊布局
+    &.address-row {
+      flex-direction: column;
+      align-items: stretch;
       gap: 10px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
+
+      .row-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .address-value {
+        font-family: 'SF Mono', 'Menlo', monospace;
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--color-text-secondary);
+        padding: 10px 12px;
+        background: var(--color-bg-primary);
+        border: 1px solid var(--color-border-light);
+        border-radius: var(--radius-sm);
+        word-break: break-all;
+        line-height: 1.5;
+      }
     }
 
     // 复制按钮
@@ -464,18 +411,18 @@
       display: flex;
       align-items: center;
       gap: 4px;
-      padding: 6px 10px;
-      font-size: 11px;
-      font-weight: 600;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 500;
       color: var(--color-primary);
-      background: rgba(212, 175, 55, 0.1);
-      border: 1px solid rgba(212, 175, 55, 0.2);
+      background: var(--color-primary-bg);
+      border: none;
       border-radius: var(--radius-sm);
       cursor: pointer;
       transition: all var(--duration-fast) var(--ease-out);
 
       &:active {
-        background: rgba(212, 175, 55, 0.2);
+        background: rgba(212, 175, 55, 0.15);
         transform: scale(0.96);
       }
     }
@@ -483,12 +430,9 @@
     // Token ID 特殊样式
     .token-id {
       font-family: 'SF Mono', 'Menlo', monospace;
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 600;
-      color: var(--color-primary);
-      padding: 4px 10px;
-      background: rgba(212, 175, 55, 0.08);
-      border-radius: var(--radius-sm);
+      color: var(--color-primary-dark);
     }
   }
 }

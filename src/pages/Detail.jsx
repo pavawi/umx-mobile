@@ -102,25 +102,6 @@ export default function Detail() {
               <div className="detail-type-badge">{item.type}</div>
             )}
           </div>
-          {/* 展品信息栏 */}
-          <div className="artwork-info-bar">
-            <div className="info-item">
-              <span className="info-label">比例</span>
-              <span className="info-value">{item.imageRatio || '1:1'}</span>
-            </div>
-            {item.creator && (
-              <div className="info-item">
-                <span className="info-label">创作者</span>
-                <span className="info-value">{item.creator}</span>
-              </div>
-            )}
-            {item.issueCount && (
-              <div className="info-item">
-                <span className="info-label">限量</span>
-                <span className="info-value">{item.issueCount}份</span>
-              </div>
-            )}
-          </div>
         </div>
 
         {/* 藏品基本信息 */}
@@ -183,27 +164,27 @@ export default function Detail() {
             {item.blockchain && (
               <div className="blockchain-row">
                 <span className="blockchain-label">区块链</span>
-                <span className="blockchain-value">
-                  <span className="chain-tag">{item.blockchain}</span>
-                </span>
-              </div>
-            )}
-            {item.contractAddress && (
-              <div className="blockchain-row">
-                <span className="blockchain-label">合约地址</span>
-                <div className="address-wrapper">
-                  <span className="blockchain-value address">{formatAddress(item.contractAddress)}</span>
-                  <button className="copy-btn" onClick={handleCopyAddress}>
-                    {copied ? <IconCheck size={14} /> : <IconCopy size={14} />}
-                    <span>{copied ? '已复制' : '复制'}</span>
-                  </button>
-                </div>
+                <span className="chain-tag">{item.blockchain}</span>
               </div>
             )}
             {item.tokenId && (
               <div className="blockchain-row">
                 <span className="blockchain-label">Token ID</span>
                 <span className="token-id">#{item.tokenId}</span>
+              </div>
+            )}
+            {item.contractAddress && (
+              <div className="blockchain-row address-row">
+                <div className="row-header">
+                  <span className="blockchain-label">合约地址</span>
+                  <button className="copy-btn" onClick={handleCopyAddress}>
+                    {copied ? <IconCheck size={14} /> : <IconCopy size={14} />}
+                    <span>{copied ? '已复制' : '复制'}</span>
+                  </button>
+                </div>
+                <div className="address-value">
+                  {item.contractAddress}
+                </div>
               </div>
             )}
           </div>
