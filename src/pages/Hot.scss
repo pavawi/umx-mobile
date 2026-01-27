@@ -202,16 +202,19 @@
   .sort-filter-bar {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 16px;
     padding: 10px 16px;
     background: var(--color-bg-primary);
 
     .sort-item {
       display: flex;
       align-items: center;
-      gap: 2px;
+      gap: 4px;
+      padding: 6px 12px;
+      border-radius: 20px;
       cursor: pointer;
-      transition: opacity var(--duration-fast) var(--ease-out);
+      transition: all var(--duration-fast) var(--ease-out);
+      background: transparent;
 
       &:active {
         opacity: 0.7;
@@ -221,7 +224,7 @@
         font-size: 13px;
         font-weight: 400;
         color: var(--color-text-tertiary);
-        transition: color var(--duration-fast) var(--ease-out);
+        transition: all var(--duration-fast) var(--ease-out);
       }
 
       .sort-arrows {
@@ -230,21 +233,27 @@
         margin-top: -2px;
 
         .arrow-icon {
-          color: var(--color-text-tertiary);
-          transition: color var(--duration-fast) var(--ease-out);
+          color: var(--color-text-placeholder);
+          transition: all var(--duration-fast) var(--ease-out);
           margin: -3px 0;
         }
       }
 
-      // 选中状态：文字变黑加粗，对应方向的箭头用金色高亮
+      // 选中状态：金色背景 + 金色文字 + 金色箭头
       &.active {
+        background: rgba(212, 175, 55, 0.12);
+
         .sort-label {
-          color: var(--color-text-primary);
-          font-weight: 500;
+          color: var(--color-primary);
+          font-weight: 600;
         }
 
-        .sort-arrows .arrow-icon.active {
-          color: var(--color-primary);
+        .sort-arrows .arrow-icon {
+          color: rgba(212, 175, 55, 0.4);
+
+          &.active {
+            color: var(--color-primary);
+          }
         }
       }
     }
@@ -495,10 +504,14 @@
 
     .sort-filter-bar {
       padding: 12px 24px;
-      gap: 24px;
+      gap: 20px;
 
-      .sort-item .sort-label {
-        font-size: 14px;
+      .sort-item {
+        padding: 8px 16px;
+
+        .sort-label {
+          font-size: 14px;
+        }
       }
     }
 

@@ -70,12 +70,7 @@ function CollectionCard({
           </div>
         )}
 
-        {/* 类型标签（右上角）- 合成/直卖/稀有等 */}
-        {showPrice && (item.typeLabel || item.type) && (
-          <div className="collection-card__type-badge">
-            {item.typeLabel || item.type}
-          </div>
-        )}
+{/* 类型标签已移除 - 不再显示稀有/合成等标签 */}
         <LazyImage
           src={item.image}
           alt={item.name}

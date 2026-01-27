@@ -144,6 +144,15 @@ ul, ol {
   }
 }
 
+// ========== iPad 横屏优化 ==========
+@media (min-width: 768px) and (orientation: landscape) {
+  .page-container {
+    // 横屏时增加左右边距
+    padding-left: env(safe-area-inset-left, 0px);
+    padding-right: env(safe-area-inset-right, 0px);
+  }
+}
+
 // ========== 桌面响应式调整 ==========
 @media (min-width: 1024px) {
   html {
