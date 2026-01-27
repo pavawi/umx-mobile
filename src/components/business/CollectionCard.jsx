@@ -69,13 +69,6 @@ function CollectionCard({
             {statusTextMap[item.status] || ''}
           </div>
         )}
-
-        {/* 类型标签（右上角）- 合成/直卖/稀有等 */}
-        {showPrice && (item.typeLabel || item.type) && (
-          <div className="collection-card__type-badge">
-            {item.typeLabel || item.type}
-          </div>
-        )}
         <LazyImage
           src={item.image}
           alt={item.name}
@@ -116,12 +109,7 @@ function CollectionCard({
             </>
           ) : (
             <>
-              {/* 默认模式: 类型标签 + 发行份数 */}
-              <div className="collection-card__left">
-                {(item.typeLabel || item.type) && (
-                  <span className="type-label">{item.typeLabel || item.type}</span>
-                )}
-              </div>
+              {/* 默认模式: 发行份数 */}
               <div className="collection-card__right">
                 {variant === 'market' && item.price !== undefined && (
                   <span className="price">{formatPrice(item.price)}</span>
