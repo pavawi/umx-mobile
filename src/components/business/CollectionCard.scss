@@ -2,32 +2,39 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  height: 100%;
   background: var(--color-bg-card);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: var(--shadow-card);
   cursor: pointer;
+  box-shadow: var(--shadow-card);
   transition: transform var(--duration-normal) var(--ease-out),
               box-shadow var(--duration-normal) var(--ease-out);
 
   &:active {
     transform: scale(0.98);
-    box-shadow: var(--shadow-md);
   }
 
-  // 顶部状态标签
+  // 图片容器 - 固定高度165px，无圆角（参考详情页风格）
+  &__image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 165px;
+    overflow: hidden;
+    background: var(--color-bg-tertiary);
+    border-radius: 0;
+  }
+
+  // 顶部状态标签（左上角）- 在图片内
   &__badge {
     position: absolute;
-    top: 6px;
-    left: 6px;
-    padding: 3px 8px;
-    font-size: 9px;
-    font-weight: 600;
+    top: 8px;
+    left: 8px;
+    padding: 4px 8px;
+    font-size: 10px;
+    font-weight: 500;
     color: var(--color-text-inverse);
-    border-radius: var(--radius-xs);
+    border-radius: 4px;
     z-index: 3;
-    letter-spacing: 0.3px;
 
     &.badge--selling {
       background: var(--color-status-selling);
@@ -40,13 +47,21 @@
     }
   }
 
-  // 图片容器 - 统一使用 1:1 正方形比例
-  &__image-wrapper {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 1;
-    overflow: hidden;
-    background: var(--color-bg-tertiary);
+  // 类型标签（右上角）- 在图片内，合成/直卖/稀有等
+  &__type-badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    padding: 0 8px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--color-primary);
+    background: rgba(212, 175, 55, 0.15);
+    border-radius: 4px;
+    z-index: 3;
   }
 
   &__image {
@@ -60,70 +75,27 @@
     transform: scale(1.02);
   }
 
-  // 平台标识
-  &__platform {
-    position: absolute;
-    bottom: 6px;
-    left: 6px;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    padding: 3px 6px;
-    background: var(--color-overlay);
-    backdrop-filter: blur(8px);
-    border-radius: var(--radius-xs);
-    z-index: 2;
-
-    .platform-icon {
-      width: 14px;
-      height: 14px;
-      background: var(--color-bg-primary);
-      color: var(--color-text-primary);
-      font-size: 8px;
-      font-weight: 800;
-      border-radius: 3px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    span:last-child {
-      font-size: 9px;
-      font-weight: 500;
-      color: rgba(255, 255, 255, 0.9);
-    }
-  }
-
-  // 内容区域
+  // 内容区域 - padding 12px
   &__content {
     display: flex;
     flex-direction: column;
-    flex: 1;
-    padding: var(--spacing-md);
+    gap: 8px;
+    padding: 12px;
     background: var(--color-bg-card);
   }
 
-  &__header {
+  // 第一行：标题 + 作者
+  &__row1 {
     display: flex;
     align-items: center;
-    gap: 6px;
-    margin-bottom: 6px;
-  }
-
-  // 类型标签
-  &__type {
-    flex-shrink: 0;
-    padding: 2px 6px;
-    font-size: 9px;
-    font-weight: 600;
-    color: var(--color-text-secondary);
-    background: var(--color-bg-tertiary);
-    border-radius: var(--radius-xs);
-    letter-spacing: 0.2px;
+    justify-content: space-between;
+    gap: 8px;
   }
 
   &__title {
-    font-size: 12px;
+    flex: 1;
+    min-width: 0;
+    font-size: 14px;
     font-weight: 600;
     color: var(--color-text-primary);
     overflow: hidden;
@@ -132,79 +104,125 @@
     line-height: 1.3;
   }
 
-  // 创作者信息
-  &__creator {
+  // 作者信息（右侧）
+  &__author {
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     gap: 6px;
-    font-size: 10px;
+    font-size: 12px;
     color: var(--color-text-secondary);
-    margin-bottom: 8px;
 
-    .creator-avatar {
-      width: 18px;
-      height: 18px;
+    .author-avatar {
+      width: 20px;
+      height: 20px;
       border-radius: 50%;
       object-fit: cover;
-      border: 1px solid var(--color-border);
+      background: var(--color-bg-tertiary);
     }
 
     span {
-      font-weight: 500;
+      font-weight: 400;
+      max-width: 50px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 
-  // 底部信息区
-  &__footer {
-    margin-top: auto;
-    padding-top: 8px;
-    border-top: 1px solid var(--color-border-light);
+  // 第二行：底部信息
+  &__row2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
-    .price-row,
-    .stock-row,
-    .info-row,
-    .locked-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 10px;
-      margin-bottom: 5px;
+  // 热卖变体：价格区域
+  &__price-wrap {
+    display: flex;
+    align-items: baseline;
+    gap: 2px;
 
-      &:last-child {
-        margin-bottom: 0;
-      }
-
-      .label {
-        color: var(--color-text-placeholder);
-        font-weight: 400;
-      }
-
-      .value {
-        color: var(--color-text-primary);
-        font-weight: 600;
-      }
+    .price-symbol {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-primary);
     }
 
-    // 价格样式
-    .price-row .value {
+    .price-value {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--color-primary);
+    }
+  }
+
+  // 热卖变体：在售信息
+  &__sale-info {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+
+    .sale-label {
+      font-size: 10px;
+      color: var(--color-text-tertiary);
+    }
+
+    .sale-count {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+    }
+
+    .sale-divider {
+      font-size: 10px;
+      color: var(--color-text-tertiary);
+    }
+
+    .sale-total {
+      font-size: 10px;
+      color: var(--color-text-tertiary);
+    }
+  }
+
+  &__left {
+    .type-label {
+      display: inline-block;
+      padding: 2px 6px;
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      background: var(--color-bg-tertiary);
+      border-radius: 4px;
+    }
+  }
+
+  &__right {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    .price {
       font-size: 14px;
       font-weight: 700;
       color: var(--color-text-primary);
     }
 
-    // 限量徽章
-    .limit-badge {
-      display: inline-flex;
+    .stats {
+      display: flex;
       align-items: center;
-      justify-content: center;
-      width: 100%;
-      padding: 6px 10px;
-      font-size: 10px;
-      font-weight: 600;
-      color: var(--color-text-primary);
-      background: var(--color-bg-tertiary);
-      border-radius: var(--radius-xs);
-      letter-spacing: 0.2px;
+      gap: 4px;
+
+      &-label {
+        font-size: 10px;
+        font-weight: 400;
+        color: var(--color-text-tertiary);
+      }
+
+      &-value {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--color-text-primary);
+      }
     }
   }
 }
@@ -212,93 +230,65 @@
 // iPad 响应式
 @media (min-width: 768px) {
   .collection-card {
-    border-radius: var(--radius-lg);
+    &__badge {
+      top: 10px;
+      left: 10px;
+      padding: 5px 10px;
+      font-size: 11px;
+    }
 
-    // hover 效果（非触屏设备）
+    &__image-wrapper {
+      height: 200px;
+    }
+
+    &__content {
+      padding: 14px;
+      gap: 10px;
+    }
+
+    &__title {
+      font-size: 15px;
+    }
+
+    &__author {
+      font-size: 13px;
+      gap: 8px;
+
+      .author-avatar {
+        width: 24px;
+        height: 24px;
+      }
+
+      span {
+        max-width: 60px;
+      }
+    }
+
+    &__right {
+      .price {
+        font-size: 16px;
+      }
+
+      .stats {
+        &-label {
+          font-size: 11px;
+        }
+
+        &-value {
+          font-size: 14px;
+        }
+      }
+    }
+
+    // hover 效果
     @media (hover: hover) {
       &:hover {
         transform: translateY(-4px);
         box-shadow: var(--shadow-card-hover);
       }
 
-      &:hover &__image {
+      &:hover .collection-card__image {
         transform: scale(1.05);
-      }
-    }
-
-    &__badge {
-      top: 8px;
-      left: 8px;
-      padding: 4px 10px;
-      font-size: 10px;
-      border-radius: var(--radius-sm);
-    }
-
-    &__platform {
-      bottom: 8px;
-      left: 8px;
-      padding: 4px 8px;
-      border-radius: var(--radius-sm);
-
-      .platform-icon {
-        width: 16px;
-        height: 16px;
-        font-size: 9px;
-      }
-
-      span:last-child {
-        font-size: 10px;
-      }
-    }
-
-    &__content {
-      padding: 14px;
-    }
-
-    &__header {
-      gap: 8px;
-      margin-bottom: 8px;
-    }
-
-    &__type {
-      padding: 3px 8px;
-      font-size: 10px;
-    }
-
-    &__title {
-      font-size: 14px;
-    }
-
-    &__creator {
-      font-size: 12px;
-      gap: 8px;
-      margin-bottom: 10px;
-
-      .creator-avatar {
-        width: 22px;
-        height: 22px;
-      }
-    }
-
-    &__footer {
-      padding-top: 10px;
-
-      .price-row,
-      .stock-row,
-      .info-row,
-      .locked-row {
-        font-size: 12px;
-        margin-bottom: 6px;
-      }
-
-      .price-row .value {
-        font-size: 16px;
-      }
-
-      .limit-badge {
-        padding: 8px 12px;
-        font-size: 12px;
-        border-radius: var(--radius-sm);
       }
     }
   }
@@ -307,33 +297,16 @@
 // 桌面响应式
 @media (min-width: 1024px) {
   .collection-card {
+    &__image-wrapper {
+      height: 220px;
+    }
+
     &__content {
       padding: 16px;
     }
 
     &__title {
-      font-size: 15px;
+      font-size: 16px;
     }
-
-    &__footer {
-      .price-row .value {
-        font-size: 18px;
-      }
-    }
-  }
-}
-
-// 骨架屏状态
-.collection-card--skeleton {
-  pointer-events: none;
-
-  .collection-card__content {
-    .skeleton-title {
-      margin-top: var(--spacing-xs);
-    }
-  }
-
-  .collection-card__creator {
-    gap: var(--spacing-xs);
   }
 }

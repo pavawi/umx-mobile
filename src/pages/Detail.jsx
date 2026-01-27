@@ -221,26 +221,7 @@ export default function Detail() {
               )}
             </div>
 
-            {/* 图片悬浮标签 */}
-            <div className="hero-badges">
-              {/* 水印 */}
-              <div className="watermark">
-                <span className="watermark-icon">◇</span>
-                <span>umx.art</span>
-              </div>
-
-              {/* Token ID */}
-              {item.tokenId && (
-                <div className="token-badge">
-                  <span className="token-hash">#</span>
-                  <span className="token-id">{item.tokenId}</span>
-                </div>
-              )}
-            </div>
           </figure>
-
-          {/* 渐变遮罩 */}
-          <div className="hero-gradient" aria-hidden="true" />
         </section>
 
         {/* Tab 导航 */}
