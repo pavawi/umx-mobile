@@ -11,6 +11,7 @@ const statusTextMap = {
 function CollectionCard({
   item,
   variant = 'default', // 'default' | 'market' | 'hot'
+  showPrice = false, // 是否显示价格和在售信息（热卖页专用）
   onClick
 }) {
   const handleClick = () => {
@@ -24,6 +25,33 @@ function CollectionCard({
     }
   };
 
+  // 格式化价格显示
+  const formatPrice = (price) => {
+    if (price === null || price === undefined) return null;
+    return `¥${price.toLocaleString()}`;
+  };
+
+  // 格式化数字（超过1000用万）
+  const formatNumber = (num) => {
+    if (num === null || num === undefined) return '0';
+    if (num >= 10000) {
+      const wan = num / 10000;
+      // 如果是整数万，不显示小数
+      return wan % 1 === 0 ? `${wan}万` : `${wan.toFixed(1)}万`;
+    }
+    return num.toString();
+  };
+
+  // 格式化价格（超过1000用万）
+  const formatPriceWithUnit = (price) => {
+    if (price === null || price === undefined) return '0';
+    if (price >= 10000) {
+      const wan = price / 10000;
+      return wan % 1 === 0 ? `${wan}万` : `${wan.toFixed(2)}万`;
+    }
+    return price.toFixed(2);
+  };
+
   return (
     <div
       className="collection-card"
@@ -33,81 +61,79 @@ function CollectionCard({
       tabIndex={0}
       aria-label={`${item.name}，创作者 ${item.creator || '未知'}`}
     >
-      {/* 状态标签 */}
-      {item.status && (
-        <div className={`collection-card__badge badge--${item.status}`}>
-          {statusTextMap[item.status] || ''}
-        </div>
-      )}
-
-      {/* 藏品图片 - 统一使用 1:1 比例 */}
+      {/* 藏品图片 */}
       <div className="collection-card__image-wrapper">
+        {/* 状态标签（左上角） */}
+        {item.status && (
+          <div className={`collection-card__badge badge--${item.status}`}>
+            {statusTextMap[item.status] || ''}
+          </div>
+        )}
+
+        {/* 类型标签（右上角）- 合成/直卖/稀有等 */}
+        {showPrice && (item.typeLabel || item.type) && (
+          <div className="collection-card__type-badge">
+            {item.typeLabel || item.type}
+          </div>
+        )}
         <LazyImage
           src={item.image}
           alt={item.name}
           className="collection-card__image"
         />
-        {item.platform && (
-          <div className="collection-card__platform">
-            <span className="platform-icon">U</span>
-            <span>umx.art</span>
-          </div>
-        )}
       </div>
 
-      {/* 内容区域 */}
+      {/* 内容区域 - 匹配设计稿布局 */}
       <div className="collection-card__content">
-        {/* 类型标签 + 名称 */}
-        <div className="collection-card__header">
-          {item.type && <span className="collection-card__type">{item.type}</span>}
+        {/* 第一行：标题 + 作者 */}
+        <div className="collection-card__row1">
           <h3 className="collection-card__title">{item.name}</h3>
+          {item.creator && (
+            <div className="collection-card__author">
+              {item.creatorAvatar && (
+                <img src={item.creatorAvatar} alt={item.creator} className="author-avatar" />
+              )}
+              <span>{item.creator}</span>
+            </div>
+          )}
         </div>
 
-        {/* 创作者 */}
-        {item.creator && (
-          <div className="collection-card__creator">
-            {item.creatorAvatar && (
-              <img src={item.creatorAvatar} alt={item.creator} className="creator-avatar" />
-            )}
-            <span>{item.creator}</span>
-          </div>
-        )}
-
-        {/* 底部信息 */}
-        <div className="collection-card__footer">
-          {variant === 'market' && (
+        {/* 第二行：价格/类型 + 在售信息 */}
+        <div className="collection-card__row2">
+          {showPrice ? (
             <>
-              <div className="price-row">
-                <span className="label">价格</span>
-                <span className="value">¥{item.price}</span>
+              {/* 显示价格模式: 价格 + 在售/总数 */}
+              <div className="collection-card__price-wrap">
+                <span className="price-symbol">¥</span>
+                <span className="price-value">{formatPriceWithUnit(item.price)}</span>
               </div>
-              <div className="stock-row">
-                <span className="label">在售/流通</span>
-                <span className="value">{item.onSale}/{item.total}</span>
-              </div>
-              {item.lockedCount !== undefined && (
-                <div className="locked-row">
-                  <span className="label">锁仓数量</span>
-                  <span className="value">{item.lockedCount}</span>
-                </div>
-              )}
-            </>
-          )}
-
-          {variant === 'hot' && (
-            <>
-              <div className="info-row">
-                <span className="label">{item.typeLabel || '合成藏品'}</span>
-              </div>
-              <div className="info-row">
-                <span className="label">发行份数</span>
-                <span className="value">{item.issueCount}</span>
+              <div className="collection-card__sale-info">
+                <span className="sale-label">在售</span>
+                <span className="sale-count">{formatNumber(item.onSale)}</span>
+                <span className="sale-divider">/</span>
+                <span className="sale-total">{formatNumber(item.total || item.issueCount)}</span>
               </div>
             </>
-          )}
-
-          {variant === 'default' && item.total && (
-            <div className="limit-badge">限量{item.total}份</div>
+          ) : (
+            <>
+              {/* 默认模式: 类型标签 + 发行份数 */}
+              <div className="collection-card__left">
+                {(item.typeLabel || item.type) && (
+                  <span className="type-label">{item.typeLabel || item.type}</span>
+                )}
+              </div>
+              <div className="collection-card__right">
+                {variant === 'market' && item.price !== undefined && (
+                  <span className="price">{formatPrice(item.price)}</span>
+                )}
+                {(variant === 'hot' || variant === 'default') && (
+                  <div className="stats">
+                    <span className="stats-label">发行份数</span>
+                    <span className="stats-value">{item.total || item.issueCount}</span>
+                  </div>
+                )}
+              </div>
+            </>
           )}
         </div>
       </div>

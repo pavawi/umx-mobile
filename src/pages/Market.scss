@@ -1,226 +1,276 @@
 .market-page {
-  background: var(--color-bg-primary);
+  background: var(--color-bg-secondary);
 
-  // 搜索框区域
-  .search-wrapper {
+  // Header 区域 - 匹配设计: Logo + 搜索框 + 通知
+  .page-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    height: 56px;
+    background: var(--color-bg-primary);
+  }
+
+  .header-logo {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--color-primary);
+    flex-shrink: 0;
+  }
+
+  .header-search {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 36px;
+    padding: 0 12px;
+    background: var(--color-bg-tertiary);
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: background var(--duration-fast) var(--ease-out);
+
+    &:active {
+      background: var(--color-border);
+    }
+
+    .search-icon {
+      color: var(--color-text-tertiary);
+      flex-shrink: 0;
+    }
+
+    .search-placeholder {
+      font-size: 13px;
+      color: var(--color-text-tertiary);
+    }
+  }
+
+  .header-notify {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+
+    &:active {
+      opacity: 0.7;
+    }
+  }
+
+  // 搜索模式下的头部
+  .search-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+
+    .search-input-wrapper {
+      flex: 1;
+    }
+
+    .cancel-btn {
+      flex-shrink: 0;
+      padding: 8px 0;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      background: none;
+      border: none;
+      cursor: pointer;
+
+      &:active {
+        color: var(--color-text-primary);
+      }
+    }
+  }
+
+  // 筛选区域 - 匹配设计: 胶囊按钮样式
+  .filter-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     padding: 12px 16px;
     background: var(--color-bg-primary);
   }
 
-  // 排序选项区域
-  .sort-section {
-    padding: 0 16px 12px;
-    background: var(--color-bg-primary);
-
-    .sort-tabs {
-      display: flex;
-      gap: 16px;
-
-      .sort-btn {
-        font-size: 14px;
-        font-weight: 500;
-        color: var(--color-text-placeholder);
-        padding: 6px 12px;
-        border-radius: var(--radius-full);
-        transition: all var(--duration-fast) var(--ease-out);
-
-        &.is-active {
-          color: var(--color-text-primary);
-          background: var(--color-primary);
-          color: var(--color-text-inverse);
-        }
-      }
-    }
-  }
-
-  // 来源选择器 + 分类筛选
-  .filter-row {
+  // 通用筛选选择器样式（来源/年份）
+  .filter-selector {
+    position: relative;
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 0 16px 12px;
-    background: var(--color-bg-primary);
+    gap: 6px;
+    flex-shrink: 0;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    background: rgba(212, 175, 55, 0.08);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all var(--duration-fast) var(--ease-out);
 
-    .source-selector {
-      position: relative;
+    .selector-icon {
+      color: var(--color-primary);
       flex-shrink: 0;
-
-      .source-btn {
-        display: flex;
-        align-items: center;
-        gap: 4px;
-        padding: 6px 10px;
-        background: var(--color-bg-primary);
-        border: 1px solid var(--color-border);
-        border-radius: var(--radius-full);
-        font-size: 12px;
-        font-weight: 500;
-        color: var(--color-text-primary);
-        white-space: nowrap;
-        transition: all var(--duration-fast) var(--ease-out);
-
-        &:active {
-          background: var(--color-bg-tertiary);
-        }
-
-        .dropdown-arrow {
-          color: var(--color-text-tertiary);
-          transition: transform var(--duration-fast) var(--ease-out);
-
-          &.is-open {
-            transform: rotate(180deg);
-          }
-        }
-      }
-
-      .source-dropdown {
-        position: absolute;
-        top: calc(100% + 4px);
-        left: 0;
-        min-width: 140px;
-        background: var(--color-bg-primary);
-        border: 1px solid var(--color-border);
-        border-radius: var(--radius-md);
-        box-shadow: var(--shadow-lg);
-        z-index: 100;
-        overflow: hidden;
-
-        .source-option {
-          padding: 10px 14px;
-          font-size: 13px;
-          color: var(--color-text-primary);
-          cursor: pointer;
-          transition: background var(--duration-fast) var(--ease-out);
-
-          &:active,
-          &.is-active {
-            background: var(--color-primary-bg);
-            color: var(--color-primary);
-          }
-
-          &.is-active {
-            font-weight: 600;
-          }
-        }
-      }
     }
 
-    .category-tabs {
-      flex: 1;
-      min-width: 0;
-      overflow: hidden;
+    .selector-arrow {
+      color: var(--color-primary);
+      flex-shrink: 0;
+      transition: transform var(--duration-fast) var(--ease-out);
+    }
+
+    &.open .selector-arrow {
+      transform: rotate(180deg);
+    }
+
+    &:active {
+      background: rgba(212, 175, 55, 0.15);
     }
   }
 
-  // 年份筛选标签
-  .year-filter-section {
-    padding: 0 16px 16px;
+  // 筛选下拉菜单
+  .filter-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    min-width: 140px;
+    padding: 8px 0;
     background: var(--color-bg-primary);
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+    border-radius: 12px;
+    box-shadow: var(--shadow-lg);
+    z-index: 100;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: all var(--duration-fast) var(--ease-out);
 
-    &::-webkit-scrollbar {
-      display: none;
+    &.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
     }
 
-    .year-pills {
+    .dropdown-item {
       display: flex;
-      gap: 8px;
+      align-items: center;
+      padding: 10px 16px;
+      font-size: 14px;
+      color: var(--color-text-primary);
+      cursor: pointer;
+      transition: background var(--duration-fast) var(--ease-out);
 
-      .year-pill {
-        flex-shrink: 0;
-        padding: 6px 14px;
-        font-size: 12px;
-        font-weight: 500;
-        color: var(--color-text-secondary);
-        background: var(--color-bg-primary);
-        border: 1px solid var(--color-border);
-        border-radius: var(--radius-full);
-        white-space: nowrap;
-        transition: all var(--duration-fast) var(--ease-out);
+      &:active,
+      &.active {
+        background: rgba(212, 175, 55, 0.1);
+        color: var(--color-primary);
+      }
+    }
+  }
 
-        &:active {
-          background: var(--color-bg-tertiary);
+  // 排序筛选栏 - 匹配设计: 时间/价格排序
+  .sort-filter-bar {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 10px 16px;
+    background: var(--color-bg-primary);
+
+    .sort-item {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      cursor: pointer;
+      transition: opacity var(--duration-fast) var(--ease-out);
+
+      &:active {
+        opacity: 0.7;
+      }
+
+      .sort-label {
+        font-size: 13px;
+        font-weight: 400;
+        color: var(--color-text-tertiary);
+        transition: color var(--duration-fast) var(--ease-out);
+      }
+
+      .sort-arrows {
+        display: flex;
+        flex-direction: column;
+        margin-top: -2px;
+
+        .arrow-icon {
+          color: var(--color-text-tertiary);
+          transition: color var(--duration-fast) var(--ease-out);
+          margin: -3px 0;
+        }
+      }
+
+      // 选中状态：文字变黑加粗，对应方向的箭头高亮
+      &.active {
+        .sort-label {
+          color: var(--color-text-primary);
+          font-weight: 500;
         }
 
-        &.is-active {
-          color: var(--color-text-primary);
-          background: var(--color-bg-tertiary);
-          border-color: var(--color-text-secondary);
+        .sort-arrows .arrow-icon.active {
+          color: var(--color-primary);
         }
       }
     }
   }
 
-  // 藏品列表
+  // 瀑布流网格布局 - 匹配设计: 两列不等高
   .collection-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+    column-count: 2;
+    column-gap: 10px;
     padding: 0 16px 16px;
-    background: var(--color-bg-secondary);
+
+    .collection-card-wrapper {
+      break-inside: avoid;
+      margin-bottom: 10px;
+    }
   }
 }
 
 // ========== iPad 响应式 ==========
 @media (min-width: 768px) {
   .market-page {
-    .search-wrapper {
-      padding: 16px 24px;
+    .page-header {
+      padding: 12px 24px;
     }
 
-    .sort-section {
-      padding: 0 24px 16px;
-
-      .sort-tabs {
-        gap: 20px;
-
-        .sort-btn {
-          font-size: 14px;
-          padding: 8px 16px;
-        }
-      }
+    .header-logo {
+      font-size: 24px;
     }
 
-    .filter-row {
-      padding: 0 24px 16px;
+    .filter-section {
+      padding: 12px 24px;
       gap: 12px;
+    }
 
-      .source-selector {
-        .source-btn {
-          padding: 8px 14px;
-          font-size: 13px;
-        }
+    .sort-filter-bar {
+      padding: 12px 24px;
+      gap: 24px;
 
-        .source-dropdown {
-          min-width: 160px;
-
-          .source-option {
-            padding: 12px 16px;
-            font-size: 14px;
-          }
-        }
+      .sort-item .sort-label {
+        font-size: 14px;
       }
     }
 
-    .year-filter-section {
-      padding: 0 24px 20px;
-
-      .year-pills {
-        gap: 10px;
-
-        .year-pill {
-          padding: 8px 18px;
-          font-size: 13px;
-        }
-      }
-    }
-
-    // iPad 上显示 3 列
+    // iPad 上显示 3 列瀑布流
     .collection-grid {
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
+      column-count: 3;
+      column-gap: 16px;
       padding: 0 24px 20px;
+
+      .collection-card-wrapper {
+        margin-bottom: 16px;
+      }
     }
   }
 }
@@ -228,75 +278,35 @@
 // ========== 桌面响应式 ==========
 @media (min-width: 1024px) {
   .market-page {
-    .search-wrapper {
-      max-width: var(--container-max-width);
-      margin: 0 auto;
-      padding: 20px 32px;
-    }
-
-    .sort-section {
-      max-width: var(--container-max-width);
-      margin: 0 auto;
-      padding: 0 32px 20px;
-    }
-
-    .filter-row {
-      max-width: var(--container-max-width);
-      margin: 0 auto;
-      padding: 0 32px 20px;
-    }
-
-    .year-filter-section {
-      max-width: var(--container-max-width);
-      margin: 0 auto;
-      padding: 0 32px 24px;
-    }
-
-    // 桌面上显示 4 列
+    // 桌面上显示 4 列瀑布流
     .collection-grid {
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
+      column-count: 4;
+      column-gap: 20px;
       padding: 0 32px 24px;
       max-width: var(--container-max-width);
       margin: 0 auto;
-    }
-  }
-}
 
-// ========== 深色模式 ==========
-@media (prefers-color-scheme: dark) {
-  .market-page {
-    background: var(--color-bg-primary);
-
-    .sort-section .sort-tabs .sort-btn {
-      &:not(.is-active) {
-        color: var(--color-text-tertiary);
+      .collection-card-wrapper {
+        margin-bottom: 20px;
       }
     }
 
-    .filter-row .source-selector {
-      .source-btn {
-        background: var(--color-bg-secondary);
-        border-color: var(--color-border);
-      }
-
-      .source-dropdown {
-        background: var(--color-bg-secondary);
-        border-color: var(--color-border);
-      }
+    .page-header {
+      max-width: var(--container-max-width);
+      margin: 0 auto;
+      padding: 12px 32px;
     }
 
-    .year-filter-section .year-pills .year-pill {
-      background: var(--color-bg-secondary);
-      border-color: var(--color-border);
-
-      &.is-active {
-        background: var(--color-bg-tertiary);
-      }
+    .filter-section {
+      max-width: var(--container-max-width);
+      margin: 0 auto;
+      padding: 12px 32px;
     }
 
-    .collection-grid {
-      background: var(--color-bg-primary);
+    .sort-filter-bar {
+      max-width: var(--container-max-width);
+      margin: 0 auto;
+      padding: 12px 32px;
     }
   }
 }

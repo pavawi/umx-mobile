@@ -1,26 +1,27 @@
 import { useState, useMemo, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import USearch from '../components/base/USearch';
-import UFilterTabs from '../components/base/UFilterTabs';
 import CollectionCard from '../components/business/CollectionCard';
 import CollectionListItem from '../components/business/CollectionListItem';
-import { IconSearch, IconFilter, IconSortDown, IconSortUp, IconAdd, IconBack, IconCheckCircle } from '../components/base/Icons';
+import { IconSearch, IconFilter, IconSortDown, IconSortUp, IconAdd, IconBack, IconCheckCircle, IconBell, IconHeart, IconCategory, IconChevronDown, IconChevronUp } from '../components/base/Icons';
 import useDebouncedValue from '../hooks/useDebouncedValue';
 import useSearchHistory from '../hooks/useSearchHistory';
-import { hotCategories, hotCollections, searchHistory as defaultHistory, myFollowList } from '../mock/data';
+import { hotCollections, searchHistory as defaultHistory, myFollowList } from '../mock/data';
 import './Hot.scss';
 
-// 顶部Tab选项
-const topTabs = [
-  { value: 'shoufa', label: '首发' },
-  { value: 'jishou', label: '寄售' },
+// 排序选项 - 匹配设计: 时间/价格
+const sortOptions = [
+  { value: 'time', label: '时间' },
+  { value: 'price', label: '价格' },
 ];
 
-// 排序选项
-const sortOptions = [
-  { value: 'hot', label: '热门' },
-  { value: 'price_asc', label: '价格' },
-  { value: 'onsale', label: '在售排序' },
+// 分区选项
+const categoryOptions = [
+  { value: 'all', label: '全部分区' },
+  { value: 'art', label: '艺术品' },
+  { value: 'music', label: '音乐' },
+  { value: 'game', label: '游戏' },
+  { value: 'sports', label: '体育' },
 ];
 
 // 模糊搜索函数 - 支持拼音首字母和中文
@@ -44,11 +45,12 @@ function fuzzyMatch(text, keyword) {
 
 export default function Hot() {
   const [searchKeyword, setSearchKeyword] = useState('');
-  const [activeCategory, setActiveCategory] = useState('all');
-  const [activeSort, setActiveSort] = useState('hot');
+  const [activeSort, setActiveSort] = useState('time');
+  const [sortDirection, setSortDirection] = useState({ time: 'desc', price: 'desc' });
   const [isSearching, setIsSearching] = useState(false);
-  const [activeTopTab, setActiveTopTab] = useState('shoufa');
   const [showMyFollow, setShowMyFollow] = useState(false);
+  const [activeCategory, setActiveCategory] = useState('all');
+  const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
   const navigate = useNavigate();
 
   // 搜索防抖
@@ -86,25 +88,37 @@ export default function Hot() {
     setShowMyFollow(!showMyFollow);
   };
 
-  // 分类筛选
-  const categoryFilteredCollections = useMemo(() => {
-    if (activeCategory === 'all') return hotCollections;
-    return hotCollections.filter((_, index) => index % 2 === (activeCategory === 'ushare' ? 0 : 1));
-  }, [activeCategory]);
+  const handleSortClick = (sortKey) => {
+    if (activeSort === sortKey) {
+      // 切换排序方向
+      setSortDirection(prev => ({
+        ...prev,
+        [sortKey]: prev[sortKey] === 'desc' ? 'asc' : 'desc'
+      }));
+    } else {
+      setActiveSort(sortKey);
+    }
+  };
 
   // 排序后的藏品列表
   const sortedCollections = useMemo(() => {
-    let sorted = [...categoryFilteredCollections];
+    let sorted = [...hotCollections];
 
-    if (activeSort === 'price_asc') {
-      sorted.sort((a, b) => (a.price || 0) - (b.price || 0));
-    } else if (activeSort === 'onsale') {
-      sorted.sort((a, b) => (b.onSale || 0) - (a.onSale || 0));
+    if (activeSort === 'price') {
+      sorted.sort((a, b) => {
+        const diff = (a.price || 0) - (b.price || 0);
+        return sortDirection.price === 'asc' ? diff : -diff;
+      });
+    } else if (activeSort === 'time') {
+      // 模拟时间排序（使用 id 作为时间代理）
+      sorted.sort((a, b) => {
+        const diff = a.id - b.id;
+        return sortDirection.time === 'asc' ? diff : -diff;
+      });
     }
-    // 默认热门排序按在售数量
 
     return sorted;
-  }, [categoryFilteredCollections, activeSort]);
+  }, [activeSort, sortDirection]);
 
   // 搜索过滤（使用防抖后的关键词）
   const searchResults = useMemo(() => {
@@ -131,7 +145,7 @@ export default function Hot() {
 
   return (
     <div className="page-container hot-page">
-      {/* 顶部导航：首发/寄售 Tab 或 搜索框 */}
+      {/* Header: Logo + 搜索框 + 通知 */}
       <div className="page-header">
         {showSearchResults ? (
           <div className="search-header">
@@ -153,30 +167,20 @@ export default function Hot() {
           </div>
         ) : (
           <>
-            {/* 首发/寄售 Tab切换 - 点击变为搜索框 */}
-            <div className="top-tabs-wrapper">
-              <div className="top-tabs">
-                {topTabs.map((tab) => (
-                  <button
-                    key={tab.value}
-                    className={`top-tab ${activeTopTab === tab.value ? 'active' : ''}`}
-                    onClick={() => setActiveTopTab(tab.value)}
-                  >
-                    {tab.label}
-                  </button>
-                ))}
-              </div>
-              {/* 搜索图标 - 点击展开搜索框 */}
-              <div
-                className="search-trigger"
-                onClick={() => setIsSearching(true)}
-                onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && setIsSearching(true)}
-                role="button"
-                tabIndex={0}
-                aria-label="打开搜索"
-              >
-                <IconSearch size={20} />
-              </div>
+            <div className="header-logo">UMX</div>
+            <div
+              className="header-search"
+              onClick={() => setIsSearching(true)}
+              onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && setIsSearching(true)}
+              role="button"
+              tabIndex={0}
+              aria-label="打开搜索"
+            >
+              <IconSearch size={16} className="search-icon" />
+              <span className="search-placeholder">搜索藏品、艺术家</span>
+            </div>
+            <div className="header-notify">
+              <IconBell size={22} />
             </div>
           </>
         )}
@@ -264,52 +268,76 @@ export default function Hot() {
           </div>
         </div>
       ) : (
-        /* 默认网格视图 */
+        /* 默认视图 */
         <>
-          {/* 分类筛选 - 左侧增加我的关注入口 */}
+          {/* 筛选区域 - 我的关注 + 分区选择器 */}
           <div className="filter-section">
-            <div className="filter-row">
-              <button className="my-follow-btn" onClick={handleMyFollowClick}>
-                <IconAdd size={14} />
-                <span>我的关注</span>
-              </button>
-              <div className="filter-tabs-wrapper">
-                <UFilterTabs
-                  tabs={hotCategories}
-                  value={activeCategory}
-                  onChange={setActiveCategory}
-                />
-              </div>
+            <button className="my-follow-btn" onClick={handleMyFollowClick}>
+              <IconHeart size={16} className="btn-icon" filled />
+              <span>我的关注</span>
+            </button>
+            <div className={`category-selector ${showCategoryDropdown ? 'open' : ''}`}>
+              <IconCategory size={16} className="selector-icon" />
+              <span onClick={() => setShowCategoryDropdown(!showCategoryDropdown)}>
+                {categoryOptions.find(c => c.value === activeCategory)?.label}
+              </span>
+              <IconChevronDown size={18} className="selector-arrow" onClick={() => setShowCategoryDropdown(!showCategoryDropdown)} />
+              {showCategoryDropdown && (
+                <div className="category-dropdown show">
+                  {categoryOptions.map((cat) => (
+                    <div
+                      key={cat.value}
+                      className={`dropdown-item ${activeCategory === cat.value ? 'active' : ''}`}
+                      onClick={() => {
+                        setActiveCategory(cat.value);
+                        setShowCategoryDropdown(false);
+                      }}
+                    >
+                      {cat.label}
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
 
-          {/* 排序筛选栏 - 新增 */}
+          {/* 排序栏 - 时间/价格 */}
           <div className="sort-filter-bar">
-            <div className="sort-options">
-              {sortOptions.map((option) => (
-                <button
-                  key={option.value}
-                  className={`sort-btn ${activeSort === option.value ? 'active' : ''}`}
-                  onClick={() => setActiveSort(option.value)}
-                >
-                  {option.label}
-                  {option.value === 'price_asc' && (
-                    <IconSortUp size={12} className="sort-icon" />
-                  )}
-                </button>
-              ))}
-            </div>
+            {sortOptions.map((option) => (
+              <div
+                key={option.value}
+                className={`sort-item ${activeSort === option.value ? 'active' : ''}`}
+                onClick={() => handleSortClick(option.value)}
+                onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && handleSortClick(option.value)}
+                role="button"
+                tabIndex={0}
+              >
+                <span className="sort-label">{option.label}</span>
+                <div className="sort-arrows">
+                  <IconChevronUp
+                    size={12}
+                    className={`arrow-icon ${activeSort === option.value && sortDirection[option.value] === 'asc' ? 'active' : ''}`}
+                  />
+                  <IconChevronDown
+                    size={12}
+                    className={`arrow-icon ${activeSort === option.value && sortDirection[option.value] === 'desc' ? 'active' : ''}`}
+                  />
+                </div>
+              </div>
+            ))}
           </div>
 
-          {/* 藏品列表 */}
+          {/* 瀑布流藏品列表 */}
           <div className="collection-grid">
             {sortedCollections.map((item) => (
-              <CollectionCard
-                key={item.id}
-                item={item}
-                variant="hot"
-                onClick={handleCardClick}
-              />
+              <div key={item.id} className="collection-card-wrapper">
+                <CollectionCard
+                  item={item}
+                  variant="hot"
+                  showPrice={true}
+                  onClick={handleCardClick}
+                />
+              </div>
             ))}
           </div>
         </>

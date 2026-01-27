@@ -1,136 +1,432 @@
 .profile-page {
   background: var(--color-bg-secondary);
   min-height: 100vh;
+  padding: 16px;
   padding-bottom: calc(var(--tab-bar-height) + var(--safe-area-bottom) + 20px);
 
-  // 功能菜单组
-  .menu-group {
-    margin: 0 16px 16px;
+  // ========== 用户卡片 ==========
+  .user-card {
     background: var(--color-bg-primary);
-    border-radius: var(--radius-lg);
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 12px;
     box-shadow: var(--shadow-card);
-    overflow: hidden;
 
-    .group-title {
-      padding: 16px 20px 8px;
+    // 用户头部：头像 + 信息
+    .user-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    // 头像容器 - 金色边框
+    .avatar-wrapper {
+      flex-shrink: 0;
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      padding: 3px;
+      background: linear-gradient(135deg, #D4AF37 0%, #F4E4BC 50%, #D4AF37 100%);
+      box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+    }
+
+    .avatar {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      background: var(--color-bg-tertiary);
+    }
+
+    // 用户信息
+    .user-meta {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .name-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .user-name {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--color-text-primary);
+    }
+
+    // 已实名授权徽章 - 渐变金色
+    .verified-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 8px;
+      font-size: 10px;
+      font-weight: 600;
+      color: #FFFFFF;
+      background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%);
+      border-radius: 4px;
+      box-shadow: 0 2px 4px rgba(212, 175, 55, 0.3);
+    }
+
+    // UID行
+    .uid-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .uid-text {
+      font-size: 13px;
+      color: var(--color-text-tertiary);
+    }
+
+    // 复制按钮
+    .copy-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      padding: 0;
+      border: none;
+      background: transparent;
+      color: var(--color-text-tertiary);
+      cursor: pointer;
+      border-radius: 4px;
+      transition: all var(--duration-fast) var(--ease-out);
+
+      &:active {
+        background: var(--color-bg-tertiary);
+        color: var(--color-primary);
+      }
+    }
+
+    // 数字身份地址
+    .chain-address {
+      margin-bottom: 16px;
+    }
+
+    .address-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .address-text {
+      font-size: 13px;
+      color: var(--color-text-tertiary);
+    }
+
+    // 资产估值区域
+    .asset-section {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.06) 0%, rgba(212, 175, 55, 0.02) 100%);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .asset-header {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-bottom: 8px;
+    }
+
+    .asset-label {
+      font-size: 13px;
+      color: var(--color-text-tertiary);
+    }
+
+    .asset-value {
+      display: flex;
+      align-items: baseline;
+      gap: 2px;
+    }
+
+    .currency {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--color-primary);
+    }
+
+    .amount {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--color-primary);
+      letter-spacing: -0.5px;
+    }
+  }
+
+  // ========== 邀请好友卡片 ==========
+  .invite-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+    border-radius: 16px;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+
+    .invite-icon {
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+    }
+
+    .invite-text {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .invite-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #FFFFFF;
+    }
+
+    .invite-desc {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    .invite-btn {
+      flex-shrink: 0;
+      padding: 8px 16px;
       font-size: 13px;
       font-weight: 600;
-      color: var(--color-text-secondary);
-      letter-spacing: 0.5px;
+      color: #D97706;
+      background: #FFFFFF;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all var(--duration-fast) var(--ease-out);
+
+      &:active {
+        transform: scale(0.95);
+        opacity: 0.9;
+      }
     }
+  }
+
+  // ========== 功能菜单组 ==========
+  .menu-group {
+    background: var(--color-bg-primary);
+    border-radius: 16px;
+    margin-bottom: 12px;
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
 
     .menu-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      padding: 12px 8px 20px;
+      padding: 16px 8px;
       gap: 4px;
+    }
 
-      .menu-item {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 6px;
-        padding: 12px 8px;
-        cursor: pointer;
-        border-radius: var(--radius-md);
-        transition: all var(--duration-fast) var(--ease-out);
+    .menu-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 4px;
+      cursor: pointer;
+      border-radius: var(--radius-md);
+      transition: all var(--duration-fast) var(--ease-out);
 
-        &:active {
-          background: var(--color-bg-tertiary);
-          transform: scale(0.95);
-        }
+      &:active {
+        background: var(--color-bg-tertiary);
+        transform: scale(0.95);
+      }
 
-        .menu-icon {
-          width: 48px;
-          height: 48px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background: var(--color-bg-tertiary);
-          border-radius: var(--radius-md);
-          color: var(--color-text-secondary);
-          transition: all var(--duration-fast) var(--ease-out);
-
-          svg {
-            width: 24px;
-            height: 24px;
-          }
-        }
-
-        &:active .menu-icon {
-          color: var(--color-text-primary);
-        }
-
-        .menu-label {
-          font-size: 12px;
-          font-weight: 500;
-          color: var(--color-text-primary);
-          text-align: center;
-          line-height: 1.3;
-        }
+      &.placeholder {
+        visibility: hidden;
+        pointer-events: none;
       }
     }
-  }
 
-  // 设置区域
-  .settings-section {
-    margin: 0 16px 16px;
-    padding: 16px 20px;
-    background: var(--color-bg-primary);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-card);
+    // 图标容器 - 白色填充 + 灰色边框
+    .icon-wrap {
+      width: 52px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #FFFFFF;
+      border: 1px solid var(--color-border);
+      border-radius: 14px;
+      transition: all var(--duration-fast) var(--ease-out);
 
-    .settings-title {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--color-text-primary);
-      margin-bottom: 16px;
+      svg {
+        width: 24px;
+        height: 24px;
+      }
     }
 
-    .settings-item {
-      // ThemeToggle 组件样式会自动适配
+    .menu-item:active .icon-wrap {
+      border-color: var(--color-primary);
+      box-shadow: 0 2px 8px rgba(212, 175, 55, 0.15);
+    }
+
+    .menu-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--color-text-primary);
+      text-align: center;
+      line-height: 1.3;
     }
   }
 }
 
-// iPad 响应式
+// ========== iPad 响应式 ==========
 @media (min-width: 768px) {
   .profile-page {
-    .menu-group {
-      margin: 0 24px 20px;
+    padding: 20px 24px;
+    padding-bottom: calc(var(--tab-bar-height) + var(--safe-area-bottom) + 24px);
 
-      .menu-grid {
-        padding: 16px 12px 24px;
-        gap: 8px;
+    .user-card {
+      padding: 24px;
+      margin-bottom: 16px;
+      border-radius: 24px;
 
-        .menu-item {
-          padding: 16px 12px;
-          gap: 8px;
+      .avatar-wrapper {
+        width: 80px;
+        height: 80px;
+        padding: 4px;
+      }
 
-          .menu-icon {
-            width: 56px;
-            height: 56px;
+      .user-header {
+        gap: 18px;
+        margin-bottom: 20px;
+      }
 
-            svg {
-              width: 28px;
-              height: 28px;
-            }
-          }
+      .user-name {
+        font-size: 22px;
+      }
 
-          .menu-label {
-            font-size: 14px;
-          }
-        }
+      .verified-badge {
+        font-size: 11px;
+        padding: 4px 10px;
+      }
+
+      .uid-text,
+      .address-text {
+        font-size: 14px;
+      }
+
+      .asset-section {
+        padding: 20px;
+      }
+
+      .asset-label {
+        font-size: 14px;
+      }
+
+      .currency {
+        font-size: 22px;
+      }
+
+      .amount {
+        font-size: 34px;
       }
     }
 
-    .settings-section {
-      margin: 0 24px 20px;
+    .invite-card {
       padding: 20px 24px;
+      margin-bottom: 16px;
+      gap: 16px;
 
-      .settings-title {
-        font-size: 16px;
-        margin-bottom: 20px;
+      .invite-icon {
+        width: 56px;
+        height: 56px;
+
+        svg {
+          width: 36px;
+          height: 36px;
+        }
+      }
+
+      .invite-title {
+        font-size: 18px;
+      }
+
+      .invite-desc {
+        font-size: 14px;
+      }
+
+      .invite-btn {
+        padding: 10px 20px;
+        font-size: 14px;
+      }
+    }
+
+    .menu-group {
+      margin-bottom: 16px;
+
+      .menu-grid {
+        padding: 20px 12px;
+        gap: 8px;
+      }
+
+      .menu-item {
+        padding: 16px 8px;
+        gap: 10px;
+      }
+
+      .icon-wrap {
+        width: 60px;
+        height: 60px;
+        border-radius: 16px;
+
+        svg {
+          width: 28px;
+          height: 28px;
+        }
+      }
+
+      .menu-label {
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+// ========== 桌面响应式 ==========
+@media (min-width: 1024px) {
+  .profile-page {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding: 24px 32px;
+
+    .user-card,
+    .invite-card,
+    .menu-group {
+      transition: transform var(--duration-fast) var(--ease-out),
+                  box-shadow var(--duration-fast) var(--ease-out);
+    }
+
+    @media (hover: hover) {
+      .invite-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(245, 158, 11, 0.4);
+      }
+
+      .menu-group .menu-item:hover {
+        background: var(--color-bg-tertiary);
+
+        .icon-wrap {
+          border-color: var(--color-primary);
+          box-shadow: 0 2px 8px rgba(212, 175, 55, 0.15);
+        }
       }
     }
   }

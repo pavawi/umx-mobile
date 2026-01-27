@@ -63,13 +63,14 @@ export default function Home() {
 
       {/* 藏品区域 */}
       <div className="collection-section">
-        {/* Tab切换 */}
+        {/* Tab切换 - 使用下划线样式 */}
         <div className="home-tabs">
           <UFilterTabs
             tabs={homeTabs}
             value={activeTab}
             onChange={setActiveTab}
             scrollable={false}
+            variant="underline"
           />
         </div>
       </div>
