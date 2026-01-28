@@ -70,7 +70,6 @@ function CollectionCard({
           </div>
         )}
 
-{/* 类型标签已移除 - 不再显示稀有/合成等标签 */}
         <LazyImage
           src={item.image}
           alt={item.name}
@@ -111,12 +110,7 @@ function CollectionCard({
             </>
           ) : (
             <>
-              {/* 默认模式: 类型标签 + 发行份数 */}
-              <div className="collection-card__left">
-                {(item.typeLabel || item.type) && (
-                  <span className="type-label">{item.typeLabel || item.type}</span>
-                )}
-              </div>
+              {/* 默认模式: 发行份数 */}
               <div className="collection-card__right">
                 {variant === 'market' && item.price !== undefined && (
                   <span className="price">{formatPrice(item.price)}</span>
