@@ -12,12 +12,35 @@
     margin-bottom: 12px;
     box-shadow: var(--shadow-card);
 
-    // 用户头部：头像 + 信息
+    // 用户头部：头像 + 信息 + 设置按钮
     .user-header {
       display: flex;
       align-items: center;
       gap: 14px;
       margin-bottom: 16px;
+    }
+
+    // 设置按钮
+    .settings-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
+      align-self: flex-start;
+      padding: 0;
+      border: none;
+      background: transparent;
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      border-radius: 8px;
+      transition: all var(--duration-fast) var(--ease-out);
+
+      &:active {
+        background: var(--color-bg-tertiary);
+        color: var(--color-text-primary);
+      }
     }
 
     // 头像容器 - 金色边框
