@@ -592,12 +592,12 @@ export const marketCollections = [
   },
 ];
 
-// 首页藏品 - 简洁版
+// 首页藏品 - 简洁版（含创作者信息）
 export const homeCollections = [
-  { id: '8acb83269bcf72c6019be8bddc026c0e', name: '勇往直前', image: 'https://oss.umxverse.com/image/origin/P7zyGM3SKdJ6EmxSY6w.png', imageRatio: '1:1', total: 1800, description: '许力《勇往直前》绢本综合材料', blockchain: 'BSN', contractAddress: '(售卖结束后上链)', tokenId: 'U00P463' },
-  { id: '8acb83259bcf72c6019be466c0e8671a', name: '街角', image: 'https://oss.umxverse.com/image/origin/GibS3EtQrWnK52zmCsD.png', imageRatio: '1:1', total: 1505, description: '许力《街角》布面油画', blockchain: 'BSN', contractAddress: '106701', tokenId: 'U00P461' },
-  { id: '8acb83269bcf72c6019be489ae7a7eab', name: '棋盘人生', image: 'https://oss.umxverse.com/image/origin/BKKYAj8Dhk6Kj4Y784N.jpg', imageRatio: '4:3', total: 3520, description: '陈培芳《棋盘人生》布面油画', blockchain: 'BSN', contractAddress: '106702', tokenId: 'U00P462' },
-  { id: '8acb83259bcf72c6019bdefb76506fe4', name: '气息', image: 'https://oss.umxverse.com/image/origin/kGY22AYNX63Thn7jG5J.jpg', imageRatio: '4:3', total: 3000, description: '胡山山《气息》布面油画', blockchain: 'BSN', contractAddress: '106700', tokenId: 'U00P460' },
+  { id: '8acb83269bcf72c6019be8bddc026c0e', name: '勇往直前', image: 'https://oss.umxverse.com/image/origin/P7zyGM3SKdJ6EmxSY6w.png', imageRatio: '1:1', creator: '许力', creatorAvatar: 'https://oss.umxverse.com/image/origin/WGHR24PZDtHHJtbRxj2.png', total: 1800, description: '许力《勇往直前》绢本综合材料', blockchain: 'BSN', contractAddress: '(售卖结束后上链)', tokenId: 'U00P463' },
+  { id: '8acb83259bcf72c6019be466c0e8671a', name: '街角', image: 'https://oss.umxverse.com/image/origin/GibS3EtQrWnK52zmCsD.png', imageRatio: '1:1', creator: '许力', creatorAvatar: 'https://oss.umxverse.com/image/origin/WGHR24PZDtHHJtbRxj2.png', total: 1505, description: '许力《街角》布面油画', blockchain: 'BSN', contractAddress: '106701', tokenId: 'U00P461' },
+  { id: '8acb83269bcf72c6019be489ae7a7eab', name: '棋盘人生', image: 'https://oss.umxverse.com/image/origin/BKKYAj8Dhk6Kj4Y784N.jpg', imageRatio: '4:3', creator: '陈培芳', creatorAvatar: 'https://oss.umxverse.com/image/origin/WGHR24PZDtHHJtbRxj2.png', total: 3520, description: '陈培芳《棋盘人生》布面油画', blockchain: 'BSN', contractAddress: '106702', tokenId: 'U00P462' },
+  { id: '8acb83259bcf72c6019bdefb76506fe4', name: '气息', image: 'https://oss.umxverse.com/image/origin/kGY22AYNX63Thn7jG5J.jpg', imageRatio: '4:3', creator: '胡山山', creatorAvatar: 'https://oss.umxverse.com/image/origin/WGHR24PZDtHHJtbRxj2.png', total: 3000, description: '胡山山《气息》布面油画', blockchain: 'BSN', contractAddress: '106700', tokenId: 'U00P460' },
 ];
 
 // 用户信息

@@ -70,6 +70,13 @@ function CollectionCard({
           </div>
         )}
 
+        {/* 发行方式标签（右上角） */}
+        {item.typeLabel && (
+          <div className={`collection-card__type-tag type-tag--${item.saleType || 'default'}`}>
+            {item.typeLabel}
+          </div>
+        )}
+
         <LazyImage
           src={item.image}
           alt={item.name}

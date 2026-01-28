@@ -269,6 +269,8 @@
 
     .collection-card-wrapper {
       width: 100%;
+      min-width: 0; // 防止内容溢出
+      overflow: hidden;
     }
   }
 
