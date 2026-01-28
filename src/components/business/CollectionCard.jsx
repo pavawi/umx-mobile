@@ -69,6 +69,7 @@ function CollectionCard({
             {statusTextMap[item.status] || ''}
           </div>
         )}
+
         <LazyImage
           src={item.image}
           alt={item.name}
