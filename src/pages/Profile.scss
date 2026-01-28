@@ -4,23 +4,20 @@
   padding: 16px;
   padding-bottom: calc(var(--tab-bar-height) + var(--safe-area-bottom) + 20px);
 
-  // ========== 用户卡片 ==========
+  // ========== 用户信息卡片 ==========
   .user-card {
     background: var(--color-bg-primary);
-    border-radius: 20px;
+    border-radius: 16px;
     padding: 20px;
     margin-bottom: 12px;
     box-shadow: var(--shadow-card);
 
-    // 用户头部：头像 + 信息 + 设置按钮
     .user-header {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 14px;
-      margin-bottom: 16px;
     }
 
-    // 设置按钮
     .settings-btn {
       display: flex;
       align-items: center;
@@ -28,7 +25,6 @@
       width: 40px;
       height: 40px;
       flex-shrink: 0;
-      align-self: flex-start;
       padding: 0;
       border: none;
       background: transparent;
@@ -43,7 +39,6 @@
       }
     }
 
-    // 头像容器 - 金色边框
     .avatar-wrapper {
       flex-shrink: 0;
       width: 64px;
@@ -62,7 +57,6 @@
       background: var(--color-bg-tertiary);
     }
 
-    // 用户信息
     .user-meta {
       flex: 1;
       min-width: 0;
@@ -81,7 +75,6 @@
       color: var(--color-text-primary);
     }
 
-    // 已实名授权徽章 - 渐变金色
     .verified-badge {
       display: inline-flex;
       align-items: center;
@@ -94,7 +87,6 @@
       box-shadow: 0 2px 4px rgba(212, 175, 55, 0.3);
     }
 
-    // UID行
     .uid-row {
       display: flex;
       align-items: center;
@@ -104,9 +96,9 @@
     .uid-text {
       font-size: 13px;
       color: var(--color-text-tertiary);
+      white-space: nowrap;
     }
 
-    // 复制按钮
     .copy-btn {
       display: flex;
       align-items: center;
@@ -127,28 +119,35 @@
       }
     }
 
-    // 数字身份地址
+    // 数字身份地址 - 单独一行
     .chain-address {
-      margin-bottom: 16px;
-    }
-
-    .address-row {
       display: flex;
       align-items: center;
       gap: 6px;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--color-border);
     }
 
-    .address-text {
+    .address-label {
+      font-size: 13px;
+      color: var(--color-text-tertiary);
+      flex-shrink: 0;
+    }
+
+    .address-value {
       font-size: 13px;
       color: var(--color-text-tertiary);
     }
+  }
 
-    // 资产估值区域
-    .asset-section {
-      background: linear-gradient(135deg, rgba(212, 175, 55, 0.06) 0%, rgba(212, 175, 55, 0.02) 100%);
-      border-radius: 12px;
-      padding: 16px;
-    }
+  // ========== 资产估值卡片 ==========
+  .asset-card {
+    background: var(--color-bg-primary);
+    border-radius: 16px;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+    box-shadow: var(--shadow-card);
 
     .asset-header {
       display: flex;
@@ -319,7 +318,7 @@
     .user-card {
       padding: 24px;
       margin-bottom: 16px;
-      border-radius: 24px;
+      border-radius: 20px;
 
       .avatar-wrapper {
         width: 80px;
@@ -329,7 +328,6 @@
 
       .user-header {
         gap: 18px;
-        margin-bottom: 20px;
       }
 
       .user-name {
@@ -345,10 +343,12 @@
       .address-text {
         font-size: 14px;
       }
+    }
 
-      .asset-section {
-        padding: 20px;
-      }
+    .asset-card {
+      padding: 20px 24px;
+      margin-bottom: 16px;
+      border-radius: 20px;
 
       .asset-label {
         font-size: 14px;

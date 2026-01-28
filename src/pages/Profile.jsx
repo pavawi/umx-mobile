@@ -126,9 +126,8 @@ export default function Profile() {
 
   return (
     <div className="page-container profile-page">
-      {/* 用户卡片 - 匹配设计稿 */}
+      {/* 用户信息卡片 */}
       <div className="user-card">
-        {/* 用户头部 */}
         <div className="user-header">
           <div className="avatar-wrapper">
             <img src={userInfo.avatar} alt={userInfo.nickname} className="avatar" />
@@ -158,7 +157,6 @@ export default function Profile() {
               </button>
             </div>
           </div>
-          {/* 设置按钮 */}
           <button className="settings-btn" onClick={() => console.log('Settings clicked')}>
             <svg viewBox="0 0 24 24" width="22" height="22" fill="#6B7280">
               <path d="M19.14 12.94c.04-.31.06-.63.06-.94 0-.31-.02-.63-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.04.31-.06.63-.06.94s.02.63.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/>
@@ -168,37 +166,36 @@ export default function Profile() {
 
         {/* 数字身份地址 */}
         <div className="chain-address">
-          <div className="address-row">
-            <span className="address-text">数字身份：{formatAddress(userInfo.chainAddress)}</span>
-            <button
-              className="copy-btn"
-              onClick={() => copyToClipboard(userInfo.chainAddress, 'address')}
-            >
-              {copiedAddress ? (
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
-                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-                </svg>
-              ) : (
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
-                  <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
-                </svg>
-              )}
-            </button>
-          </div>
+          <span className="address-label">数字身份：</span>
+          <span className="address-value">{formatAddress(userInfo.chainAddress)}</span>
+          <button
+            className="copy-btn"
+            onClick={() => copyToClipboard(userInfo.chainAddress, 'address')}
+          >
+            {copiedAddress ? (
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+            ) : (
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+              </svg>
+            )}
+          </button>
         </div>
+      </div>
 
-        {/* 资产估值 */}
-        <div className="asset-section">
-          <div className="asset-header">
-            <span className="asset-label">资产估值</span>
-            <svg viewBox="0 0 24 24" width="14" height="14" fill="#9CA3AF">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
-            </svg>
-          </div>
-          <div className="asset-value">
-            <span className="currency">¥</span>
-            <span className="amount">{formatAmount(userInfo.assetValue)}</span>
-          </div>
+      {/* 资产估值卡片 - 独立卡片 */}
+      <div className="asset-card">
+        <div className="asset-header">
+          <span className="asset-label">资产估值</span>
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="#9CA3AF">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+          </svg>
+        </div>
+        <div className="asset-value">
+          <span className="currency">¥</span>
+          <span className="amount">{formatAmount(userInfo.assetValue)}</span>
         </div>
       </div>
 
