@@ -236,7 +236,6 @@ export default function Market() {
             <CollectionCard
               item={item}
               variant="market"
-              showPrice={true}
               onClick={handleCardClick}
             />
           </div>

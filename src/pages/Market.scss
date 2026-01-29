@@ -103,7 +103,8 @@
     align-items: center;
     gap: 6px;
     flex-shrink: 0;
-    padding: 8px 14px;
+    height: 36px;
+    padding: 0 14px;
     font-size: 13px;
     font-weight: 500;
     color: var(--color-text-primary);
@@ -112,6 +113,7 @@
     border-radius: 20px;
     cursor: pointer;
     transition: all var(--duration-fast) var(--ease-out);
+    line-height: 1;
 
     .selector-icon {
       color: var(--color-primary);
@@ -172,23 +174,25 @@
     }
   }
 
-  // 排序筛选栏 - 匹配设计: 时间/价格排序
+  // 排序筛选栏 - 统一使用胶囊按钮样式
   .sort-filter-bar {
     display: flex;
     align-items: center;
-    gap: 16px;
-    padding: 10px 16px;
+    gap: 10px;
+    padding: 12px 16px;
     background: var(--color-bg-primary);
 
     .sort-item {
       display: flex;
       align-items: center;
       gap: 4px;
-      padding: 6px 12px;
+      height: 36px;
+      padding: 0 14px;
       border-radius: 20px;
       cursor: pointer;
       transition: all var(--duration-fast) var(--ease-out);
-      background: transparent;
+      background: var(--color-bg-tertiary);
+      border: 1px solid transparent;
 
       &:active {
         opacity: 0.7;
@@ -196,15 +200,14 @@
 
       .sort-label {
         font-size: 13px;
-        font-weight: 400;
-        color: var(--color-text-tertiary);
+        font-weight: 500;
+        color: var(--color-text-secondary);
         transition: all var(--duration-fast) var(--ease-out);
       }
 
       .sort-arrows {
         display: flex;
         flex-direction: column;
-        margin-top: -2px;
 
         .arrow-icon {
           color: var(--color-text-placeholder);
@@ -214,17 +217,19 @@
         }
       }
 
-      // 选中状态：金色背景 + 深色文字 + 金色箭头
+      // 选中状态：金色边框 + 金色背景 + 金色文字
       &.active {
-        background: rgba(212, 175, 55, 0.12);
+        background: rgba(212, 175, 55, 0.08);
+        border-color: rgba(212, 175, 55, 0.3);
 
         .sort-label {
           color: var(--color-primary);
-          font-weight: 600;
+          font-weight: 500;
         }
 
         .sort-arrows .arrow-icon {
           color: rgba(212, 175, 55, 0.4);
+          opacity: 1;
 
           &.active {
             color: var(--color-primary);
@@ -265,7 +270,7 @@
 
     .sort-filter-bar {
       padding: 12px 24px;
-      gap: 20px;
+      gap: 12px;
 
       .sort-item {
         padding: 8px 16px;

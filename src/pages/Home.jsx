@@ -81,7 +81,7 @@ export default function Home() {
           <CollectionCard
             key={item.id}
             item={item}
-            variant={activeTab === 'hot' ? 'hot' : 'default'}
+            variant="home"
             onClick={handleCardClick}
           />
         ))}

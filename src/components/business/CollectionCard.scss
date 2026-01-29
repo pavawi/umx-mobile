@@ -14,7 +14,7 @@
     transform: scale(0.98);
   }
 
-  // 图片容器 - 固定高度165px，无圆角（参考详情页风格）
+  // 图片容器 - 固定高度165px
   &__image-wrapper {
     position: relative;
     width: 100%;
@@ -24,35 +24,12 @@
     border-radius: 0;
   }
 
-  // 顶部状态标签（左上角）- 在图片内
-  &__badge {
-    position: absolute;
-    top: 8px;
-    left: 8px;
-    padding: 4px 8px;
-    font-size: 10px;
-    font-weight: 500;
-    color: var(--color-text-inverse);
-    border-radius: 4px;
-    z-index: 3;
-
-    &.badge--selling {
-      background: var(--color-status-selling);
-    }
-    &.badge--presale {
-      background: var(--color-status-presale);
-    }
-    &.badge--soldout {
-      background: var(--color-status-soldout);
-    }
-  }
-
-  // 发行方式标签（右上角）
+  // 发行方式标签（右上角）- 仅藏品库显示
   &__type-tag {
     position: absolute;
     top: 8px;
     right: 8px;
-    padding: 3px 6px;
+    padding: 3px 8px;
     font-size: 10px;
     font-weight: 500;
     color: var(--color-text-inverse);
@@ -79,7 +56,7 @@
     transform: scale(1.02);
   }
 
-  // 内容区域 - padding 12px
+  // 内容区域
   &__content {
     display: flex;
     flex-direction: column;
@@ -143,7 +120,48 @@
     gap: 8px;
   }
 
-  // 热卖变体：价格区域
+  // ========== 首页专用样式 ==========
+  // 发行方式标签（内容区，左侧）
+  &__type-label {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--color-text-inverse);
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.5);
+
+    &.type-label--compose {
+      background: linear-gradient(135deg, #8B5CF6 0%, #6366F1 100%);
+    }
+    &.type-label--direct {
+      background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+    }
+  }
+
+  // 发行份数信息（首页）
+  &__issue-info {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-left: auto;
+
+    .issue-label {
+      font-size: 10px;
+      font-weight: 400;
+      color: var(--color-text-tertiary);
+    }
+
+    .issue-value {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-text-primary);
+    }
+  }
+
+  // ========== 热卖/藏品库共用样式 ==========
+  // 价格区域
   &__price-wrap {
     display: flex;
     align-items: baseline;
@@ -169,7 +187,7 @@
     }
   }
 
-  // 热卖变体：在售信息
+  // 在售信息
   &__sale-info {
     display: flex;
     align-items: center;
@@ -199,32 +217,28 @@
     }
   }
 
-  &__right {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-
-    .price {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--color-text-primary);
-    }
-
-    .stats {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-
-      &-label {
-        font-size: 10px;
-        font-weight: 400;
-        color: var(--color-text-tertiary);
+  // ========== 热卖变体特殊样式 ==========
+  &--hot {
+    .collection-card__price-wrap {
+      .price-symbol {
+        font-size: 11px;
       }
 
-      &-value {
+      .price-value {
+        font-size: 14px;
+      }
+    }
+  }
+
+  // ========== 藏品库变体特殊样式 ==========
+  &--market {
+    .collection-card__price-wrap {
+      .price-symbol {
         font-size: 12px;
-        font-weight: 600;
-        color: var(--color-text-primary);
+      }
+
+      .price-value {
+        font-size: 16px;
       }
     }
   }
@@ -233,10 +247,10 @@
 // iPad 响应式
 @media (min-width: 768px) {
   .collection-card {
-    &__badge {
+    &__type-tag {
       top: 10px;
-      left: 10px;
-      padding: 5px 10px;
+      right: 10px;
+      padding: 4px 10px;
       font-size: 11px;
     }
 
@@ -271,6 +285,21 @@
       flex-wrap: nowrap;
     }
 
+    &__type-label {
+      padding: 3px 10px;
+      font-size: 11px;
+    }
+
+    &__issue-info {
+      .issue-label {
+        font-size: 11px;
+      }
+
+      .issue-value {
+        font-size: 14px;
+      }
+    }
+
     &__price-wrap {
       .price-symbol {
         font-size: 13px;
@@ -299,18 +328,15 @@
       }
     }
 
-    &__right {
-      .price {
-        font-size: 16px;
-      }
-
-      .stats {
-        &-label {
-          font-size: 11px;
+    // 热卖变体 iPad
+    &--hot {
+      .collection-card__price-wrap {
+        .price-symbol {
+          font-size: 12px;
         }
 
-        &-value {
-          font-size: 14px;
+        .price-value {
+          font-size: 15px;
         }
       }
     }
@@ -349,6 +375,21 @@
       max-width: 80px;
     }
 
+    &__type-label {
+      padding: 4px 12px;
+      font-size: 12px;
+    }
+
+    &__issue-info {
+      .issue-label {
+        font-size: 12px;
+      }
+
+      .issue-value {
+        font-size: 15px;
+      }
+    }
+
     &__price-wrap {
       .price-symbol {
         font-size: 14px;
@@ -371,6 +412,19 @@
       .sale-divider,
       .sale-total {
         font-size: 12px;
+      }
+    }
+
+    // 热卖变体桌面
+    &--hot {
+      .collection-card__price-wrap {
+        .price-symbol {
+          font-size: 13px;
+        }
+
+        .price-value {
+          font-size: 17px;
+        }
       }
     }
   }

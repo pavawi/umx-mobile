@@ -2,16 +2,17 @@ import { memo } from 'react';
 import LazyImage from '../base/LazyImage';
 import './CollectionCard.scss';
 
-const statusTextMap = {
-  selling: '首发在售',
-  presale: '预售中',
-  soldout: '已售罄'
-};
-
+/**
+ * 统一藏品卡片组件
+ *
+ * variant 变体说明：
+ * - 'home': 首页展示 - 显示发行方式标签(内容区) + 发行份数
+ * - 'hot': 热卖展示 - 显示价格(较小) + 在售/总数，隐藏发行方式
+ * - 'market': 藏品库展示 - 显示价格 + 在售/总数，隐藏发行方式
+ */
 function CollectionCard({
   item,
-  variant = 'default', // 'default' | 'market' | 'hot'
-  showPrice = false, // 是否显示价格和在售信息（热卖页专用）
+  variant = 'home', // 'home' | 'hot' | 'market'
   onClick
 }) {
   const handleClick = () => {
@@ -25,26 +26,19 @@ function CollectionCard({
     }
   };
 
-  // 格式化价格显示
-  const formatPrice = (price) => {
-    if (price === null || price === undefined) return null;
-    return `¥${price.toLocaleString()}`;
-  };
-
-  // 格式化数字（超过1000用万）
+  // 格式化数字（超过1万用万）
   const formatNumber = (num) => {
     if (num === null || num === undefined) return '0';
     if (num >= 10000) {
       const wan = num / 10000;
-      // 如果是整数万，不显示小数
       return wan % 1 === 0 ? `${wan}万` : `${wan.toFixed(1)}万`;
     }
     return num.toString();
   };
 
-  // 格式化价格（超过1000用万）
-  const formatPriceWithUnit = (price) => {
-    if (price === null || price === undefined) return '0';
+  // 格式化价格显示
+  const formatPrice = (price) => {
+    if (price === null || price === undefined) return '--';
     if (price >= 10000) {
       const wan = price / 10000;
       return wan % 1 === 0 ? `${wan}万` : `${wan.toFixed(2)}万`;
@@ -52,9 +46,15 @@ function CollectionCard({
     return price.toFixed(2);
   };
 
+  // 是否显示价格（热卖和藏品库）
+  const showPrice = variant === 'hot' || variant === 'market';
+
+  // 是否在内容区显示发行方式标签（仅首页）
+  const showTypeTagInContent = variant === 'home' && item.typeLabel;
+
   return (
     <div
-      className="collection-card"
+      className={`collection-card collection-card--${variant}`}
       onClick={handleClick}
       onKeyDown={handleKeyDown}
       role="button"
@@ -63,20 +63,6 @@ function CollectionCard({
     >
       {/* 藏品图片 */}
       <div className="collection-card__image-wrapper">
-        {/* 状态标签（左上角） */}
-        {item.status && (
-          <div className={`collection-card__badge badge--${item.status}`}>
-            {statusTextMap[item.status] || ''}
-          </div>
-        )}
-
-        {/* 发行方式标签（右上角） */}
-        {item.typeLabel && (
-          <div className={`collection-card__type-tag type-tag--${item.saleType || 'default'}`}>
-            {item.typeLabel}
-          </div>
-        )}
-
         <LazyImage
           src={item.image}
           alt={item.name}
@@ -84,7 +70,7 @@ function CollectionCard({
         />
       </div>
 
-      {/* 内容区域 - 匹配设计稿布局 */}
+      {/* 内容区域 */}
       <div className="collection-card__content">
         {/* 第一行：标题 + 作者 */}
         <div className="collection-card__row1">
@@ -99,14 +85,14 @@ function CollectionCard({
           )}
         </div>
 
-        {/* 第二行：价格/类型 + 在售信息 */}
+        {/* 第二行：根据变体显示不同内容 */}
         <div className="collection-card__row2">
           {showPrice ? (
             <>
-              {/* 显示价格模式: 价格 + 在售/总数 */}
+              {/* 热卖/藏品库模式: 价格 + 在售/总数 */}
               <div className="collection-card__price-wrap">
                 <span className="price-symbol">¥</span>
-                <span className="price-value">{formatPriceWithUnit(item.price)}</span>
+                <span className="price-value">{formatPrice(item.price)}</span>
               </div>
               <div className="collection-card__sale-info">
                 <span className="sale-label">在售</span>
@@ -117,17 +103,15 @@ function CollectionCard({
             </>
           ) : (
             <>
-              {/* 默认模式: 发行份数 */}
-              <div className="collection-card__right">
-                {variant === 'market' && item.price !== undefined && (
-                  <span className="price">{formatPrice(item.price)}</span>
-                )}
-                {(variant === 'hot' || variant === 'default') && (
-                  <div className="stats">
-                    <span className="stats-label">发行份数</span>
-                    <span className="stats-value">{item.total || item.issueCount}</span>
-                  </div>
-                )}
+              {/* 首页模式: 发行方式 + 发行份数 */}
+              {showTypeTagInContent && (
+                <div className={`collection-card__type-label type-label--${item.saleType || 'default'}`}>
+                  {item.typeLabel}
+                </div>
+              )}
+              <div className="collection-card__issue-info">
+                <span className="issue-label">发行份数</span>
+                <span className="issue-value">{formatNumber(item.total || item.issueCount)}</span>
               </div>
             </>
           )}

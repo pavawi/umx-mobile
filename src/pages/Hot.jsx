@@ -334,7 +334,6 @@ export default function Hot() {
                 <CollectionCard
                   item={item}
                   variant="hot"
-                  showPrice={true}
                   onClick={handleCardClick}
                 />
               </div>
