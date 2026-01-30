@@ -1,11 +1,9 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import './TabBar.scss';
 
-// 使用设计系统变量中的颜色
-const PRIMARY_COLOR = '#D4AF37'; // var(--color-primary)
-const INACTIVE_COLOR = '#9CA3AF'; // var(--color-text-tertiary)
+const PRIMARY_COLOR = '#D4AF37';
+const INACTIVE_COLOR = '#9CA3AF';
 
-// Material Symbols Rounded 风格图标
 const tabs = [
   {
     path: '/',
@@ -17,13 +15,13 @@ const tabs = [
     label: '首页'
   },
   {
-    path: '/hot',
+    path: '/discover',
     icon: (active) => (
       <svg viewBox="0 0 24 24" width="24" height="24" fill={active ? PRIMARY_COLOR : INACTIVE_COLOR}>
-        <path d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-.36 3.6-1.21 4.62-2.58.39 1.29.59 2.65.59 4.04 0 2.65-2.15 4.8-4.8 4.8z"/>
+        <path d="M12 10.9c-.61 0-1.1.49-1.1 1.1s.49 1.1 1.1 1.1c.61 0 1.1-.49 1.1-1.1s-.49-1.1-1.1-1.1zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm2.19 12.19L6 18l3.81-8.19L18 6l-3.81 8.19z"/>
       </svg>
     ),
-    label: '热卖'
+    label: '发现'
   },
   {
     path: '/market',
@@ -32,7 +30,7 @@ const tabs = [
         <path d="M3 3v8h8V3H3zm6 6H5V5h4v4zm-6 4v8h8v-8H3zm6 6H5v-4h4v4zm4-16v8h8V3h-8zm6 6h-4V5h4v4zm-6 4v8h8v-8h-8zm6 6h-4v-4h4v4z"/>
       </svg>
     ),
-    label: '藏品库'
+    label: '市场'
   },
   {
     path: '/profile',

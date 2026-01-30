@@ -1,7 +1,7 @@
 .market-page {
   background: var(--color-bg-secondary);
 
-  // Header 区域 - 匹配设计: Logo + 搜索框 + 通知
+  // Header 区域
   .page-header {
     display: flex;
     align-items: center;
@@ -87,13 +87,103 @@
     }
   }
 
-  // 筛选区域 - 匹配设计: 胶囊按钮样式
+  // ===== 首发/寄售 主Tab =====
+  .main-tabs {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding: 0;
+    background: var(--color-bg-primary);
+    border-bottom: 1px solid var(--color-border-light);
+  }
+
+  .main-tab {
+    position: relative;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 44px;
+    padding: 0;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: all var(--duration-fast) var(--ease-out);
+    font-family: inherit;
+
+    &.active {
+      color: var(--color-text-primary);
+      font-weight: 600;
+    }
+
+    &:active {
+      opacity: 0.7;
+    }
+
+    .tab-indicator {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 24px;
+      height: 2px;
+      background: var(--color-primary);
+      border-radius: 1px;
+    }
+  }
+
+  // ===== 筛选区域 =====
   .filter-section {
     display: flex;
     align-items: center;
     gap: 10px;
     padding: 12px 16px;
     background: var(--color-bg-primary);
+  }
+
+  // 通用筛选按钮样式（关注按钮、分区选择器）
+  .my-follow-btn,
+  .category-selector {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+    height: 36px;
+    padding: 0 14px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    background: rgba(212, 175, 55, 0.08);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all var(--duration-fast) var(--ease-out);
+    font-family: inherit;
+    line-height: 1;
+
+    .btn-icon,
+    .selector-icon {
+      color: var(--color-primary);
+      flex-shrink: 0;
+    }
+
+    .selector-arrow {
+      color: var(--color-primary);
+      flex-shrink: 0;
+      transition: transform var(--duration-fast) var(--ease-out);
+    }
+
+    &.open .selector-arrow {
+      transform: rotate(180deg);
+    }
+
+    &:active {
+      background: rgba(212, 175, 55, 0.15);
+    }
   }
 
   // 通用筛选选择器样式（来源/年份）
@@ -135,7 +225,8 @@
     }
   }
 
-  // 筛选下拉菜单
+  // 下拉菜单（分区 / 来源 / 年份共用）
+  .category-dropdown,
   .filter-dropdown {
     position: absolute;
     top: calc(100% + 8px);
@@ -174,7 +265,7 @@
     }
   }
 
-  // 排序筛选栏 - 统一使用胶囊按钮样式
+  // ===== 排序筛选栏 =====
   .sort-filter-bar {
     display: flex;
     align-items: center;
@@ -217,7 +308,6 @@
         }
       }
 
-      // 选中状态：金色边框 + 金色背景 + 金色文字
       &.active {
         background: rgba(212, 175, 55, 0.08);
         border-color: rgba(212, 175, 55, 0.3);
@@ -239,7 +329,7 @@
     }
   }
 
-  // 网格布局 - 使用 CSS Grid 确保布局一致性
+  // ===== 网格布局 =====
   .collection-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -248,6 +338,214 @@
 
     .collection-card-wrapper {
       width: 100%;
+      min-width: 0;
+      overflow: hidden;
+    }
+  }
+
+  // ===== 搜索结果视图 =====
+  .search-results-view {
+    background: var(--color-bg-secondary);
+    min-height: calc(100vh - 120px);
+  }
+
+  .search-filter-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: var(--color-bg-primary);
+
+    .sort-options {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .sort-btn {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      padding: 0;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      background: none;
+      border: none;
+      cursor: pointer;
+      transition: color var(--duration-fast) var(--ease-out);
+
+      &.active {
+        color: var(--color-text-primary);
+        font-weight: 600;
+      }
+
+      &:active {
+        opacity: 0.7;
+      }
+    }
+
+    .filter-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px;
+      color: var(--color-text-secondary);
+      cursor: pointer;
+
+      &:active {
+        color: var(--color-text-primary);
+      }
+    }
+  }
+
+  .search-results-list {
+    background: var(--color-bg-primary);
+  }
+
+  .empty-results {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    text-align: center;
+
+    p {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      margin: 0 0 8px;
+    }
+
+    span {
+      font-size: 14px;
+      color: var(--color-text-tertiary);
+    }
+  }
+
+  // ===== 我的关注视图 =====
+  .my-follow-view {
+    background: var(--color-bg-primary);
+    min-height: calc(100vh - 60px);
+  }
+
+  .my-follow-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: var(--color-bg-primary);
+    border-bottom: 1px solid var(--color-border-light);
+
+    .back-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px;
+      color: var(--color-text-primary);
+      background: none;
+      border: none;
+      cursor: pointer;
+
+      &:active {
+        opacity: 0.7;
+      }
+    }
+
+    h2 {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--color-text-primary);
+      margin: 0;
+    }
+  }
+
+  .follow-list {
+    padding: 0;
+  }
+
+  .follow-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: var(--color-bg-primary);
+    border-bottom: 1px solid var(--color-border-light);
+    cursor: pointer;
+    transition: background var(--duration-fast) var(--ease-out);
+
+    &:active {
+      background: var(--color-bg-tertiary);
+    }
+  }
+
+  .follow-item-image {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--color-bg-tertiary);
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .follow-item-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .follow-item-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 4px;
+  }
+
+  .follow-item-code {
+    font-size: 12px;
+    color: var(--color-text-tertiary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .follow-item-stats {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+    flex-shrink: 0;
+    min-width: 40px;
+
+    .stat-value {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+    }
+  }
+
+  .follow-item-action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    color: var(--color-primary);
+    background: none;
+    border: none;
+    cursor: pointer;
+    flex-shrink: 0;
+
+    &:active {
+      opacity: 0.7;
     }
   }
 }
@@ -261,6 +559,10 @@
 
     .header-logo {
       font-size: 24px;
+    }
+
+    .main-tabs {
+      padding: 0 24px;
     }
 
     .filter-section {
@@ -281,11 +583,40 @@
       }
     }
 
-    // iPad 上显示 3 列网格
     .collection-grid {
       grid-template-columns: repeat(3, 1fr);
       gap: 16px;
       padding: 0 24px 20px;
+    }
+
+    .search-filter-bar {
+      padding: 14px 24px;
+
+      .sort-options {
+        gap: 20px;
+      }
+    }
+
+    .my-follow-header {
+      padding: 16px 24px;
+
+      h2 {
+        font-size: 20px;
+      }
+    }
+
+    .follow-item {
+      padding: 14px 24px;
+      gap: 16px;
+    }
+
+    .follow-item-image {
+      width: 56px;
+      height: 56px;
+    }
+
+    .follow-item-name {
+      font-size: 15px;
     }
   }
 }
@@ -293,7 +624,6 @@
 // ========== 桌面响应式 ==========
 @media (min-width: 1024px) {
   .market-page {
-    // 桌面上显示 4 列网格
     .collection-grid {
       grid-template-columns: repeat(4, 1fr);
       gap: 20px;
@@ -306,6 +636,11 @@
       max-width: var(--container-max-width);
       margin: 0 auto;
       padding: 12px 32px;
+    }
+
+    .main-tabs {
+      max-width: var(--container-max-width);
+      margin: 0 auto;
     }
 
     .filter-section {
