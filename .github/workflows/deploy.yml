@@ -7,7 +7,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - 'claude/umx-platform-frontend-0HjNk'
+      - main
       - 'release/**'
   workflow_dispatch:
 
@@ -27,7 +27,7 @@ jobs:
       - name: Checkout default branch
         uses: actions/checkout@v4
         with:
-          ref: claude/umx-platform-frontend-0HjNk
+          ref: main
           path: default
 
       - name: Setup Node
