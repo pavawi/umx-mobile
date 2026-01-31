@@ -1,14 +1,13 @@
 # 部署所有 release 分支到 GitHub Pages 的各自子目录
 # release/v1 → /umx-mobile/v1/
 # release/v2 → /umx-mobile/v2/
-# main        → /umx-mobile/       (默认版本)
+# 默认分支   → /umx-mobile/       (当前版本)
 name: Deploy to GitHub Pages
 
 on:
   push:
     branches:
-      - main
-      - master
+      - 'claude/umx-platform-frontend-0HjNk'
       - 'release/**'
   workflow_dispatch:
 
@@ -25,19 +24,19 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout main
+      - name: Checkout default branch
         uses: actions/checkout@v4
         with:
-          ref: main
-          path: main
+          ref: claude/umx-platform-frontend-0HjNk
+          path: default
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
-      - name: Build main branch
-        working-directory: main
+      - name: Build default branch
+        working-directory: default
         run: |
           npm ci
           npm run build
@@ -45,40 +44,40 @@ jobs:
       - name: Prepare output
         run: |
           mkdir -p output
-          cp -r main/dist/* output/
+          cp -r default/dist/* output/
 
       - name: Discover release branches
         id: releases
         run: |
-          cd main
+          cd default
           BRANCHES=$(git ls-remote --heads origin 'refs/heads/release/*' | awk '{print $2}' | sed 's|refs/heads/||')
           echo "branches<<EOF" >> $GITHUB_OUTPUT
           echo "$BRANCHES" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Build release branches
+        env:
+          REPO_URL: "https://github.com/${{ github.repository }}.git"
         run: |
           while IFS= read -r BRANCH; do
             [ -z "$BRANCH" ] && continue
-            # release/v1 → v1
             VERSION="${BRANCH#release/}"
             echo "=== Building $BRANCH → /$VERSION/ ==="
 
-            git clone --branch "$BRANCH" --depth 1 "https://github.com/${{ github.repository }}.git" "release-${VERSION}"
+            git clone --branch "$BRANCH" --depth 1 "$REPO_URL" "release-${VERSION}"
             cd "release-${VERSION}"
             npm ci
-            VITE_BASE="/umx-mobile/${VERSION}/" npx vite build --base "/umx-mobile/${VERSION}/"
+            npx vite build --base "/umx-mobile/${VERSION}/"
             cd ..
 
             mkdir -p "output/${VERSION}"
             cp -r "release-${VERSION}/dist/"* "output/${VERSION}/"
           done <<< "${{ steps.releases.outputs.branches }}"
 
-      - name: Generate index page
+      - name: Generate versions page
         run: |
           cd output
-          # 列出所有 release 子目录
-          VERSIONS=$(find . -maxdepth 1 -mindepth 1 -type d ! -name assets ! -name '.' | sed 's|./||' | sort -V)
+          VERSIONS=$(find . -maxdepth 1 -mindepth 1 -type d ! -name assets | sed 's|./||' | sort -V)
 
           cat > versions.html << 'HEADER'
           <!DOCTYPE html>
@@ -97,17 +96,14 @@ jobs:
           </head>
           <body>
             <h1>UMX Mobile 版本</h1>
-            <a class="current" href="./">当前版本 (main)</a>
+            <a class="current" href="./">当前版本 (latest)</a>
           HEADER
 
           for v in $VERSIONS; do
             echo "  <a href=\"./${v}/\">${v}</a>" >> versions.html
           done
 
-          cat >> versions.html << 'FOOTER'
-          </body>
-          </html>
-          FOOTER
+          echo "</body></html>" >> versions.html
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
