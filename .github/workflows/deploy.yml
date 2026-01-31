@@ -1,9 +1,15 @@
+# 部署所有 release 分支到 GitHub Pages 的各自子目录
+# release/v1 → /umx-mobile/v1/
+# release/v2 → /umx-mobile/v2/
+# main        → /umx-mobile/       (默认版本)
 name: Deploy to GitHub Pages
-
 
 on:
   push:
-    branches: [ main, master, 'claude/umx-platform-frontend-0HjNk' ]
+    branches:
+      - main
+      - master
+      - 'release/**'
   workflow_dispatch:
 
 permissions:
@@ -12,27 +18,96 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "pages"
-  cancel-in-progress: true
+  group: "pages-deploy"
+  cancel-in-progress: false
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout main
         uses: actions/checkout@v4
+        with:
+          ref: main
+          path: main
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Build main branch
+        working-directory: main
+        run: |
+          npm ci
+          npm run build
 
-      - name: Build
-        run: npm run build
+      - name: Prepare output
+        run: |
+          mkdir -p output
+          cp -r main/dist/* output/
+
+      - name: Discover release branches
+        id: releases
+        run: |
+          cd main
+          BRANCHES=$(git ls-remote --heads origin 'refs/heads/release/*' | awk '{print $2}' | sed 's|refs/heads/||')
+          echo "branches<<EOF" >> $GITHUB_OUTPUT
+          echo "$BRANCHES" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Build release branches
+        run: |
+          while IFS= read -r BRANCH; do
+            [ -z "$BRANCH" ] && continue
+            # release/v1 → v1
+            VERSION="${BRANCH#release/}"
+            echo "=== Building $BRANCH → /$VERSION/ ==="
+
+            git clone --branch "$BRANCH" --depth 1 "https://github.com/${{ github.repository }}.git" "release-${VERSION}"
+            cd "release-${VERSION}"
+            npm ci
+            VITE_BASE="/umx-mobile/${VERSION}/" npx vite build --base "/umx-mobile/${VERSION}/"
+            cd ..
+
+            mkdir -p "output/${VERSION}"
+            cp -r "release-${VERSION}/dist/"* "output/${VERSION}/"
+          done <<< "${{ steps.releases.outputs.branches }}"
+
+      - name: Generate index page
+        run: |
+          cd output
+          # 列出所有 release 子目录
+          VERSIONS=$(find . -maxdepth 1 -mindepth 1 -type d ! -name assets ! -name '.' | sed 's|./||' | sort -V)
+
+          cat > versions.html << 'HEADER'
+          <!DOCTYPE html>
+          <html lang="zh-CN">
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>UMX Mobile - 版本列表</title>
+            <style>
+              body { font-family: -apple-system, sans-serif; max-width: 600px; margin: 40px auto; padding: 0 20px; color: #1F2937; }
+              h1 { color: #D4AF37; }
+              a { display: block; padding: 12px 16px; margin: 8px 0; background: #F9FAFB; border-radius: 8px; color: #1F2937; text-decoration: none; }
+              a:hover { background: #F3F4F6; }
+              .current { border-left: 3px solid #D4AF37; }
+            </style>
+          </head>
+          <body>
+            <h1>UMX Mobile 版本</h1>
+            <a class="current" href="./">当前版本 (main)</a>
+          HEADER
+
+          for v in $VERSIONS; do
+            echo "  <a href=\"./${v}/\">${v}</a>" >> versions.html
+          done
+
+          cat >> versions.html << 'FOOTER'
+          </body>
+          </html>
+          FOOTER
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -40,7 +115,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './dist'
+          path: './output'
 
   deploy:
     environment:
