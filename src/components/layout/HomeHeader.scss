@@ -1,8 +1,9 @@
 .home-header {
   display: flex;
   align-items: center;
-  padding: 8px 12px;
-  gap: 10px;
+  padding: 0 16px;
+  height: 56px;
+  gap: 12px;
   background: var(--color-bg-primary);
   position: sticky;
   top: 0;
@@ -33,10 +34,10 @@
     display: flex;
     align-items: center;
     gap: 6px;
-    height: 32px;
+    height: 36px;
     padding: 0 12px;
     background: var(--color-bg-tertiary);
-    border-radius: 16px;
+    border-radius: 18px;
     cursor: pointer;
     transition: background var(--duration-fast) var(--ease-out);
 
@@ -58,8 +59,8 @@
   &__notice {
     position: relative;
     flex-shrink: 0;
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
