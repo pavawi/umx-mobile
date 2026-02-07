@@ -58,6 +58,21 @@ export const appGridItems = [
   { id: 'community', title: '加入社群', icon: 'community', color: '#6366F1', link: '/community' },
 ];
 
+// 热卖榜数据（取 hotCollections 前3条）
+export const hotRankItems = [
+  { id: 'rank1', name: '勇往直前', image: 'https://oss.umxverse.com/image/origin/P7zyGM3SKdJ6EmxSY6w.png', creator: '许力', heat: 1694, price: 2000 },
+  { id: 'rank2', name: '街角', image: 'https://oss.umxverse.com/image/origin/GibS3EtQrWnK52zmCsD.png', creator: '许力', heat: 1499, price: 990 },
+  { id: 'rank3', name: '四月飞花', image: 'https://oss.umxverse.com/image/origin/a8nncd7fX2kJAz2YPdT.jpg', creator: '冯戈', heat: 2437, price: 1800 },
+];
+
+// 活动角入口
+export const activityCornerItems = [
+  { id: 'auction', title: '拍卖', icon: 'auction', desc: '拍卖藏品发布和聚集地', hasNew: true, link: '/market?filter=auction' },
+  { id: 'compose', title: '合成', icon: 'compose', desc: '合成藏品发布和聚集地', hasNew: true, link: '/market?filter=compose' },
+  { id: 'decompose', title: '分解', icon: 'decompose', desc: '分解藏品发布和聚集地', hasNew: false, link: '/market?filter=decompose' },
+  { id: 'direct', title: '直卖', icon: 'direct', desc: '直卖藏品发布和聚集地', hasNew: false, link: '/market?filter=direct' },
+];
+
 // 推荐位
 export const recommendBanners = [
   { id: '1', image: 'https://picsum.photos/686/386?random=10', title: 'U卡限时特惠', badge: '限时', link: '/ucard' },

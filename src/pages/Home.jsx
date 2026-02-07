@@ -4,12 +4,15 @@ import HomeHeader from '../components/layout/HomeHeader';
 import BannerSwiper from '../components/business/BannerSwiper';
 import SystemNoticeBar from '../components/business/SystemNoticeBar';
 import FeatureGrid from '../components/business/FeatureGrid';
+import HotRankAndActivity from '../components/business/HotRankAndActivity';
 import CollectionCard from '../components/business/CollectionCard';
 import UFilterTabs from '../components/base/UFilterTabs';
 import {
   banners,
   systemNotices,
   appGridItems,
+  hotRankItems,
+  activityCornerItems,
   homeTabs,
   homeCollections,
   hotCollections
@@ -51,6 +54,14 @@ export default function Home() {
       <FeatureGrid
         items={appGridItems}
         onItemClick={(item) => navigate(item.link)}
+      />
+
+      {/* 热卖榜 + 活动角 */}
+      <HotRankAndActivity
+        rankItems={hotRankItems}
+        activityItems={activityCornerItems}
+        onRankClick={handleCardClick}
+        onActivityClick={(item) => navigate(item.link)}
       />
 
       {/* 藏品区域 */}
