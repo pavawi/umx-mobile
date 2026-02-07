@@ -43,7 +43,7 @@
     -webkit-backdrop-filter: blur(12px);
 
     .profile-header__title {
-      font-size: 17px;
+      font-size: var(--font-size-lg);
       font-weight: 600;
       color: var(--color-text-primary);
     }
@@ -72,7 +72,7 @@
   // ========== 用户信息卡片 ==========
   .user-card {
     background: var(--color-bg-primary);
-    border-radius: 16px;
+    border-radius: var(--radius-lg);
     padding: 20px;
     margin-top: 8px;
     margin-bottom: 12px;
@@ -84,7 +84,7 @@
     .user-header {
       display: flex;
       align-items: flex-start;
-      gap: 14px;
+      gap: var(--spacing-base);
       cursor: pointer;
       transition: opacity var(--duration-fast) var(--ease-out);
 
@@ -120,12 +120,12 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      margin-bottom: 6px;
+      margin-bottom: var(--spacing-sm);
     }
 
     .user-name {
-      font-size: 18px;
-      font-weight: 700;
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
       color: var(--color-text-primary);
     }
 
@@ -206,7 +206,7 @@
   // P0-8: 整卡可点击
   .asset-card {
     background: var(--color-bg-primary);
-    border-radius: 16px;
+    border-radius: var(--radius-lg);
     padding: 16px 20px;
     margin-bottom: 12px;
     box-shadow: var(--shadow-card);
@@ -419,13 +419,13 @@
   }
 
   // P2-5: 页面入场 stagger 动画
-  .user-card { animation: fadeInUp 0.3s ease-out both; }
-  .asset-card { animation: fadeInUp 0.3s ease-out 0.05s both; }
-  .invite-card { animation: fadeInUp 0.3s ease-out 0.1s both; }
+  .user-card { animation: fadeInUp var(--duration-slow) var(--ease-out) both; }
+  .asset-card { animation: fadeInUp var(--duration-slow) var(--ease-out) 0.05s both; }
+  .invite-card { animation: fadeInUp var(--duration-slow) var(--ease-out) 0.1s both; }
   .menu-group {
-    &:nth-child(5) { animation: fadeInUp 0.3s ease-out 0.15s both; }
-    &:nth-child(6) { animation: fadeInUp 0.3s ease-out 0.2s both; }
-    &:nth-child(7) { animation: fadeInUp 0.3s ease-out 0.25s both; }
+    &:nth-child(5) { animation: fadeInUp var(--duration-slow) var(--ease-out) 0.15s both; }
+    &:nth-child(6) { animation: fadeInUp var(--duration-slow) var(--ease-out) 0.2s both; }
+    &:nth-child(7) { animation: fadeInUp var(--duration-slow) var(--ease-out) 0.25s both; }
   }
 }
 

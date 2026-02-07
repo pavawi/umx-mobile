@@ -21,7 +21,7 @@
     width: 100%;
     height: 165px;
     overflow: hidden;
-    background: var(--color-bg-tertiary);
+    background: transparent;
     margin: 6px 6px 0;
     width: calc(100% - 12px);
     border-radius: var(--radius-md);
@@ -63,8 +63,8 @@
   &__content {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    padding: 12px;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md);
     background: var(--color-bg-card);
   }
 
@@ -79,8 +79,8 @@
   &__title {
     flex: 1;
     min-width: 0;
-    font-size: 14px;
-    font-weight: 600;
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
     color: var(--color-text-primary);
     overflow: hidden;
     display: -webkit-box;
@@ -95,7 +95,7 @@
     display: flex;
     align-items: center;
     gap: 6px;
-    font-size: 12px;
+    font-size: var(--font-size-sm);
     color: var(--color-text-secondary);
 
     .author-avatar {

@@ -21,6 +21,7 @@
     justify-content: center;
     gap: 4px;
     width: 70px;
+    color: var(--color-text-tertiary);
     cursor: pointer;
     transition: all var(--duration-fast) var(--ease-out);
 
@@ -38,6 +39,8 @@
 
     // 激活状态 - 品牌色强化
     &.is-active {
+      color: var(--color-primary);
+
       span {
         font-weight: 600;
       }
