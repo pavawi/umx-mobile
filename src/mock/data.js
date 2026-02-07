@@ -82,8 +82,10 @@ export const recommendBanners = [
 // 首页Tab
 export const homeTabs = [
   { value: 'hot', label: '首发热卖' },
-  { value: 'original', label: '原作版画' },
+  { value: 'auction', label: '原作拍卖' },
+  { value: 'print', label: '版画臻藏' },
   { value: 'custom', label: '私人高定' },
+  { value: 'records', label: '发售记录' },
 ];
 
 // 热卖分类

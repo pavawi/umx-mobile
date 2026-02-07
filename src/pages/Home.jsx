@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import HomeHeader from '../components/layout/HomeHeader';
 import BannerSwiper from '../components/business/BannerSwiper';
@@ -29,6 +29,21 @@ export default function Home() {
 
   const handleNoticeClick = () => {
     navigate('/notifications');
+  };
+
+  // 左右滑动手势切换 Tab
+  const touchStartX = useRef(0);
+  const handleTouchStart = (e) => { touchStartX.current = e.touches[0].clientX; };
+  const handleTouchEnd = (e) => {
+    const diff = e.changedTouches[0].clientX - touchStartX.current;
+    if (Math.abs(diff) > 50) {
+      const currentIdx = homeTabs.findIndex(t => t.value === activeTab);
+      if (diff < 0 && currentIdx < homeTabs.length - 1) {
+        setActiveTab(homeTabs[currentIdx + 1].value);
+      } else if (diff > 0 && currentIdx > 0) {
+        setActiveTab(homeTabs[currentIdx - 1].value);
+      }
+    }
   };
 
   return (
@@ -72,14 +87,18 @@ export default function Home() {
             tabs={homeTabs}
             value={activeTab}
             onChange={setActiveTab}
-            scrollable={false}
+            scrollable={true}
             variant="underline"
           />
         </div>
       </div>
 
       {/* 藏品列表 */}
-      <div className="collection-grid">
+      <div
+        className="collection-grid"
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
         {(activeTab === 'hot' ? hotCollections : homeCollections).map((item) => (
           <CollectionCard
             key={item.id}
