@@ -50,7 +50,7 @@ export default function HotRankAndActivity({ rankItems = [], activityItems = [],
         <div className="rank-list">
           {rankItems.map((item, index) => (
             <div key={item.id} className="rank-item" onClick={() => onRankClick?.(item)}>
-              <span className="rank-number" style={{ color: rankColors[index] }}>{index + 1}</span>
+              <span className="rank-number" style={{ background: rankColors[index] }}>{index + 1}</span>
               <div className="rank-thumb">
                 <img src={item.image} alt={item.name} />
               </div>
@@ -76,7 +76,7 @@ export default function HotRankAndActivity({ rankItems = [], activityItems = [],
               className="activity-item"
               onClick={() => onActivityClick?.(item) || navigate(item.link)}
             >
-              <div className="activity-icon" style={{ background: `${activityColors[item.icon]}12` }}>
+              <div className="activity-icon" style={{ background: `${activityColors[item.icon]}20` }}>
                 {activityIcons[item.icon]?.(activityColors[item.icon])}
                 {item.hasNew && <span className="item-dot" />}
               </div>

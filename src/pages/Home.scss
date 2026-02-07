@@ -2,17 +2,17 @@
   background: var(--color-bg-primary);
   min-height: 100vh;
 
-  // 页面顶部装饰性渐变 - 更柔和的金色氛围
+  // 页面顶部装饰性渐变 - 金色氛围增强
   &::before {
     content: '';
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     right: 0;
-    height: 320px;
+    height: 240px;
     background:
-      radial-gradient(ellipse 80% 50% at 50% 0%, rgba(212, 175, 55, 0.08) 0%, transparent 60%),
-      radial-gradient(ellipse 60% 40% at 80% 10%, rgba(139, 92, 246, 0.04) 0%, transparent 50%);
+      radial-gradient(ellipse 80% 50% at 50% 0%, rgba(212, 175, 55, 0.14) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 10%, rgba(139, 92, 246, 0.07) 0%, transparent 50%);
     pointer-events: none;
     z-index: 0;
   }
@@ -85,15 +85,18 @@
   .collection-section {
     position: relative;
     z-index: 1;
-    margin-top: 8px;
-    padding-top: 4px;
+    margin-top: 12px;
+    padding-top: 0;
   }
 
-  // Tab切换区域
+  // Tab切换区域 - sticky 吸顶
   .home-tabs {
-    position: relative;
-    z-index: 1;
-    padding: 16px 0 12px;
+    position: sticky;
+    top: 56px; // Header 高度
+    z-index: 50;
+    padding: 12px 0;
+    background: var(--color-bg-primary);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   }
 
   // 藏品网格列表 - 统一间距

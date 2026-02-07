@@ -64,7 +64,7 @@ export default function FeatureGrid({ items = [], onItemClick }) {
             className="feature-grid__item"
             onClick={() => handleClick(item)}
           >
-            <div className="item-icon" style={{ background: `${item.color}15` }}>
+            <div className="item-icon" style={{ background: `${item.color}25` }}>
               {iconMap[item.icon]?.(item.color) || iconMap.market(item.color)}
               {item.hasNew && <span className="new-dot" />}
             </div>

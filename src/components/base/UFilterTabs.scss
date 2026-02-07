@@ -84,14 +84,14 @@
     .u-filter-tabs__label {
       font-size: 15px;
       font-weight: 400;
-      color: var(--color-text-tertiary);
+      color: var(--color-text-secondary);
       transition: all var(--duration-fast) var(--ease-out);
     }
 
     .u-filter-tabs__indicator {
       width: 100%;
       height: 3px;
-      background: var(--color-primary);
+      background: var(--gradient-gold);
       border-radius: 2px;
     }
 

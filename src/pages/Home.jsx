@@ -93,18 +93,15 @@ export default function Home() {
         onActivityClick={(item) => navigate(item.link)}
       />
 
-      {/* 藏品区域 */}
-      <div className="collection-section">
-        {/* Tab切换 - 使用下划线样式 */}
-        <div className="home-tabs">
-          <UFilterTabs
-            tabs={homeTabs}
-            value={activeTab}
-            onChange={setActiveTab}
-            scrollable={true}
-            variant="underline"
-          />
-        </div>
+      {/* Tab切换 - sticky 吸顶 */}
+      <div className="home-tabs">
+        <UFilterTabs
+          tabs={homeTabs}
+          value={activeTab}
+          onChange={setActiveTab}
+          scrollable={true}
+          variant="underline"
+        />
       </div>
 
       {/* 藏品列表 */}

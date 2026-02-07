@@ -1,5 +1,19 @@
 .feature-grid {
-  padding: 12px 0;
+  position: relative;
+  padding: 12px 0 0;
+
+  // 右侧渐变遮罩 - 暗示可滚动
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40px;
+    height: 100%;
+    background: linear-gradient(to left, var(--color-bg-primary) 0%, transparent 100%);
+    pointer-events: none;
+    z-index: 1;
+  }
 
   &__scroll {
     display: flex;
@@ -13,7 +27,7 @@
 
   &__item {
     flex-shrink: 0;
-    width: calc(100% / 5);
+    width: calc((100% - 32px) / 4.5);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -47,7 +61,7 @@
     }
 
     .item-title {
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 500;
       color: var(--color-text-primary);
       text-align: center;

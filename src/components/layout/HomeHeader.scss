@@ -24,8 +24,11 @@
     .logo-text {
       font-size: 16px;
       font-weight: 700;
-      color: var(--color-text-primary);
       letter-spacing: -0.5px;
+      background: var(--gradient-gold);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
   }
 
@@ -37,6 +40,7 @@
     height: 36px;
     padding: 0 12px;
     background: var(--color-bg-tertiary);
+    border: 1px solid rgba(212, 175, 55, 0.08);
     border-radius: 18px;
     cursor: pointer;
     transition: background var(--duration-fast) var(--ease-out);
@@ -59,14 +63,15 @@
   &__notice {
     position: relative;
     flex-shrink: 0;
-    width: 32px;
-    height: 32px;
+    width: 44px;
+    height: 44px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--color-text-secondary);
     cursor: pointer;
     transition: color var(--duration-fast) var(--ease-out);
+    margin-right: -6px; // 视觉补偿，保持右侧边距一致
 
     &:active {
       color: var(--color-text-primary);
@@ -74,8 +79,8 @@
 
     .notice-dot {
       position: absolute;
-      top: 6px;
-      right: 6px;
+      top: 8px;
+      right: 8px;
       width: 8px;
       height: 8px;
       background: var(--color-badge-dot);
