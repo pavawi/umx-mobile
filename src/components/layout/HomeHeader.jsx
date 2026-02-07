@@ -12,7 +12,8 @@ export default function HomeHeader({ hasUnreadNotice = false, onNoticeClick }) {
     <div className="home-header">
       {/* Logo */}
       <div className="home-header__logo">
-        <span className="logo-text">UMX</span>
+        <img src={`${import.meta.env.BASE_URL}img/黑色logo.png`} alt="UMX" className="logo-img" />
+        <span className="logo-text">umx.art</span>
       </div>
 
       {/* 搜索框 */}

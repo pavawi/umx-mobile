@@ -167,7 +167,10 @@ export default function Hot() {
           </div>
         ) : (
           <>
-            <div className="header-logo">UMX</div>
+            <div className="header-logo">
+              <img src={`${import.meta.env.BASE_URL}img/黑色logo.png`} alt="UMX" className="logo-img" />
+              <span className="logo-text">umx.art</span>
+            </div>
             <div
               className="header-search"
               onClick={() => setIsSearching(true)}
