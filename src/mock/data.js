@@ -675,6 +675,21 @@ export const homeCollections = [
   { id: '8acb83259bcf72c6019bdefb76506fe4', name: '气息', image: 'https://oss.umxverse.com/image/origin/kGY22AYNX63Thn7jG5J.jpg', imageRatio: '4:3', creator: '胡山山', creatorAvatar: 'https://oss.umxverse.com/image/origin/WGHR24PZDtHHJtbRxj2.png', total: 3000, typeLabel: '合成', saleType: 'compose', description: '胡山山《气息》布面油画', blockchain: 'BSN', contractAddress: '106700', tokenId: 'U00P460' },
 ];
 
+// 寄售市场列表（详情页 Tab）
+export const consignmentList = [
+  { id: 'c1', seller: '用户***23', price: 1950, code: '#0042', time: '2026-01-20' },
+  { id: 'c2', seller: '用户***89', price: 2000, code: '#0156', time: '2026-01-19' },
+  { id: 'c3', seller: '用户***56', price: 2100, code: '#0789', time: '2026-01-18' },
+  { id: 'c4', seller: '用户***12', price: 2200, code: '#1023', time: '2026-01-17' },
+];
+
+// 报价列表
+export const quotationList = [
+  { id: 'q1', buyer: '用户***45', price: 1800, quantity: 2, time: '2026-01-21' },
+  { id: 'q2', buyer: '用户***78', price: 1900, quantity: 1, time: '2026-01-20' },
+  { id: 'q3', buyer: '用户***34', price: 1750, quantity: 3, time: '2026-01-19' },
+];
+
 // 用户信息
 export const userInfo = {
   uid: '123456789',

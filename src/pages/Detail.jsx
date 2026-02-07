@@ -1,6 +1,6 @@
 import { useParams, useNavigate, useLocation, useSearchParams } from 'react-router-dom';
 import { useState, useEffect, useMemo, useCallback, useRef } from 'react';
-import { hotCollections, marketCollections, homeCollections, tradingNotices } from '../mock/data';
+import { hotCollections, marketCollections, homeCollections, tradingNotices, consignmentList, quotationList } from '../mock/data';
 import { IconBack, IconShare, IconChevronDown, IconChevronUp } from '../components/base/Icons';
 import './Detail.scss';
 
@@ -44,8 +44,8 @@ export default function Detail() {
   const [searchParams, setSearchParams] = useSearchParams();
   const heroRef = useRef(null);
 
-  // 从 URL 读取 tab 状态，默认为 detail
-  const activeTab = searchParams.get('tab') || 'detail';
+  // 从 URL 读取 tab 状态，默认为 market
+  const activeTab = searchParams.get('tab') || 'market';
   const [descExpanded, setDescExpanded] = useState(false);
   const [noticeExpanded, setNoticeExpanded] = useState(false);
   const [copiedAddress, setCopiedAddress] = useState(false);
@@ -227,30 +227,55 @@ export default function Detail() {
         {/* Tab 导航 */}
         <nav className="detail-tabs" role="tablist" aria-label="藏品信息分类">
           <div className="tabs-container">
-            <button
-              role="tab"
-              className={`tab-item ${activeTab === 'detail' ? 'active' : ''}`}
-              onClick={() => handleTabChange('detail')}
-              aria-selected={activeTab === 'detail'}
-            >
-              <span className="tab-text">作品详情</span>
-              <span className="tab-indicator" />
-            </button>
-            <button
-              role="tab"
-              className={`tab-item ${activeTab === 'notice' ? 'active' : ''}`}
-              onClick={() => handleTabChange('notice')}
-              aria-selected={activeTab === 'notice'}
-            >
-              <span className="tab-text">作品公告</span>
-              <span className="tab-indicator" />
-            </button>
+            {[
+              { value: 'market', label: '市场' },
+              { value: 'detail', label: '作品详情' },
+              { value: 'notice', label: '作品公告' },
+              { value: 'quote', label: '报价' },
+            ].map((tab) => (
+              <button
+                key={tab.value}
+                role="tab"
+                className={`tab-item ${activeTab === tab.value ? 'active' : ''}`}
+                onClick={() => handleTabChange(tab.value)}
+                aria-selected={activeTab === tab.value}
+              >
+                <span className="tab-text">{tab.label}</span>
+                <span className="tab-indicator" />
+              </button>
+            ))}
           </div>
         </nav>
 
         {/* 内容面板 */}
         <div className="detail-content">
-          {activeTab === 'detail' ? (
+          {activeTab === 'market' ? (
+            /* 市场 Tab - 寄售列表 */
+            <article className="content-panel">
+              <section className="info-card consignment-card">
+                <div className="card-header simple">
+                  <h3 className="header-title">寄售列表</h3>
+                  <span className="header-count">{item.onSale || 0}件在售</span>
+                </div>
+                <div className="consignment-list">
+                  <div className="list-header-row">
+                    <span>编号</span>
+                    <span>卖家</span>
+                    <span>价格</span>
+                    <span>时间</span>
+                  </div>
+                  {consignmentList.map((c) => (
+                    <div key={c.id} className="list-row">
+                      <span className="row-code">{c.code}</span>
+                      <span className="row-seller">{c.seller}</span>
+                      <span className="row-price">¥{formatPrice(c.price)}</span>
+                      <span className="row-time">{c.time}</span>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            </article>
+          ) : activeTab === 'detail' ? (
             <article className="content-panel">
               {/* 主信息卡片 */}
               <section className="info-card main-card">
@@ -447,7 +472,7 @@ export default function Detail() {
                 </button>
               </section>
             </article>
-          ) : (
+          ) : activeTab === 'notice' ? (
             <article className="content-panel">
               <div className="empty-notice">
                 <div className="empty-visual">
@@ -464,6 +489,32 @@ export default function Detail() {
                 </div>
                 <p className="empty-text">暂无公告</p>
               </div>
+            </article>
+          ) : (
+            /* 报价 Tab */
+            <article className="content-panel">
+              <section className="info-card quotation-card">
+                <div className="card-header simple">
+                  <h3 className="header-title">买入报价</h3>
+                  <span className="header-count">{quotationList.length}条报价</span>
+                </div>
+                <div className="consignment-list">
+                  <div className="list-header-row">
+                    <span>买家</span>
+                    <span>报价</span>
+                    <span>数量</span>
+                    <span>时间</span>
+                  </div>
+                  {quotationList.map((q) => (
+                    <div key={q.id} className="list-row">
+                      <span className="row-seller">{q.buyer}</span>
+                      <span className="row-price">¥{formatPrice(q.price)}</span>
+                      <span className="row-qty">{q.quantity}件</span>
+                      <span className="row-time">{q.time}</span>
+                    </div>
+                  ))}
+                </div>
+              </section>
             </article>
           )}
         </div>

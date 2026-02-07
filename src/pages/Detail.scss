@@ -1191,3 +1191,75 @@
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+// ========== 寄售/报价列表 ==========
+.consignment-card,
+.quotation-card {
+  .card-header.simple {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .header-count {
+      font-size: var(--font-size-sm);
+      font-weight: 500;
+      color: var(--color-primary);
+    }
+  }
+}
+
+.consignment-list {
+  .list-header-row {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr 1fr 1fr;
+    gap: 8px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--detail-border);
+
+    span {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--detail-text-tertiary);
+    }
+  }
+
+  .list-row {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr 1fr 1fr;
+    gap: 8px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--detail-border);
+    align-items: center;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    .row-code {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--detail-text-primary);
+    }
+
+    .row-seller {
+      font-size: 12px;
+      color: var(--detail-text-secondary);
+    }
+
+    .row-price {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-primary);
+    }
+
+    .row-time {
+      font-size: 11px;
+      color: var(--detail-text-tertiary);
+    }
+
+    .row-qty {
+      font-size: 12px;
+      color: var(--detail-text-secondary);
+    }
+  }
+}
