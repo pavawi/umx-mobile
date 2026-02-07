@@ -1,6 +1,6 @@
 import { useParams, useNavigate, useLocation, useSearchParams } from 'react-router-dom';
 import { useState, useEffect, useMemo, useCallback, useRef } from 'react';
-import { hotCollections, marketCollections, homeCollections, tradingNotices, consignmentList, quotationList } from '../mock/data';
+import { hotCollections, marketCollections, homeCollections, tradingNotices, consignmentList, quotationList, walletOptions, collectionNotices } from '../mock/data';
 import { IconBack, IconShare, IconChevronDown, IconChevronUp } from '../components/base/Icons';
 import './Detail.scss';
 
@@ -50,8 +50,8 @@ export default function Detail() {
   const [searchParams, setSearchParams] = useSearchParams();
   const heroRef = useRef(null);
 
-  // 从 URL 读取 tab 状态，默认为 market
-  const activeTab = searchParams.get('tab') || 'market';
+  // 从 URL 读取 tab 状态，默认为 detail
+  const activeTab = searchParams.get('tab') || 'detail';
   const [descExpanded, setDescExpanded] = useState(false);
   const [noticeExpanded, setNoticeExpanded] = useState(false);
   const [consignmentSortAsc, setConsignmentSortAsc] = useState(true);
@@ -59,6 +59,11 @@ export default function Detail() {
   const [copiedAddress, setCopiedAddress] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+
+  // 钱包支付面板
+  const [walletPanelOpen, setWalletPanelOpen] = useState(false);
+  const [walletPanelPrice, setWalletPanelPrice] = useState(null);
+  const [selectedWallet, setSelectedWallet] = useState('wallet-a');
 
   // 从 location.state 获取传递的数据，或从 mock 数据中查找
   const item = useMemo(() => {
@@ -126,6 +131,23 @@ export default function Detail() {
     }
   }, [item]);
 
+  // 打开钱包支付面板
+  const handleOpenWallet = useCallback((price) => {
+    setWalletPanelPrice(price);
+    setWalletPanelOpen(true);
+  }, []);
+
+  // 关闭钱包支付面板
+  const handleCloseWallet = useCallback(() => {
+    setWalletPanelOpen(false);
+  }, []);
+
+  // 确认支付
+  const handleConfirmPay = useCallback(() => {
+    alert(`使用 ${walletOptions.find(w => w.id === selectedWallet)?.name} 支付 ¥${formatPrice(walletPanelPrice)}`);
+    setWalletPanelOpen(false);
+  }, [selectedWallet, walletPanelPrice]);
+
   // 处理返回
   const handleBack = useCallback(() => {
     navigate(-1);
@@ -189,9 +211,6 @@ export default function Detail() {
 
   const formattedPrice = formatPrice(item.price);
 
-  // 计算进度百分比
-  const progressPercent = item.issueCount ? Math.round((item.soldCount / item.issueCount) * 100) : 0;
-
   return (
     <div className="detail-page">
       {/* 顶部导航栏 - 透明渐变 */}
@@ -250,10 +269,10 @@ export default function Detail() {
         <nav className="detail-tabs" role="tablist" aria-label="藏品信息分类">
           <div className="tabs-container">
             {[
+              { value: 'detail', label: '详情' },
               { value: 'market', label: '市场' },
-              { value: 'detail', label: '作品详情' },
-              { value: 'notice', label: '作品公告' },
               { value: 'quote', label: '报价' },
+              { value: 'notice', label: '公告' },
             ].map((tab) => (
               <button
                 key={tab.value}
@@ -271,43 +290,7 @@ export default function Detail() {
 
         {/* 内容面板 */}
         <div className="detail-content">
-          {activeTab === 'market' ? (
-            /* 市场 Tab - 寄售列表（参考线上产品） */
-            <article className="content-panel">
-              <section className="consignment-section">
-                <div className="consignment-header">
-                  <span className="consignment-count">寄售数量{consignmentList.length}件</span>
-                  <button
-                    className="consignment-sort-btn"
-                    onClick={() => setConsignmentSortAsc(!consignmentSortAsc)}
-                  >
-                    价格
-                    <IconChevronUp size={10} className={`sort-arrow ${consignmentSortAsc ? 'active' : ''}`} />
-                    <IconChevronDown size={10} className={`sort-arrow ${!consignmentSortAsc ? 'active' : ''}`} />
-                  </button>
-                  <button className="consignment-action-btn" onClick={() => alert('敬请期待')}>批量</button>
-                  <button className="consignment-history-btn" onClick={() => alert('敬请期待')}>首发历史</button>
-                </div>
-                <div className="consignment-rows">
-                  {sortedConsignment.map((c) => (
-                    <div key={c.id} className="consignment-row">
-                      <div className="row-thumb">
-                        <img src={c.image} alt="" />
-                      </div>
-                      <div className="row-info">
-                        <div className="row-price">¥{formatPrice(c.price)}</div>
-                        <div className="row-meta">
-                          <span className="row-code">{c.code}/{formatNumber(c.totalIssue)}</span>
-                        </div>
-                        <div className="row-wallet">{c.walletSupport}</div>
-                      </div>
-                      <button className="row-buy-btn" onClick={() => alert('敬请期待')}>购买</button>
-                    </div>
-                  ))}
-                </div>
-              </section>
-            </article>
-          ) : activeTab === 'detail' ? (
+          {activeTab === 'detail' ? (
             <article className="content-panel">
               {/* 主信息卡片 */}
               <section className="info-card main-card">
@@ -339,16 +322,22 @@ export default function Detail() {
                 {/* 标题 */}
                 <h1 className="card-title">{item.name}</h1>
 
-                {/* 创作者信息 */}
-                <div className="creator-info">
-                  <div className="creator-row">
-                    <span className="creator-label">创作者</span>
-                    <span className="creator-value">{item.creator || '未知'}</span>
-                  </div>
-                  <div className="creator-row">
-                    <span className="creator-label">发行方</span>
-                    <span className="creator-value highlight">{item.issuer || 'UMX平台'}</span>
-                  </div>
+                {/* 创作者 + 发行信息 */}
+                <div className="creator-meta">
+                  <span className="meta-item">
+                    <span className="meta-label">创作者</span>
+                    <span className="meta-value">{item.creator || '未知'}</span>
+                  </span>
+                  <span className="meta-divider" />
+                  <span className="meta-item">
+                    <span className="meta-label">发行方</span>
+                    <span className="meta-value highlight">{item.issuer || 'UMX平台'}</span>
+                  </span>
+                  <span className="meta-divider" />
+                  <span className="meta-item">
+                    <span className="meta-label">发行量</span>
+                    <span className="meta-value numbers">{formatNumber(item.issueCount)}</span>
+                  </span>
                 </div>
 
                 {/* 价格展示 */}
@@ -361,26 +350,6 @@ export default function Detail() {
                     </div>
                   </div>
                 )}
-
-                {/* 发行进度 */}
-                <div className="issue-progress">
-                  <div className="progress-header">
-                    <span className="progress-label">发行进度</span>
-                    <span className="progress-numbers">
-                      <span className="sold">{formatNumber(item.soldCount)}</span>
-                      <span className="divider">/</span>
-                      <span className="total">{formatNumber(item.issueCount)}</span>
-                    </span>
-                  </div>
-                  <div className="progress-bar">
-                    <div
-                      className="progress-fill"
-                      style={{ width: `${progressPercent}%` }}
-                    />
-                    <div className="progress-glow" style={{ left: `${progressPercent}%` }} />
-                  </div>
-                  <span className="progress-percent">{progressPercent}%</span>
-                </div>
               </section>
 
               {/* 区块链信息卡片 */}
@@ -439,18 +408,6 @@ export default function Detail() {
                 </div>
               </section>
 
-              {/* 前往寄售市场 */}
-              {!isDirectSale && (
-                <a href="#/market" className="market-link">
-                  <span className="link-text">前往寄售市场</span>
-                  <span className="link-arrow">
-                    <svg viewBox="0 0 20 20" width="18" height="18">
-                      <path d="M7 4l6 6-6 6" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  </span>
-                </a>
-              )}
-
               {/* 作品详情 */}
               <section className="info-card description-card">
                 <div className="card-header simple">
@@ -504,68 +461,139 @@ export default function Detail() {
                 </button>
               </section>
             </article>
-          ) : activeTab === 'notice' ? (
+          ) : activeTab === 'market' ? (
+            /* 市场 Tab - 寄售列表 */
             <article className="content-panel">
-              <div className="empty-notice">
-                <div className="empty-visual">
-                  <svg viewBox="0 0 80 80" width="64" height="64">
-                    <defs>
-                      <linearGradient id="noticeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="#D4AF37" stopOpacity="0.3" />
-                        <stop offset="100%" stopColor="#D4AF37" stopOpacity="0.08" />
-                      </linearGradient>
-                    </defs>
-                    <circle cx="40" cy="40" r="32" fill="url(#noticeGrad)" />
-                    <path d="M40 20c-2.2 0-4 1.8-4 4v2c-4.4 1.8-7 5.4-7 9v8l-3 4h28l-3-4v-8c0-3.6-2.6-7.2-7-9v-2c0-2.2-1.8-4-4-4zm-3 31a3 3 0 006 0" stroke="#D4AF37" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" opacity="0.5" />
-                  </svg>
+              <section className="consignment-section">
+                <div className="consignment-header">
+                  <div className="consignment-header-top">
+                    <span className="consignment-count">
+                      寄售 <strong>{consignmentList.length}</strong> 件
+                    </span>
+                    <div className="consignment-actions">
+                      <button
+                        className="consignment-sort-btn"
+                        onClick={() => setConsignmentSortAsc(!consignmentSortAsc)}
+                      >
+                        价格
+                        <span className="sort-arrows">
+                          <IconChevronUp size={10} className={`sort-arrow ${consignmentSortAsc ? 'active' : ''}`} />
+                          <IconChevronDown size={10} className={`sort-arrow ${!consignmentSortAsc ? 'active' : ''}`} />
+                        </span>
+                      </button>
+                    </div>
+                  </div>
                 </div>
-                <p className="empty-text">暂无公告</p>
-                <p className="empty-hint">关注该藏品，第一时间获取动态通知</p>
-              </div>
-            </article>
-          ) : (
-            /* 报价 Tab（参考线上产品） */
-            <article className="content-panel">
-              <section className="quotation-section">
-                <div className="quotation-header">
-                  <span className="quotation-count">报价数量{quotationList.length}件</span>
-                  <button
-                    className="quotation-sort-btn"
-                    onClick={() => setQuotationSortAsc(!quotationSortAsc)}
-                  >
-                    价格
-                    <IconChevronUp size={10} className={`sort-arrow ${quotationSortAsc ? 'active' : ''}`} />
-                    <IconChevronDown size={10} className={`sort-arrow ${!quotationSortAsc ? 'active' : ''}`} />
-                  </button>
-                  <button className="quotation-request-btn" onClick={() => alert('敬请期待')}>我要求购</button>
-                </div>
-                <div className="quotation-table-header">
-                  <span>买家</span>
-                  <span>报价</span>
-                  <span>有效期</span>
-                  <span>操作</span>
-                </div>
-                <div className="quotation-rows">
-                  {sortedQuotation.map((q) => (
-                    <div key={q.id} className="quotation-row">
-                      <span className="row-buyer">{q.buyer}</span>
-                      <span className="row-price">¥{formatPrice(q.price)}</span>
-                      <span className="row-days">{q.remainDays}天</span>
-                      <button className="row-accept-btn" onClick={() => alert('敬请期待')}>接受</button>
+                <div className="consignment-list">
+                  {sortedConsignment.map((c, index) => (
+                    <div key={c.id} className={`consignment-item ${index === 0 ? 'lowest-price' : ''}`}>
+                      {index === 0 && <span className="lowest-badge">最低</span>}
+                      <div className="item-thumb">
+                        <img src={c.image} alt="" loading="lazy" />
+                      </div>
+                      <div className="item-body">
+                        <div className="item-price">
+                          <span className="price-sym">¥</span>
+                          <span className="price-int">{Math.floor(c.price)}</span>
+                          <span className="price-dec">.{(c.price % 1).toFixed(2).slice(2)}</span>
+                        </div>
+                        <div className="item-meta">
+                          <span className="meta-code">{c.code}/{formatNumber(c.totalIssue)}</span>
+                          <span className="meta-wallet">{c.walletSupport?.split('\n').join(' · ')}</span>
+                        </div>
+                      </div>
+                      <button
+                        className="item-buy-btn"
+                        onClick={() => handleOpenWallet(c.price)}
+                      >
+                        购买
+                      </button>
                     </div>
                   ))}
                 </div>
+                <div className="consignment-footer">没有更多了</div>
+              </section>
+            </article>
+          ) : activeTab === 'quote' ? (
+            /* 报价 Tab */
+            <article className="content-panel">
+              <section className="quotation-section">
+                <div className="quotation-header">
+                  <span className="quotation-count">
+                    报价 <strong>{quotationList.length}</strong> 件
+                  </span>
+                  <div className="quotation-actions">
+                    <button
+                      className="quotation-sort-btn"
+                      onClick={() => setQuotationSortAsc(!quotationSortAsc)}
+                    >
+                      价格
+                      <span className="sort-arrows">
+                        <IconChevronUp size={10} className={`sort-arrow ${quotationSortAsc ? 'active' : ''}`} />
+                        <IconChevronDown size={10} className={`sort-arrow ${!quotationSortAsc ? 'active' : ''}`} />
+                      </span>
+                    </button>
+                    <button className="quotation-request-btn" onClick={() => handleOpenWallet(null)}>我要求购</button>
+                  </div>
+                </div>
+                <div className="quotation-table">
+                  <div className="quotation-table-head">
+                    <span className="col-buyer">买家</span>
+                    <span className="col-price">报价</span>
+                    <span className="col-days">有效期</span>
+                    <span className="col-action">操作</span>
+                  </div>
+                  <div className="quotation-table-body">
+                    {sortedQuotation.map((q, index) => (
+                      <div key={q.id} className={`quotation-item ${index % 2 === 0 ? 'even' : 'odd'}`}>
+                        <span className="col-buyer">
+                          <span className="buyer-avatar">{q.buyer.charAt(0)}</span>
+                          {q.buyer}
+                        </span>
+                        <span className="col-price">
+                          <span className="price-sym">¥</span>{formatPrice(q.price)}
+                        </span>
+                        <span className="col-days">{q.remainDays}天</span>
+                        <span className="col-action">
+                          <button
+                            className="accept-btn"
+                            onClick={() => handleOpenWallet(q.price)}
+                          >
+                            接受
+                          </button>
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
                 <div className="quotation-footer">没有更多了</div>
+              </section>
+            </article>
+          ) : (
+            /* 公告 Tab */
+            <article className="content-panel">
+              <section className="notice-section">
+                {collectionNotices.map((n) => (
+                  <div key={n.id} className={`notice-item notice-type--${n.type}`}>
+                    <div className="notice-item-header">
+                      <span className={`notice-tag notice-tag--${n.type}`}>{n.tag}</span>
+                      <span className="notice-time">{n.time}</span>
+                    </div>
+                    <h4 className="notice-title">{n.title}</h4>
+                    <p className="notice-desc">{n.content}</p>
+                  </div>
+                ))}
+                <div className="notice-end">没有更多了</div>
               </section>
             </article>
           )}
         </div>
       </main>
 
-      {/* 底部操作栏 */}
-      <footer className="detail-footer">
+      {/* 底部操作栏 - 仅详情 tab 显示 */}
+      {activeTab === 'detail' && <footer className="detail-footer">
         <div className="footer-content">
-          {/* 价格展示（非直卖时显示在售数量） */}
+          {/* 价格展示（非直卖时显示在售数量+最低价） */}
           <div className="footer-info">
             {isDirectSale && formattedPrice ? (
               <>
@@ -577,8 +605,14 @@ export default function Detail() {
               </>
             ) : (
               <>
-                <span className="info-label">在售</span>
-                <span className="info-count">{formatNumber(item.onSale || 0)}件</span>
+                <span className="info-label">在售 {formatNumber(item.onSale || 0)}件</span>
+                {sortedConsignment.length > 0 && (
+                  <div className="info-price">
+                    <span className="currency">¥</span>
+                    <span className="amount">{formatPrice(sortedConsignment[0]?.price)}</span>
+                    <span className="info-lowest">起</span>
+                  </div>
+                )}
               </>
             )}
           </div>
@@ -587,12 +621,100 @@ export default function Detail() {
           <button
             className={`action-btn ${isDisabled ? 'disabled' : ''}`}
             disabled={isDisabled}
+            onClick={() => {
+              if (!isDisabled) {
+                const price = isDirectSale ? item.price : sortedConsignment[0]?.price;
+                handleOpenWallet(price);
+              }
+            }}
           >
             <span className="btn-text">{getButtonText()}</span>
             {!isDisabled && <span className="btn-shine" />}
           </button>
         </div>
-      </footer>
+      </footer>}
+
+      {/* 钱包支付面板 */}
+      {walletPanelOpen && (
+        <div className="wallet-overlay" onClick={handleCloseWallet}>
+          <div className="wallet-panel" onClick={(e) => e.stopPropagation()}>
+            {/* 面板头部 */}
+            <div className="wallet-panel-header">
+              <button className="wallet-close-btn" onClick={handleCloseWallet} aria-label="关闭">
+                <svg viewBox="0 0 24 24" width="20" height="20">
+                  <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                </svg>
+              </button>
+              <div className="wallet-summary">
+                <span className="summary-count">共1件</span>
+                <span className="summary-label">合计：</span>
+                <span className="summary-price">
+                  <span className="price-sym">¥</span>
+                  {walletPanelPrice ? formatPrice(walletPanelPrice) : '---'}
+                </span>
+              </div>
+            </div>
+
+            {/* 倒计时提示 */}
+            <div className="wallet-countdown">
+              <span>订单已锁定，请在</span>
+              <span className="countdown-time">04:38</span>
+              <span>内前往</span>
+              <span className="countdown-link">待支付页面</span>
+              <span>支付</span>
+            </div>
+
+            {/* 分割线 */}
+            <div className="wallet-divider" />
+
+            {/* 选择支付方式 */}
+            <div className="wallet-body">
+              <h3 className="wallet-title">请选择支付方式</h3>
+              <div className="wallet-list">
+                {walletOptions.map((w) => {
+                  const isInsufficient = walletPanelPrice && w.balance < walletPanelPrice;
+                  return (
+                    <label
+                      key={w.id}
+                      className={`wallet-option ${selectedWallet === w.id ? 'selected' : ''} ${isInsufficient ? 'insufficient' : ''}`}
+                    >
+                      <input
+                        type="radio"
+                        name="wallet"
+                        value={w.id}
+                        checked={selectedWallet === w.id}
+                        onChange={() => setSelectedWallet(w.id)}
+                        disabled={isInsufficient}
+                      />
+                      <span className="wallet-icon">
+                        <svg viewBox="0 0 24 24" width="24" height="24">
+                          <circle cx="12" cy="12" r="10" fill="rgba(212, 175, 55, 0.15)" stroke="rgba(212, 175, 55, 0.3)" strokeWidth="1"/>
+                          <text x="12" y="16" textAnchor="middle" fontSize="12" fill="#D4AF37" fontWeight="600">¥</text>
+                        </svg>
+                      </span>
+                      <span className="wallet-info">
+                        <span className="wallet-name">{w.name}–{w.type}</span>
+                        <span className="wallet-balance">（¥{formatPrice(w.balance)}）</span>
+                        {isInsufficient && <span className="wallet-insufficient">余额不足</span>}
+                      </span>
+                      <span className="wallet-radio">
+                        <span className="radio-dot" />
+                      </span>
+                    </label>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* 支付按钮 */}
+            <div className="wallet-footer">
+              <button className="wallet-pay-btn" onClick={handleConfirmPay}>
+                <span>立即支付</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

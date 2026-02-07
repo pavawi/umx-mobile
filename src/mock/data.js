@@ -708,6 +708,22 @@ export const consignmentList = [
   { id: 'c8', code: '#29378', totalIssue: 50919, price: 7.00, image: 'https://oss.umxverse.com/image/origin/Yaye8i2AyayWsYjA2dx.jpg', walletSupport: '支持C钱包\n支持A钱包' },
 ];
 
+// 钱包选项（详情页支付面板用）
+export const walletOptions = [
+  { id: 'wallet-a', name: 'A钱包', type: '余额支付', balance: 200.18 },
+  { id: 'wallet-c', name: 'C钱包', type: '余额支付', balance: 88.00 },
+  { id: 'wallet-d', name: 'D钱包', type: '余额支付', balance: 5.50 },
+];
+
+// 藏品公告列表
+export const collectionNotices = [
+  { id: 'n1', type: 'system', title: '系统升级公告', content: '平台将于 2026 年 2 月 10 日 00:00-06:00 进行系统维护升级，届时寄售和转赠功能暂不可用，请提前做好安排。', time: '2026-02-07 14:30', tag: '系统' },
+  { id: 'n2', type: 'activity', title: '限时寄售手续费减免活动', content: '即日起至 2 月 28 日，寄售手续费统一降至 1%，欢迎广大藏家积极参与市场交易。', time: '2026-02-05 10:00', tag: '活动' },
+  { id: 'n3', type: 'update', title: '「梦症5号」系列赋能更新', content: '持有梦症5号系列藏品的用户，将获得 3 月份线下艺术展优先购票资格，详情请关注官方社区。', time: '2026-02-03 18:00', tag: '赋能' },
+  { id: 'n4', type: 'warning', title: '防范诈骗提醒', content: '近期有不法分子冒充平台客服索要验证码，请广大用户提高警惕。平台不会以任何形式向您索要密码或验证码。', time: '2026-01-28 09:00', tag: '安全' },
+  { id: 'n5', type: 'activity', title: '春节集卡抽奖活动开启', content: '集齐指定系列 5 张藏品即可参与抽奖，有机会赢取限量版合成材料和平台优惠券。', time: '2026-01-25 12:00', tag: '活动' },
+];
+
 // 报价列表
 export const quotationList = [
   { id: 'q1', buyer: '望*', price: 12.70, remainDays: 2 },

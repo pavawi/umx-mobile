@@ -391,35 +391,43 @@
     letter-spacing: -0.3px;
   }
 
-  .creator-info {
+  .creator-meta {
     display: flex;
-    flex-direction: column;
+    align-items: center;
     gap: var(--spacing-sm);
-    padding: var(--spacing-md);
-    border-left: 3px solid var(--color-primary);
-    background: linear-gradient(135deg, rgba(212, 175, 55, 0.04) 0%, var(--detail-bg-subtle) 100%);
-    border-radius: var(--radius-lg);
     margin-bottom: var(--spacing-base);
+    flex-wrap: wrap;
 
-    .creator-row {
+    .meta-item {
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      gap: 4px;
     }
 
-    .creator-label {
+    .meta-label {
       font-size: var(--font-size-sm);
       color: var(--detail-text-tertiary);
     }
 
-    .creator-value {
-      font-size: var(--font-size-base);
+    .meta-value {
+      font-size: var(--font-size-sm);
       font-weight: var(--font-weight-medium);
       color: var(--detail-text-primary);
 
       &.highlight {
         color: var(--color-primary);
       }
+
+      &.numbers {
+        font-variant-numeric: tabular-nums;
+      }
+    }
+
+    .meta-divider {
+      width: 1px;
+      height: 12px;
+      background: var(--detail-border);
+      flex-shrink: 0;
     }
   }
 
@@ -456,77 +464,6 @@
     }
   }
 
-  .issue-progress {
-    padding-top: var(--spacing-md);
-    border-top: 1px solid var(--detail-border);
-
-    .progress-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: var(--spacing-sm);
-    }
-
-    .progress-label {
-      font-size: var(--font-size-sm);
-      color: var(--detail-text-tertiary);
-    }
-
-    .progress-numbers {
-      font-size: var(--font-size-sm);
-      font-variant-numeric: tabular-nums;
-
-      .sold {
-        color: var(--color-primary);
-        font-weight: var(--font-weight-semibold);
-      }
-
-      .divider {
-        color: var(--detail-text-tertiary);
-        margin: 0 4px;
-      }
-
-      .total {
-        color: var(--detail-text-secondary);
-      }
-    }
-
-    .progress-bar {
-      position: relative;
-      height: 6px;
-      background: var(--detail-bg-subtle);
-      border-radius: 3px;
-      overflow: visible;
-
-      .progress-fill {
-        height: 100%;
-        background: linear-gradient(90deg, #B8860B 0%, #D4AF37 50%, #E6BE4A 100%);
-        border-radius: 3px;
-        transition: width 1s var(--ease-out);
-      }
-
-      .progress-glow {
-        position: absolute;
-        top: 50%;
-        width: 12px;
-        height: 12px;
-        background: var(--color-primary);
-        border-radius: 50%;
-        transform: translate(-50%, -50%);
-        box-shadow: 0 0 8px var(--color-primary), 0 0 16px rgba(212, 175, 55, 0.2);
-        animation: none;
-      }
-    }
-
-    .progress-percent {
-      display: block;
-      text-align: right;
-      font-size: var(--font-size-xs);
-      font-weight: var(--font-weight-semibold);
-      color: var(--color-primary);
-      margin-top: var(--spacing-xs);
-    }
-  }
 }
 
 // 区块链信息卡片
@@ -690,49 +627,6 @@
   }
 }
 
-// ========== 前往寄售市场链接 ==========
-.market-link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--spacing-sm);
-  padding: var(--spacing-base);
-  background: linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, rgba(212, 175, 55, 0.04) 100%);
-  border: 1px solid rgba(212, 175, 55, 0.15);
-  border-radius: var(--radius-lg);
-  text-decoration: none;
-  transition: all var(--duration-fast) var(--ease-out);
-
-  &:hover {
-    background: linear-gradient(135deg, rgba(212, 175, 55, 0.12) 0%, rgba(212, 175, 55, 0.06) 100%);
-    border-color: rgba(212, 175, 55, 0.3);
-  }
-
-  &:active {
-    transform: scale(0.98);
-  }
-
-  &:focus-visible {
-    outline: 2px solid var(--color-primary);
-    outline-offset: 2px;
-  }
-
-  .link-text {
-    font-size: var(--font-size-md);
-    font-weight: var(--font-weight-medium);
-    color: var(--color-primary-dark);
-  }
-
-  .link-arrow {
-    color: var(--color-primary);
-    transition: transform var(--duration-fast) var(--ease-out);
-  }
-
-  &:hover .link-arrow {
-    transform: translateX(4px);
-  }
-}
-
 // ========== 作品详情/交易须知 ==========
 .description-card,
 .notice-card {
@@ -829,32 +723,89 @@
   }
 }
 
-// ========== 空状态 ==========
-.empty-notice {
+// ========== 公告列表 ==========
+.notice-section {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 80px var(--spacing-xl);
-  background: var(--detail-bg-card);
-  border: 1px solid var(--detail-border);
-  border-radius: var(--radius-xl);
+  gap: var(--spacing-md);
 
-  .empty-visual {
-    margin-bottom: var(--spacing-base);
+  .notice-item {
+    padding: var(--spacing-base);
+    background: var(--detail-bg-card);
+    border: 1px solid var(--detail-border);
+    border-radius: var(--radius-lg);
+    transition: border-color var(--duration-fast) var(--ease-out);
+
+    &:active {
+      border-color: var(--detail-border-strong);
+    }
   }
 
-  .empty-text {
-    font-size: var(--font-size-base);
+  .notice-item-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .notice-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    border-radius: var(--radius-xs);
+    line-height: 1.6;
+
+    &--system {
+      color: #6366F1;
+      background: rgba(99, 102, 241, 0.1);
+    }
+
+    &--activity {
+      color: var(--color-primary-dark);
+      background: rgba(212, 175, 55, 0.1);
+    }
+
+    &--update {
+      color: #10B981;
+      background: rgba(16, 185, 129, 0.1);
+    }
+
+    &--warning {
+      color: #EF4444;
+      background: rgba(239, 68, 68, 0.1);
+    }
+  }
+
+  .notice-time {
+    font-size: var(--font-size-xs);
     color: var(--detail-text-tertiary);
-    margin: 0;
   }
 
-  .empty-hint {
+  .notice-title {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    color: var(--detail-text-primary);
+    margin: 0 0 var(--spacing-xs);
+    line-height: 1.5;
+  }
+
+  .notice-desc {
+    font-size: var(--font-size-sm);
+    color: var(--detail-text-secondary);
+    line-height: 1.6;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .notice-end {
+    text-align: center;
     font-size: var(--font-size-sm);
     color: var(--detail-text-tertiary);
-    margin: var(--spacing-sm) 0 0;
-    opacity: 0.7;
+    padding: var(--spacing-lg) 0;
   }
 }
 
@@ -1135,23 +1086,12 @@
     }
   }
 
-  .market-link {
-    background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(212, 175, 55, 0.05) 100%);
-    border-color: rgba(212, 175, 55, 0.2);
-
-    .link-text {
-      color: var(--color-primary);
-    }
-
-    &:hover {
-      background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(212, 175, 55, 0.08) 100%);
-      border-color: rgba(212, 175, 55, 0.4);
-    }
-  }
-
-  .empty-notice,
   .detail-empty .empty-btn {
     background: linear-gradient(145deg, rgba(25, 25, 35, 0.9) 0%, rgba(15, 15, 25, 0.95) 100%);
+  }
+
+  .notice-section .notice-item {
+    background: rgba(255, 255, 255, 0.04);
   }
 
   .footer-info {
@@ -1179,10 +1119,6 @@
   .hero-image {
     transition: opacity var(--duration-fast);
     transform: none;
-  }
-
-  .progress-bar .progress-glow {
-    animation: none;
   }
 
   .tag--selling .status-pulse {
@@ -1241,7 +1177,7 @@
   }
 }
 
-// ========== 寄售列表（参考线上产品） ==========
+// ========== 寄售列表（市场 Tab） ==========
 .consignment-section {
   background: var(--detail-bg-card);
   border-radius: var(--radius-xl);
@@ -1250,94 +1186,105 @@
 }
 
 .consignment-header {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: var(--spacing-sm);
-  padding: 14px var(--spacing-base);
-  border-bottom: 1px solid var(--detail-border);
+  padding: var(--spacing-base);
+
+  .consignment-header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
   .consignment-count {
-    width: 100%;
     font-size: var(--font-size-base);
-    font-weight: var(--font-weight-medium);
-    color: var(--detail-text-primary);
-    margin-bottom: var(--spacing-xs);
+    color: var(--detail-text-secondary);
+
+    strong {
+      font-weight: var(--font-weight-bold);
+      color: var(--detail-text-primary);
+      font-size: var(--font-size-lg);
+    }
+  }
+
+  .consignment-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
   }
 
   .consignment-sort-btn {
     display: flex;
     align-items: center;
     gap: 2px;
-    padding: 6px 12px;
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-medium);
-    color: var(--detail-text-secondary);
-    background: transparent;
-    border: none;
-    cursor: pointer;
-
-    .sort-arrow {
-      color: var(--detail-text-tertiary);
-      margin: -4px 0;
-
-      &.active {
-        color: var(--color-primary);
-      }
-    }
-  }
-
-  .consignment-action-btn {
-    padding: 6px 14px;
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-medium);
-    color: var(--detail-text-secondary);
-    background: transparent;
-    border: 1px solid var(--detail-border-strong);
-    border-radius: var(--radius-full);
-    cursor: pointer;
-
-    &:active {
-      background: var(--detail-bg-subtle);
-    }
-  }
-
-  .consignment-history-btn {
     padding: 6px 14px;
     font-size: var(--font-size-sm);
     font-weight: var(--font-weight-semibold);
     color: var(--color-primary-dark);
-    background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(212, 175, 55, 0.08) 100%);
-    border: 1px solid rgba(212, 175, 55, 0.3);
+    background: rgba(212, 175, 55, 0.1);
+    border: 1px solid rgba(212, 175, 55, 0.25);
     border-radius: var(--radius-full);
     cursor: pointer;
+    transition: all var(--duration-fast) var(--ease-out);
 
     &:active {
       background: rgba(212, 175, 55, 0.2);
+      transform: scale(0.96);
+    }
+
+    .sort-arrows {
+      display: flex;
+      flex-direction: column;
+      margin-left: 2px;
+    }
+
+    .sort-arrow {
+      color: rgba(212, 175, 55, 0.3);
+      margin: -4px 0;
+
+      &.active {
+        color: var(--color-primary);
+        filter: drop-shadow(0 0 2px rgba(212, 175, 55, 0.4));
+      }
     }
   }
 }
 
-.consignment-rows {
-  .consignment-row {
+.consignment-list {
+  .consignment-item {
+    position: relative;
     display: flex;
     align-items: center;
-    gap: var(--spacing-base);
-    padding: var(--spacing-base) var(--spacing-base);
-    border-bottom: 1px solid var(--detail-border);
+    gap: var(--spacing-md);
+    padding: var(--spacing-md) var(--spacing-base);
+    border-top: 1px solid var(--detail-border);
     transition: background-color var(--duration-fast) var(--ease-out);
 
     &:active {
-      background-color: rgba(212, 175, 55, 0.06);
+      background-color: rgba(212, 175, 55, 0.04);
     }
 
-    &:last-child {
-      border-bottom: none;
+    // 最低价行高亮
+    &.lowest-price {
+      background: linear-gradient(90deg, rgba(212, 175, 55, 0.06) 0%, transparent 100%);
+      border-left: 3px solid var(--color-primary);
+      padding-left: calc(var(--spacing-base) - 3px);
     }
 
-    .row-thumb {
-      width: 56px;
-      height: 56px;
+    .lowest-badge {
+      position: absolute;
+      top: 6px;
+      left: 8px;
+      padding: 1px 6px;
+      font-size: 9px;
+      font-weight: var(--font-weight-bold);
+      color: #fff;
+      background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%);
+      border-radius: var(--radius-xs);
+      letter-spacing: 0.5px;
+    }
+
+    .item-thumb {
+      width: 52px;
+      height: 52px;
       flex-shrink: 0;
       border-radius: var(--radius-md);
       overflow: hidden;
@@ -1350,39 +1297,62 @@
       }
     }
 
-    .row-info {
+    .item-body {
       flex: 1;
       min-width: 0;
+    }
 
-      .row-price {
+    .item-price {
+      display: flex;
+      align-items: baseline;
+      margin-bottom: 2px;
+      font-variant-numeric: tabular-nums;
+
+      .price-sym {
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-medium);
+        color: var(--color-primary-dark);
+        margin-right: 1px;
+      }
+
+      .price-int {
         font-size: 20px;
         font-weight: var(--font-weight-bold);
         color: var(--color-primary-dark);
-        font-variant-numeric: tabular-nums;
-        margin-bottom: 2px;
+        letter-spacing: -0.5px;
       }
 
-      .row-meta {
-        .row-code {
-          font-size: var(--font-size-sm);
-          color: var(--color-primary);
-          font-weight: var(--font-weight-medium);
-        }
-      }
-
-      .row-wallet {
-        font-size: var(--font-size-xs);
-        color: var(--detail-text-tertiary);
-        white-space: pre-line;
-        line-height: 1.4;
-        margin-top: 2px;
+      .price-dec {
+        font-size: var(--font-size-sm);
+        font-weight: var(--font-weight-medium);
+        color: var(--color-primary-dark);
+        opacity: 0.6;
       }
     }
 
-    .row-buy-btn {
+    .item-meta {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+      flex-wrap: wrap;
+
+      .meta-code {
+        font-size: var(--font-size-xs);
+        color: var(--detail-text-tertiary);
+        font-variant-numeric: tabular-nums;
+      }
+
+      .meta-wallet {
+        font-size: var(--font-size-xs);
+        color: var(--detail-text-tertiary);
+        opacity: 0.7;
+      }
+    }
+
+    .item-buy-btn {
       flex-shrink: 0;
-      padding: 8px 20px;
-      font-size: var(--font-size-base);
+      padding: 8px 18px;
+      font-size: var(--font-size-sm);
       font-weight: var(--font-weight-semibold);
       color: #fff;
       background: linear-gradient(135deg, #D4AF37 0%, #BF953F 100%);
@@ -1399,7 +1369,14 @@
   }
 }
 
-// ========== 报价列表（参考线上产品） ==========
+.consignment-footer {
+  text-align: center;
+  padding: var(--spacing-md) var(--spacing-base);
+  font-size: var(--font-size-xs);
+  color: var(--detail-text-tertiary);
+}
+
+// ========== 报价列表（报价 Tab） ==========
 .quotation-section {
   background: var(--detail-bg-card);
   border-radius: var(--radius-xl);
@@ -1410,35 +1387,58 @@
 .quotation-header {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 14px var(--spacing-base);
-  border-bottom: 1px solid var(--detail-border);
+  justify-content: space-between;
+  padding: var(--spacing-base);
 
   .quotation-count {
     font-size: var(--font-size-base);
-    font-weight: var(--font-weight-medium);
-    color: var(--detail-text-primary);
-    margin-right: auto;
+    color: var(--detail-text-secondary);
+
+    strong {
+      font-weight: var(--font-weight-bold);
+      color: var(--detail-text-primary);
+      font-size: var(--font-size-lg);
+    }
+  }
+
+  .quotation-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
   }
 
   .quotation-sort-btn {
     display: flex;
     align-items: center;
     gap: 2px;
-    padding: 6px 12px;
+    padding: 6px 14px;
     font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-medium);
-    color: var(--detail-text-secondary);
-    background: transparent;
-    border: none;
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-primary-dark);
+    background: rgba(212, 175, 55, 0.1);
+    border: 1px solid rgba(212, 175, 55, 0.25);
+    border-radius: var(--radius-full);
     cursor: pointer;
+    transition: all var(--duration-fast) var(--ease-out);
+
+    &:active {
+      background: rgba(212, 175, 55, 0.2);
+      transform: scale(0.96);
+    }
+
+    .sort-arrows {
+      display: flex;
+      flex-direction: column;
+      margin-left: 2px;
+    }
 
     .sort-arrow {
-      color: var(--detail-text-tertiary);
+      color: rgba(212, 175, 55, 0.3);
       margin: -4px 0;
 
       &.active {
         color: var(--color-primary);
+        filter: drop-shadow(0 0 2px rgba(212, 175, 55, 0.4));
       }
     }
   }
@@ -1447,92 +1447,116 @@
     padding: 6px 16px;
     font-size: var(--font-size-sm);
     font-weight: var(--font-weight-semibold);
-    color: var(--color-primary-dark);
-    background: transparent;
-    border: 1.5px solid var(--color-primary);
+    color: #fff;
+    background: linear-gradient(135deg, #D4AF37 0%, #BF953F 100%);
+    border: none;
     border-radius: var(--radius-full);
     cursor: pointer;
+    box-shadow: 0 2px 8px rgba(212, 175, 55, 0.25);
 
     &:active {
-      background: rgba(212, 175, 55, 0.1);
+      transform: scale(0.96);
+      opacity: 0.9;
     }
   }
 }
 
-.quotation-table-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: var(--spacing-sm) var(--spacing-base);
-  font-size: var(--font-size-xs);
-  color: var(--detail-text-tertiary);
-  border-bottom: 1px solid var(--detail-border);
-
-  span:nth-child(1) { min-width: 32px; }
-  span:nth-child(2) { flex: 1; }
-  span:nth-child(3) { min-width: 32px; text-align: right; }
-  span:nth-child(4) { flex-shrink: 0; width: 68px; text-align: center; }
-}
-
-.quotation-rows {
-  padding: var(--spacing-sm) var(--spacing-base);
-
-  .quotation-row {
+.quotation-table {
+  .quotation-table-head {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 16px var(--spacing-base);
-    margin-bottom: var(--spacing-sm);
-    background: var(--color-bg-primary);
-    border-radius: var(--radius-lg);
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+    padding: var(--spacing-sm) var(--spacing-base);
+    font-size: var(--font-size-xs);
+    color: var(--detail-text-tertiary);
+    background: var(--detail-bg-subtle);
+    border-top: 1px solid var(--detail-border);
+    border-bottom: 1px solid var(--detail-border);
+  }
+
+  .col-buyer { flex: 1; min-width: 0; }
+  .col-price { flex: 1.2; text-align: left; }
+  .col-days { width: 50px; text-align: center; }
+  .col-action { width: 60px; text-align: center; }
+}
+
+.quotation-table-body {
+  .quotation-item {
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-md) var(--spacing-base);
+    border-bottom: 1px solid var(--detail-border);
     transition: background-color var(--duration-fast) var(--ease-out);
 
-    &:active {
-      background-color: rgba(212, 175, 55, 0.06);
+    &.even {
+      background: transparent;
+    }
+
+    &.odd {
+      background: var(--detail-bg-muted);
     }
 
     &:last-child {
-      margin-bottom: 0;
+      border-bottom: none;
     }
 
-    .row-buyer {
+    &:active {
+      background-color: rgba(212, 175, 55, 0.04);
+    }
+
+    .col-buyer {
+      display: flex;
+      align-items: center;
+      gap: 6px;
       font-size: var(--font-size-base);
-      font-weight: var(--font-weight-medium);
       color: var(--detail-text-secondary);
-      min-width: 32px;
+
+      .buyer-avatar {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(212, 175, 55, 0.08) 100%);
+        border: 1px solid rgba(212, 175, 55, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 10px;
+        font-weight: var(--font-weight-semibold);
+        color: var(--color-primary-dark);
+      }
     }
 
-    .row-price {
-      flex: 1;
-      font-size: var(--font-size-lg);
+    .col-price {
+      font-size: var(--font-size-base);
       font-weight: var(--font-weight-bold);
       color: var(--color-primary-dark);
       font-variant-numeric: tabular-nums;
+
+      .price-sym {
+        font-size: var(--font-size-xs);
+        font-weight: var(--font-weight-medium);
+        margin-right: 1px;
+      }
     }
 
-    .row-days {
-      font-size: var(--font-size-base);
+    .col-days {
+      font-size: var(--font-size-sm);
       color: var(--detail-text-tertiary);
-      min-width: 32px;
-      text-align: right;
     }
 
-    .row-accept-btn {
-      flex-shrink: 0;
-      padding: 8px 20px;
-      font-size: var(--font-size-base);
+    .accept-btn {
+      padding: 5px 14px;
+      font-size: var(--font-size-sm);
       font-weight: var(--font-weight-semibold);
-      color: #fff;
-      background: linear-gradient(135deg, #D4AF37 0%, #BF953F 100%);
-      border: none;
+      color: var(--color-primary-dark);
+      background: transparent;
+      border: 1.5px solid rgba(212, 175, 55, 0.4);
       border-radius: var(--radius-full);
       cursor: pointer;
       transition: all var(--duration-fast) var(--ease-out);
 
       &:active {
+        background: rgba(212, 175, 55, 0.1);
         transform: scale(0.95);
-        opacity: 0.9;
       }
     }
   }
@@ -1540,28 +1564,304 @@
 
 .quotation-footer {
   text-align: center;
-  padding: var(--spacing-base);
-  font-size: var(--font-size-sm);
+  padding: var(--spacing-md) var(--spacing-base);
+  font-size: var(--font-size-xs);
   color: var(--detail-text-tertiary);
 }
 
-// 深色主题适配
+// ========== 钱包支付面板 ==========
+.wallet-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: flex-end;
+  animation: overlayFadeIn 0.2s var(--ease-out);
+}
+
+.wallet-panel {
+  width: 100%;
+  max-height: 80vh;
+  background: var(--color-bg-primary);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  overflow-y: auto;
+  animation: panelSlideUp 0.3s var(--ease-spring);
+}
+
+.wallet-panel-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg) var(--spacing-lg) var(--spacing-sm);
+
+  .wallet-close-btn {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--detail-bg-subtle);
+    border: none;
+    border-radius: 50%;
+    color: var(--detail-text-secondary);
+    cursor: pointer;
+
+    &:active {
+      background: var(--detail-bg-tertiary);
+    }
+  }
+
+  .wallet-summary {
+    flex: 1;
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+
+    .summary-count {
+      font-size: var(--font-size-sm);
+      color: var(--detail-text-tertiary);
+    }
+
+    .summary-label {
+      font-size: var(--font-size-base);
+      color: var(--detail-text-secondary);
+    }
+
+    .summary-price {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-error);
+      font-variant-numeric: tabular-nums;
+
+      .price-sym {
+        font-size: var(--font-size-base);
+        margin-right: 1px;
+      }
+    }
+  }
+}
+
+.wallet-countdown {
+  padding: 0 var(--spacing-lg) var(--spacing-md);
+  font-size: var(--font-size-sm);
+  color: var(--detail-text-tertiary);
+
+  .countdown-time {
+    color: var(--color-error);
+    font-weight: var(--font-weight-semibold);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .countdown-link {
+    color: var(--color-info);
+    text-decoration: underline;
+  }
+}
+
+.wallet-divider {
+  height: 1px;
+  background: var(--detail-border);
+  margin: 0 var(--spacing-lg);
+}
+
+.wallet-body {
+  padding: var(--spacing-lg);
+
+  .wallet-title {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--detail-text-primary);
+    margin: 0 0 var(--spacing-base);
+  }
+}
+
+.wallet-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.wallet-option {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-base);
+  background: var(--detail-bg-muted);
+  border: 2px solid transparent;
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-out);
+
+  input[type="radio"] {
+    display: none;
+  }
+
+  &.selected {
+    border-color: var(--color-primary);
+    background: rgba(212, 175, 55, 0.06);
+
+    .wallet-radio {
+      border-color: var(--color-primary);
+
+      .radio-dot {
+        background: var(--color-primary);
+        box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+      }
+    }
+  }
+
+  &.insufficient {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &:active:not(.insufficient) {
+    transform: scale(0.98);
+  }
+
+  .wallet-icon {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .wallet-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 4px;
+
+    .wallet-name {
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-medium);
+      color: var(--detail-text-primary);
+    }
+
+    .wallet-balance {
+      font-size: var(--font-size-base);
+      color: var(--detail-text-secondary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .wallet-insufficient {
+      width: 100%;
+      font-size: var(--font-size-xs);
+      color: var(--color-error);
+    }
+  }
+
+  .wallet-radio {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    border: 2px solid var(--detail-border-strong);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color var(--duration-fast) var(--ease-out);
+
+    .radio-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: transparent;
+      transition: all var(--duration-fast) var(--ease-out);
+    }
+  }
+}
+
+.wallet-footer {
+  padding: var(--spacing-base) var(--spacing-lg);
+  padding-bottom: calc(var(--spacing-lg) + var(--safe-area-bottom));
+
+  .wallet-pay-btn {
+    width: 100%;
+    padding: var(--spacing-base);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: #fff;
+    background: linear-gradient(135deg, #D4AF37 0%, #BF953F 100%);
+    border: none;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(212, 175, 55, 0.3);
+    transition: all var(--duration-fast) var(--ease-out);
+
+    &:active {
+      transform: scale(0.98);
+      opacity: 0.9;
+    }
+  }
+}
+
+@keyframes overlayFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes panelSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// ========== 底部操作栏"起"字样式 ==========
+.footer-info .info-lowest {
+  font-size: var(--font-size-xs);
+  color: var(--detail-text-tertiary);
+  margin-left: 2px;
+}
+
+// ========== 深色主题适配 - 市场/报价/钱包 ==========
 [data-theme="dark"] {
-  .consignment-section {
+  .consignment-section,
+  .quotation-section {
     background: var(--detail-bg-card);
   }
 
-  .quotation-section {
-    background: rgba(30, 25, 15, 0.5);
+  .consignment-list .consignment-item {
+    .item-price .price-sym,
+    .item-price .price-int,
+    .item-price .price-dec {
+      color: var(--color-primary);
+    }
+
+    .item-buy-btn {
+      box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+    }
   }
 
-  .consignment-rows .consignment-row .row-info .row-price,
-  .quotation-rows .quotation-row .row-price {
-    color: var(--color-primary);
+  .quotation-table-body .quotation-item {
+    .col-price {
+      color: var(--color-primary);
+    }
   }
 
-  .consignment-rows .consignment-row .row-buy-btn,
-  .quotation-rows .quotation-row .row-accept-btn {
-    box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+  .wallet-panel {
+    background: var(--color-bg-secondary);
+  }
+
+  .wallet-option {
+    background: rgba(255, 255, 255, 0.04);
+
+    &.selected {
+      background: rgba(212, 175, 55, 0.1);
+    }
+  }
+
+  .wallet-pay-btn {
+    box-shadow: 0 4px 16px rgba(212, 175, 55, 0.4);
   }
 }
