@@ -18,7 +18,7 @@ export const activityNotices = [
 export const featureGridItems = [
   { id: '1', title: 'U卡限时特惠', subtitle: '新用户专享', badge: '热门', bgGradient: 'linear-gradient(135deg, #2D1B4E 0%, #1a1a2e 100%)', link: '/ucard' },
   { id: '2', title: '市场', subtitle: '发现优质藏品', iconBg: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', link: '/market' },
-  { id: '3', title: '今日热榜', subtitle: '每天24点更新', iconBg: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)', link: '/hot' },
+  { id: '3', title: '今日热榜', subtitle: '每天24点更新', iconBg: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)', link: '/market' },
   { id: '4', title: '加入社群', subtitle: '好友相伴', iconBg: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)', link: '/community' },
 ];
 

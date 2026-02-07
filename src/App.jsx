@@ -19,8 +19,8 @@ function AppContent() {
       <ErrorBoundary>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/hot" element={<Hot />} />
-          <Route path="/market" element={<Market />} />
+          <Route path="/market" element={<Hot />} />
+          <Route path="/library" element={<Market />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/detail/:id" element={<Detail />} />
         </Routes>
