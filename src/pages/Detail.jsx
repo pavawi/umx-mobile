@@ -48,6 +48,8 @@ export default function Detail() {
   const activeTab = searchParams.get('tab') || 'market';
   const [descExpanded, setDescExpanded] = useState(false);
   const [noticeExpanded, setNoticeExpanded] = useState(false);
+  const [consignmentSortAsc, setConsignmentSortAsc] = useState(true);
+  const [quotationSortAsc, setQuotationSortAsc] = useState(true);
   const [copiedAddress, setCopiedAddress] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -59,6 +61,20 @@ export default function Detail() {
            marketCollections.find(c => c.id === id) ||
            homeCollections.find(c => c.id === id);
   }, [id, location.state]);
+
+  // 排序后的寄售列表
+  const sortedConsignment = useMemo(() => {
+    return [...consignmentList].sort((a, b) =>
+      consignmentSortAsc ? a.price - b.price : b.price - a.price
+    );
+  }, [consignmentSortAsc]);
+
+  // 排序后的报价列表
+  const sortedQuotation = useMemo(() => {
+    return [...quotationList].sort((a, b) =>
+      quotationSortAsc ? a.price - b.price : b.price - a.price
+    );
+  }, [quotationSortAsc]);
 
   // 监听滚动
   useEffect(() => {
@@ -250,26 +266,36 @@ export default function Detail() {
         {/* 内容面板 */}
         <div className="detail-content">
           {activeTab === 'market' ? (
-            /* 市场 Tab - 寄售列表 */
+            /* 市场 Tab - 寄售列表（参考线上产品） */
             <article className="content-panel">
-              <section className="info-card consignment-card">
-                <div className="card-header simple">
-                  <h3 className="header-title">寄售列表</h3>
-                  <span className="header-count">{item.onSale || 0}件在售</span>
+              <section className="consignment-section">
+                <div className="consignment-header">
+                  <span className="consignment-count">寄售数量{consignmentList.length}件</span>
+                  <button
+                    className="consignment-sort-btn"
+                    onClick={() => setConsignmentSortAsc(!consignmentSortAsc)}
+                  >
+                    价格
+                    <IconChevronUp size={10} className={`sort-arrow ${consignmentSortAsc ? 'active' : ''}`} />
+                    <IconChevronDown size={10} className={`sort-arrow ${!consignmentSortAsc ? 'active' : ''}`} />
+                  </button>
+                  <button className="consignment-action-btn" onClick={() => alert('敬请期待')}>批量</button>
+                  <button className="consignment-history-btn" onClick={() => alert('敬请期待')}>首发历史</button>
                 </div>
-                <div className="consignment-list">
-                  <div className="list-header-row">
-                    <span>编号</span>
-                    <span>卖家</span>
-                    <span>价格</span>
-                    <span>时间</span>
-                  </div>
-                  {consignmentList.map((c) => (
-                    <div key={c.id} className="list-row">
-                      <span className="row-code">{c.code}</span>
-                      <span className="row-seller">{c.seller}</span>
-                      <span className="row-price">¥{formatPrice(c.price)}</span>
-                      <span className="row-time">{c.time}</span>
+                <div className="consignment-rows">
+                  {sortedConsignment.map((c) => (
+                    <div key={c.id} className="consignment-row">
+                      <div className="row-thumb">
+                        <img src={c.image} alt="" />
+                      </div>
+                      <div className="row-info">
+                        <div className="row-price">¥{formatPrice(c.price)}</div>
+                        <div className="row-meta">
+                          <span className="row-code">{c.code}/{formatNumber(c.totalIssue)}</span>
+                        </div>
+                        <div className="row-wallet">{c.walletSupport}</div>
+                      </div>
+                      <button className="row-buy-btn" onClick={() => alert('敬请期待')}>购买</button>
                     </div>
                   ))}
                 </div>
@@ -491,29 +517,32 @@ export default function Detail() {
               </div>
             </article>
           ) : (
-            /* 报价 Tab */
+            /* 报价 Tab（参考线上产品） */
             <article className="content-panel">
-              <section className="info-card quotation-card">
-                <div className="card-header simple">
-                  <h3 className="header-title">买入报价</h3>
-                  <span className="header-count">{quotationList.length}条报价</span>
+              <section className="quotation-section">
+                <div className="quotation-header">
+                  <span className="quotation-count">报价数量{quotationList.length}件</span>
+                  <button
+                    className="quotation-sort-btn"
+                    onClick={() => setQuotationSortAsc(!quotationSortAsc)}
+                  >
+                    价格
+                    <IconChevronUp size={10} className={`sort-arrow ${quotationSortAsc ? 'active' : ''}`} />
+                    <IconChevronDown size={10} className={`sort-arrow ${!quotationSortAsc ? 'active' : ''}`} />
+                  </button>
+                  <button className="quotation-request-btn" onClick={() => alert('敬请期待')}>我要求购</button>
                 </div>
-                <div className="consignment-list">
-                  <div className="list-header-row">
-                    <span>买家</span>
-                    <span>报价</span>
-                    <span>数量</span>
-                    <span>时间</span>
-                  </div>
-                  {quotationList.map((q) => (
-                    <div key={q.id} className="list-row">
-                      <span className="row-seller">{q.buyer}</span>
+                <div className="quotation-rows">
+                  {sortedQuotation.map((q) => (
+                    <div key={q.id} className="quotation-row">
+                      <span className="row-buyer">{q.buyer}</span>
                       <span className="row-price">¥{formatPrice(q.price)}</span>
-                      <span className="row-qty">{q.quantity}件</span>
-                      <span className="row-time">{q.time}</span>
+                      <span className="row-days">{q.remainDays}天</span>
+                      <button className="row-accept-btn" onClick={() => alert('敬请期待')}>接受</button>
                     </div>
                   ))}
                 </div>
+                <div className="quotation-footer">没有更多了</div>
               </section>
             </article>
           )}
