@@ -20,6 +20,9 @@ export default function CategoryFolder({ folders = [], onFolderClick }) {
                 </svg>
               </div>
             )}
+            {!folder.isSpecial && folder.onSaleCount > 0 && (
+              <div className="sale-badge">{folder.onSaleCount}在售</div>
+            )}
           </div>
           <div className="category-folder__info">
             <span className="folder-name">{folder.name}</span>

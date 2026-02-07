@@ -90,10 +90,16 @@ function CollectionCard({
           {showPrice ? (
             <>
               {/* 热卖/藏品库模式: 价格 + 在售/总数 */}
-              <div className="collection-card__price-wrap">
-                <span className="price-symbol">¥</span>
-                <span className="price-value">{formatPrice(item.price)}</span>
-              </div>
+              {item.price != null ? (
+                <div className="collection-card__price-wrap">
+                  <span className="price-symbol">¥</span>
+                  <span className="price-value">{formatPrice(item.price)}</span>
+                </div>
+              ) : (
+                <div className="collection-card__price-wrap collection-card__price-wrap--empty">
+                  <span className="price-value">暂无出售</span>
+                </div>
+              )}
               <div className="collection-card__sale-info">
                 <span className="sale-label">在售</span>
                 <span className="sale-count">{formatNumber(item.onSale)}</span>

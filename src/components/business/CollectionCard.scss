@@ -187,6 +187,12 @@
       text-overflow: ellipsis;
       white-space: nowrap;
     }
+
+    &--empty .price-value {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--color-text-tertiary);
+    }
   }
 
   // 在售信息
