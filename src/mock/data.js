@@ -675,19 +675,51 @@ export const homeCollections = [
   { id: '8acb83259bcf72c6019bdefb76506fe4', name: '气息', image: 'https://oss.umxverse.com/image/origin/kGY22AYNX63Thn7jG5J.jpg', imageRatio: '4:3', creator: '胡山山', creatorAvatar: 'https://oss.umxverse.com/image/origin/WGHR24PZDtHHJtbRxj2.png', total: 3000, typeLabel: '合成', saleType: 'compose', description: '胡山山《气息》布面油画', blockchain: 'BSN', contractAddress: '106700', tokenId: 'U00P460' },
 ];
 
+// 首页 Tab 派生数据 - 原作拍卖（高价藏品）
+export const auctionCollections = hotCollections
+  .filter(c => c.price >= 2000)
+  .map(c => ({ ...c, typeLabel: '拍卖' }));
+
+// 首页 Tab 派生数据 - 版画臻藏（合成类藏品）
+export const printCollections = hotCollections
+  .filter(c => c.saleType === 'compose')
+  .slice(0, 6)
+  .map(c => ({ ...c, typeLabel: '版画' }));
+
+// 首页 Tab 派生数据 - 私人高定（直卖类或高价藏品）
+export const customCollections = hotCollections
+  .filter(c => c.saleType === 'direct' || c.price >= 5000)
+  .map(c => ({ ...c, typeLabel: '高定' }));
+
+// 首页 Tab 派生数据 - 发售记录（按已售数量倒序，包含售罄状态）
+export const recordCollections = [...hotCollections]
+  .sort((a, b) => b.soldCount - a.soldCount)
+  .map(c => ({ ...c, typeLabel: c.status === 'soldout' ? '售罄' : '已售' }));
+
 // 寄售市场列表（详情页 Tab）
 export const consignmentList = [
-  { id: 'c1', seller: '用户***23', price: 1950, code: '#0042', time: '2026-01-20' },
-  { id: 'c2', seller: '用户***89', price: 2000, code: '#0156', time: '2026-01-19' },
-  { id: 'c3', seller: '用户***56', price: 2100, code: '#0789', time: '2026-01-18' },
-  { id: 'c4', seller: '用户***12', price: 2200, code: '#1023', time: '2026-01-17' },
+  { id: 'c1', code: '#29371', totalIssue: 50919, price: 5.00, image: 'https://oss.umxverse.com/image/origin/Yaye8i2AyayWsYjA2dx.jpg', walletSupport: '支持C钱包\n支持A钱包' },
+  { id: 'c2', code: '#29372', totalIssue: 50919, price: 5.00, image: 'https://oss.umxverse.com/image/origin/Yaye8i2AyayWsYjA2dx.jpg', walletSupport: '支持C钱包\n支持A钱包' },
+  { id: 'c3', code: '#29373', totalIssue: 50919, price: 5.00, image: 'https://oss.umxverse.com/image/origin/Yaye8i2AyayWsYjA2dx.jpg', walletSupport: '支持C钱包\n支持A钱包' },
+  { id: 'c4', code: '#29374', totalIssue: 50919, price: 5.00, image: 'https://oss.umxverse.com/image/origin/Yaye8i2AyayWsYjA2dx.jpg', walletSupport: '支持C钱包\n支持A钱包' },
+  { id: 'c5', code: '#29375', totalIssue: 50919, price: 5.00, image: 'https://oss.umxverse.com/image/origin/Yaye8i2AyayWsYjA2dx.jpg', walletSupport: '支持C钱包\n支持A钱包' },
+  { id: 'c6', code: '#29376', totalIssue: 50919, price: 5.00, image: 'https://oss.umxverse.com/image/origin/Yaye8i2AyayWsYjA2dx.jpg', walletSupport: '支持C钱包\n支持A钱包' },
+  { id: 'c7', code: '#29377', totalIssue: 50919, price: 6.50, image: 'https://oss.umxverse.com/image/origin/Yaye8i2AyayWsYjA2dx.jpg', walletSupport: '支持C钱包\n支持A钱包' },
+  { id: 'c8', code: '#29378', totalIssue: 50919, price: 7.00, image: 'https://oss.umxverse.com/image/origin/Yaye8i2AyayWsYjA2dx.jpg', walletSupport: '支持C钱包\n支持A钱包' },
 ];
 
 // 报价列表
 export const quotationList = [
-  { id: 'q1', buyer: '用户***45', price: 1800, quantity: 2, time: '2026-01-21' },
-  { id: 'q2', buyer: '用户***78', price: 1900, quantity: 1, time: '2026-01-20' },
-  { id: 'q3', buyer: '用户***34', price: 1750, quantity: 3, time: '2026-01-19' },
+  { id: 'q1', buyer: '望*', price: 12.70, remainDays: 2 },
+  { id: 'q2', buyer: '望*', price: 12.70, remainDays: 2 },
+  { id: 'q3', buyer: '望*', price: 12.70, remainDays: 2 },
+  { id: 'q4', buyer: '望*', price: 12.70, remainDays: 2 },
+  { id: 'q5', buyer: '望*', price: 12.70, remainDays: 2 },
+  { id: 'q6', buyer: '星*', price: 11.50, remainDays: 3 },
+  { id: 'q7', buyer: '云*', price: 10.00, remainDays: 1 },
+  { id: 'q8', buyer: '风*', price: 9.80, remainDays: 4 },
+  { id: 'q9', buyer: '月*', price: 8.50, remainDays: 2 },
+  { id: 'q10', buyer: '海*', price: 7.00, remainDays: 5 },
 ];
 
 // 用户信息

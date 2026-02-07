@@ -106,6 +106,21 @@
     padding: 0 16px calc(var(--tab-bar-height) + var(--safe-area-bottom) + 20px);
   }
 
+  // Tab 空状态
+  .empty-tab {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+
+    p {
+      font-size: var(--font-size-base);
+      color: var(--color-text-tertiary);
+      margin: 0;
+    }
+  }
+
   // Section标题样式（可复用）
   .section-header {
     display: flex;

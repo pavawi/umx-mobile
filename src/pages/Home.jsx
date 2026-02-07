@@ -15,13 +15,27 @@ import {
   activityCornerItems,
   homeTabs,
   homeCollections,
-  hotCollections
+  hotCollections,
+  auctionCollections,
+  printCollections,
+  customCollections,
+  recordCollections
 } from '../mock/data';
 import './Home.scss';
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState('hot');
   const navigate = useNavigate();
+
+  // Tab 数据映射
+  const tabDataMap = {
+    hot: hotCollections,
+    auction: auctionCollections,
+    print: printCollections,
+    custom: customCollections,
+    records: recordCollections,
+  };
+  const currentTabData = tabDataMap[activeTab] || homeCollections;
 
   const handleCardClick = useCallback((item) => {
     navigate(`/detail/${item.id}`, { state: { item } });
@@ -99,14 +113,18 @@ export default function Home() {
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
-        {(activeTab === 'hot' ? hotCollections : homeCollections).map((item) => (
+        {currentTabData.length > 0 ? currentTabData.map((item) => (
           <CollectionCard
             key={item.id}
             item={item}
             variant="home"
             onClick={handleCardClick}
           />
-        ))}
+        )) : (
+          <div className="empty-tab">
+            <p>暂无数据</p>
+          </div>
+        )}
       </div>
     </div>
   );
