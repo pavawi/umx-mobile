@@ -47,6 +47,17 @@ export const activityEntries = [
   { id: '6', type: 'upool', title: 'U贝池', status: 'active', link: '/activity/upool' },
 ];
 
+// 小应用宫格 - 首页横向滚动入口
+export const appGridItems = [
+  { id: 'market', title: '市场', icon: 'market', color: '#D4AF37', link: '/market' },
+  { id: 'pearl', title: '珍珠宝箱', icon: 'pearl', color: '#EC4899', link: '/activity/pearl' },
+  { id: 'chest', title: '深海宝箱', icon: 'chest', color: '#3B82F6', link: '/activity/chest' },
+  { id: 'upool', title: 'U贝池', icon: 'upool', color: '#F59E0B', link: '/activity/upool' },
+  { id: 'library', title: '藏品库', icon: 'library', color: '#8B5CF6', link: '/library' },
+  { id: 'artrace', title: '艺术赛', icon: 'artrace', color: '#10B981', link: '/activity/artrace' },
+  { id: 'community', title: '加入社群', icon: 'community', color: '#6366F1', link: '/community' },
+];
+
 // 推荐位
 export const recommendBanners = [
   { id: '1', image: 'https://picsum.photos/686/386?random=10', title: 'U卡限时特惠', badge: '限时', link: '/ucard' },
