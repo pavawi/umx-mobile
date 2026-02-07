@@ -32,6 +32,14 @@ const menuGroups = [
   },
 ];
 
+// P1-3: hex 转 rgba 浅色背景
+const hexToRgba = (hex, alpha = 0.12) => {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+};
+
 // Material 风格图标
 const MenuIcon = ({ name, color }) => {
   const icons = {
@@ -102,6 +110,7 @@ const MenuIcon = ({ name, color }) => {
 export default function Profile() {
   const [copiedUid, setCopiedUid] = useState(false);
   const [copiedAddress, setCopiedAddress] = useState(false);
+  const [assetVisible, setAssetVisible] = useState(true);
 
   const formatAddress = (address) => {
     if (!address) return '';
@@ -132,6 +141,16 @@ export default function Profile() {
 
   return (
     <div className="page-container profile-page">
+      {/* P0-2: sticky Header */}
+      <div className="profile-header">
+        <span className="profile-header__title">个人中心</span>
+        <button className="profile-header__settings" onClick={() => console.log('Settings clicked')}>
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+            <path d="M19.14 12.94c.04-.31.06-.63.06-.94 0-.31-.02-.63-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.04.31-.06.63-.06.94s.02.63.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/>
+          </svg>
+        </button>
+      </div>
+
       {/* 用户信息卡片 */}
       <div className="user-card">
         <div className="user-header">
@@ -142,14 +161,19 @@ export default function Profile() {
             <div className="name-row">
               <span className="user-name">{userInfo.nickname}</span>
               {userInfo.verified && (
-                <span className="verified-badge">已实名授权</span>
+                <span className="verified-badge">
+                  <svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor">
+                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                  </svg>
+                  已实名授权
+                </span>
               )}
             </div>
             <div className="uid-row">
               <span className="uid-text">UID: {userInfo.uid}</span>
               <button
                 className="copy-btn"
-                onClick={() => copyToClipboard(userInfo.uid, 'uid')}
+                onClick={(e) => { e.stopPropagation(); copyToClipboard(userInfo.uid, 'uid'); }}
               >
                 {copiedUid ? (
                   <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
@@ -163,11 +187,6 @@ export default function Profile() {
               </button>
             </div>
           </div>
-          <button className="settings-btn" onClick={() => console.log('Settings clicked')}>
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="#6B7280">
-              <path d="M19.14 12.94c.04-.31.06-.63.06-.94 0-.31-.02-.63-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.04.31-.06.63-.06.94s.02.63.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/>
-            </svg>
-          </button>
         </div>
 
         {/* 数字身份地址 */}
@@ -176,7 +195,7 @@ export default function Profile() {
           <span className="address-value">{formatAddress(userInfo.chainAddress)}</span>
           <button
             className="copy-btn"
-            onClick={() => copyToClipboard(userInfo.chainAddress, 'address')}
+            onClick={(e) => { e.stopPropagation(); copyToClipboard(userInfo.chainAddress, 'address'); }}
           >
             {copiedAddress ? (
               <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
@@ -191,22 +210,37 @@ export default function Profile() {
         </div>
       </div>
 
-      {/* 资产估值卡片 - 独立卡片 */}
-      <div className="asset-card">
+      {/* 资产估值卡片 - P0-8: 整卡可点击 */}
+      <div className="asset-card" onClick={() => console.log('Asset detail')}>
         <div className="asset-header">
           <span className="asset-label">资产估值</span>
-          <svg viewBox="0 0 24 24" width="14" height="14" fill="#9CA3AF">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
-          </svg>
+          {/* P2-2: 眼睛图标切换金额显示/隐藏 */}
+          <button
+            className="eye-toggle"
+            onClick={(e) => { e.stopPropagation(); setAssetVisible(!assetVisible); }}
+          >
+            {assetVisible ? (
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+              </svg>
+            ) : (
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                <path d="M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.83l2.92 2.92c1.51-1.26 2.7-2.89 3.43-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16C10.74 7.13 11.35 7 12 7zM2 4.27l2.28 2.28.46.46C3.08 8.3 1.78 10.02 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27zM7.53 9.8l1.55 1.55c-.05.21-.08.43-.08.65 0 1.66 1.34 3 3 3 .22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53-2.76 0-5-2.24-5-5 0-.79.2-1.53.53-2.2zm4.31-.78l3.15 3.15.02-.16c0-1.66-1.34-3-3-3l-.17.01z"/>
+              </svg>
+            )}
+          </button>
         </div>
         <div className="asset-value">
           <span className="currency">¥</span>
-          <span className="amount">{formatAmount(userInfo.assetValue)}</span>
+          <span className="amount">{assetVisible ? formatAmount(userInfo.assetValue) : '****'}</span>
+          <svg className="asset-arrow" viewBox="0 0 24 24" width="18" height="18" fill="#9CA3AF">
+            <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+          </svg>
         </div>
       </div>
 
-      {/* 邀请好友卡片 */}
-      <div className="invite-card">
+      {/* 邀请好友卡片 - P0-7: 整卡可点击 */}
+      <div className="invite-card" onClick={() => console.log('Invite clicked')}>
         <div className="invite-icon">
           <svg viewBox="0 0 24 24" width="32" height="32" fill="#FFFFFF">
             <path d="M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 11 8.76l1-1.36 1 1.36L15.38 12 17 10.83 14.92 8H20v6z"/>
@@ -216,13 +250,17 @@ export default function Profile() {
           <span className="invite-title">邀请好友得奖励</span>
           <span className="invite-desc">每邀请1位好友可获得 50 U贝</span>
         </div>
-        <button className="invite-btn">立即邀请</button>
+        <span className="invite-btn">立即邀请</span>
       </div>
 
       {/* 功能菜单组 */}
       {menuGroups.map((group) => (
         <div key={group.id} className="menu-group">
-          <div className="menu-grid">
+          {/* P2-4: 根据项数动态调整列数 */}
+          <div
+            className="menu-grid"
+            style={group.items.length < 4 ? { gridTemplateColumns: `repeat(${group.items.length}, 1fr)` } : undefined}
+          >
             {group.items.map((item, index) => (
               <div
                 key={index}
@@ -235,15 +273,11 @@ export default function Profile() {
                   }
                 }}
               >
-                <div className="icon-wrap">
+                <div className="icon-wrap" style={{ '--icon-bg': hexToRgba(item.color) }}>
                   <MenuIcon name={item.icon} color={item.color} />
                 </div>
                 <span className="menu-label">{item.label}</span>
               </div>
-            ))}
-            {/* 填充空白占位 */}
-            {group.items.length < 4 && Array(4 - group.items.length).fill(null).map((_, i) => (
-              <div key={`placeholder-${i}`} className="menu-item placeholder" />
             ))}
           </div>
         </div>
