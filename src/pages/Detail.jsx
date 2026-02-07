@@ -82,7 +82,7 @@ export default function Detail() {
       setCopiedAddress(true);
       setTimeout(() => setCopiedAddress(false), 2000);
     }
-  }, [item?.contractAddress]);
+  }, [item]);
 
   // 分享功能
   const handleShare = useCallback(async () => {

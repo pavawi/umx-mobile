@@ -62,7 +62,7 @@ export default function Home() {
       {/* 系统通知小喇叭 - 放在Banner下方 */}
       <SystemNoticeBar
         notices={systemNotices}
-        onClick={(notice) => navigate('/notifications')}
+        onClick={() => navigate('/notifications')}
       />
 
       {/* 小应用宫格 - 横向滚动入口 */}

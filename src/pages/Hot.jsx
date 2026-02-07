@@ -16,15 +16,6 @@ const sortOptions = [
   { value: 'price', label: '价格' },
 ];
 
-// 分区选项
-const categoryOptions = [
-  { value: 'all', label: '全部分区' },
-  { value: 'art', label: '艺术品' },
-  { value: 'music', label: '音乐' },
-  { value: 'game', label: '游戏' },
-  { value: 'sports', label: '体育' },
-];
-
 // 模糊搜索函数 - 支持拼音首字母和中文
 function fuzzyMatch(text, keyword) {
   if (!keyword || !text) return false;
@@ -51,8 +42,6 @@ export default function Hot() {
   const [isSearching, setIsSearching] = useState(false);
   const [showMyFollow, setShowMyFollow] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null); // 文件夹分类选中
-  const [activeCategory, setActiveCategory] = useState('all');
-  const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
   const navigate = useNavigate();
 
   // 搜索防抖
@@ -84,10 +73,6 @@ export default function Hot() {
   const handleCancelSearch = () => {
     setSearchKeyword('');
     setIsSearching(false);
-  };
-
-  const handleMyFollowClick = () => {
-    setShowMyFollow(!showMyFollow);
   };
 
   const handleSortClick = (sortKey) => {

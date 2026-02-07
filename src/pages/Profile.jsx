@@ -25,6 +25,7 @@ const menuGroups = [
   {
     id: 'group3',
     items: [
+      { icon: 'medal', label: '我的徽章', color: '#F97316', path: '/badges' },
       { icon: 'globe', label: '社区', color: '#22C55E', path: '/community' },
       { icon: 'world', label: '圆域', color: '#3B82F6', path: '/yuanyu' },
     ],
@@ -77,6 +78,11 @@ const MenuIcon = ({ name, color }) => {
     globe: (
       <svg viewBox="0 0 24 24" width="24" height="24" fill={color}>
         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+      </svg>
+    ),
+    medal: (
+      <svg viewBox="0 0 24 24" width="24" height="24" fill={color}>
+        <path d="M12 7.5c-2.49 0-4.5 2.01-4.5 4.5s2.01 4.5 4.5 4.5 4.5-2.01 4.5-4.5-2.01-4.5-4.5-4.5zm0 7c-1.38 0-2.5-1.12-2.5-2.5S10.62 9.5 12 9.5s2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5zM14.74 2H9.26L7.05 4.21 4.84 2.63 3 5.79l2.21 1.58-.37.53C3.11 9.32 2 10.82 2 12.5c0 5.52 4.48 10 10 10s10-4.48 10-10c0-1.68-1.11-3.18-2.84-4.6l-.37-.53L21 5.79l-1.84-3.16-2.21 1.58L14.74 2z"/>
       </svg>
     ),
     world: (
@@ -221,7 +227,13 @@ export default function Profile() {
               <div
                 key={index}
                 className="menu-item"
-                onClick={() => console.log('Menu clicked:', item.path)}
+                onClick={() => {
+                  if (item.path === '/badges') {
+                    alert('敬请期待');
+                  } else {
+                    console.log('Menu clicked:', item.path);
+                  }
+                }}
               >
                 <div className="icon-wrap">
                   <MenuIcon name={item.icon} color={item.color} />
