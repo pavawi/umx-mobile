@@ -94,7 +94,7 @@
     position: sticky;
     top: 56px; // Header 高度
     z-index: 50;
-    padding: 12px 0;
+    padding: var(--section-gap) 0 12px;
     background: var(--color-bg-primary);
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   }

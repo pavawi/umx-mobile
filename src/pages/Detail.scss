@@ -1351,13 +1351,13 @@
 
     .item-buy-btn {
       flex-shrink: 0;
-      padding: 8px 18px;
+      padding: 5px 18px;
       font-size: var(--font-size-sm);
       font-weight: var(--font-weight-semibold);
       color: #fff;
       background: linear-gradient(135deg, #D4AF37 0%, #BF953F 100%);
       border: none;
-      border-radius: var(--radius-full);
+      border-radius: var(--radius-sm);
       cursor: pointer;
       transition: all var(--duration-fast) var(--ease-out);
 
