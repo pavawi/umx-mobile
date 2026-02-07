@@ -4,7 +4,8 @@ import USearch from '../components/base/USearch';
 import CollectionCard from '../components/business/CollectionCard';
 import CollectionListItem from '../components/business/CollectionListItem';
 import CategoryFolder from '../components/business/CategoryFolder';
-import { IconSearch, IconFilter, IconSortDown, IconSortUp, IconAdd, IconBack, IconBell, IconChevronDown, IconChevronUp } from '../components/base/Icons';
+import HomeHeader from '../components/layout/HomeHeader';
+import { IconSearch, IconFilter, IconSortDown, IconSortUp, IconBack, IconChevronDown, IconChevronUp } from '../components/base/Icons';
 import useDebouncedValue from '../hooks/useDebouncedValue';
 import useSearchHistory from '../hooks/useSearchHistory';
 import { hotCollections, searchHistory as defaultHistory, categoryFolders } from '../mock/data';
@@ -131,9 +132,10 @@ export default function Hot() {
 
   return (
     <div className="page-container hot-page">
-      {/* Header: Logo + 搜索框 + 通知 */}
-      <div className="page-header">
-        {showSearchResults ? (
+      {/* Header: 复用 HomeHeader 组件 */}
+      <HomeHeader
+        onSearchClick={() => setIsSearching(true)}
+        searchContent={showSearchResults ? (
           <div className="search-header">
             <div className="search-input-wrapper">
               <USearch
@@ -151,29 +153,8 @@ export default function Hot() {
             </div>
             <button className="cancel-btn" onClick={handleCancelSearch} aria-label="取消搜索">取消</button>
           </div>
-        ) : (
-          <>
-            <div className="header-logo">
-              <img src={`${import.meta.env.BASE_URL}img/黑色logo.png`} alt="UMX" className="logo-img" />
-              <span className="logo-text">umx.art</span>
-            </div>
-            <div
-              className="header-search"
-              onClick={() => setIsSearching(true)}
-              onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && setIsSearching(true)}
-              role="button"
-              tabIndex={0}
-              aria-label="打开搜索"
-            >
-              <IconSearch size={16} className="search-icon" />
-              <span className="search-placeholder">搜索藏品、艺术家</span>
-            </div>
-            <div className="header-notify">
-              <IconBell size={22} />
-            </div>
-          </>
-        )}
-      </div>
+        ) : null}
+      />
 
       {showSearchResults ? (
         /* 搜索结果视图 */

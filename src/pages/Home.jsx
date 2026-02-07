@@ -66,6 +66,7 @@ export default function Home() {
       <HomeHeader
         hasUnreadNotice={systemNotices.some(n => !n.isRead)}
         onNoticeClick={handleNoticeClick}
+        onSearchClick={() => navigate('/search')}
       />
 
       {/* 轮播Banner */}
