@@ -21,6 +21,12 @@ const formatPrice = (price) => {
   }).format(price);
 };
 
+// 地址省略展示
+const truncateAddress = (addr) => {
+  if (!addr || addr.length <= 12) return addr;
+  return `${addr.slice(0, 8)}...${addr.slice(-6)}`;
+};
+
 // 格式化数量
 const formatNumber = (num) => {
   if (num === null || num === undefined) return '0';
@@ -395,7 +401,7 @@ export default function Detail() {
                   <div className="blockchain-item">
                     <span className="item-label">合约地址</span>
                     <div className="item-value address-value">
-                      <code className="address-text">{item.contractAddress}</code>
+                      <code className="address-text">{truncateAddress(item.contractAddress)}</code>
                       <button
                         className={`copy-btn ${copiedAddress ? 'copied' : ''}`}
                         onClick={handleCopyAddress}
@@ -505,15 +511,16 @@ export default function Detail() {
                   <svg viewBox="0 0 80 80" width="64" height="64">
                     <defs>
                       <linearGradient id="noticeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="#D4AF37" stopOpacity="0.2" />
-                        <stop offset="100%" stopColor="#D4AF37" stopOpacity="0.05" />
+                        <stop offset="0%" stopColor="#D4AF37" stopOpacity="0.3" />
+                        <stop offset="100%" stopColor="#D4AF37" stopOpacity="0.08" />
                       </linearGradient>
                     </defs>
                     <circle cx="40" cy="40" r="32" fill="url(#noticeGrad)" />
-                    <path d="M40 24v20M40 50v2" stroke="#D4AF37" strokeWidth="3" strokeLinecap="round" opacity="0.4" />
+                    <path d="M40 20c-2.2 0-4 1.8-4 4v2c-4.4 1.8-7 5.4-7 9v8l-3 4h28l-3-4v-8c0-3.6-2.6-7.2-7-9v-2c0-2.2-1.8-4-4-4zm-3 31a3 3 0 006 0" stroke="#D4AF37" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" opacity="0.5" />
                   </svg>
                 </div>
                 <p className="empty-text">暂无公告</p>
+                <p className="empty-hint">关注该藏品，第一时间获取动态通知</p>
               </div>
             </article>
           ) : (
@@ -531,6 +538,12 @@ export default function Detail() {
                     <IconChevronDown size={10} className={`sort-arrow ${!quotationSortAsc ? 'active' : ''}`} />
                   </button>
                   <button className="quotation-request-btn" onClick={() => alert('敬请期待')}>我要求购</button>
+                </div>
+                <div className="quotation-table-header">
+                  <span>买家</span>
+                  <span>报价</span>
+                  <span>有效期</span>
+                  <span>操作</span>
                 </div>
                 <div className="quotation-rows">
                   {sortedQuotation.map((q) => (
