@@ -515,5 +515,288 @@
 
 ---
 
-*文档版本: 1.0*
-*最后更新: 2026-01-26*
+## 十四、交互规范（从首页优化提炼）
+
+### 按压反馈
+
+所有可交互元素必须有触觉反馈：
+
+```scss
+// 卡片类 - 轻微缩放
+&:active { transform: scale(0.98); }
+
+// 按钮/图标类 - 明显缩放
+&:active { transform: scale(0.95); }
+
+// 大面积区块（通知条等）- 极轻缩放
+&:active { transform: scale(0.99); }
+```
+
+### 触控区域扩大技巧
+
+视觉尺寸可以小于 44px，通过 padding/尺寸补偿触控区域：
+
+```scss
+// 视觉 20px 图标，44px 触控区
+.icon-button {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: -10px; // 视觉补偿边距
+
+  svg { width: 20px; height: 20px; }
+}
+```
+
+### 选中态过渡
+
+TabBar、Tab 等选中态使用统一过渡：
+
+```scss
+transition: all var(--duration-fast) var(--ease-out); // 150ms
+
+// TabBar 选中态示例
+&.is-active {
+  svg { transform: scale(1.1); }
+  span { font-weight: 600; }
+  // 金色指示线
+  &::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 3px;
+    background: var(--gradient-gold);
+    border-radius: 2px;
+  }
+}
+```
+
+---
+
+## 十五、Sticky 定位规范
+
+### Header 吸顶（所有页面必须）
+
+```scss
+.page-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: 56px;
+  background: var(--color-bg-primary);
+}
+```
+
+### Tab 吸顶（有 Tab 切换的页面必须）
+
+```scss
+.page-tabs {
+  position: sticky;
+  top: 56px; // Header 高度
+  z-index: 50;
+  padding: 12px 0;
+  background: var(--color-bg-primary);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+```
+
+### Sticky 注意事项
+- Tab 必须是页面容器的**直接子元素**，不能嵌套在有限高度的父元素中
+- 祖先元素不能有 `overflow: hidden`，否则 sticky 失效
+- Sticky 元素必须设置不透明 `background`，防止滚动时内容穿透
+
+---
+
+## 十六、品牌色运用模式
+
+### 金色渐变使用场景
+
+| 场景 | 实现方式 |
+|------|---------|
+| Logo 文字 | `background: var(--gradient-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent;` |
+| Tab 下划线指示器 | `background: var(--gradient-gold);` |
+| TabBar 选中指示线 | `background: var(--gradient-gold);` |
+| Banner 活跃指示点 | `background: linear-gradient(90deg, #D4AF37, #FFD700);` |
+
+### 品牌色暗示（微妙运用）
+
+| 场景 | 实现方式 |
+|------|---------|
+| 搜索框边框 | `border: 1px solid rgba(212, 175, 55, 0.08)` |
+| 页面氛围渐变 | `radial-gradient(... rgba(212, 175, 55, 0.14) ...)` |
+| 通知条背景 | `linear-gradient(135deg, #FFF9E6, #FFF5D6)` |
+| 图标背景色 | 功能色 + hex 后缀 `25`（约 15% 透明度） |
+| 卡片微边框 | `border: 1px solid rgba(0, 0, 0, 0.04)` |
+
+### 排名数字色
+
+| 名次 | 背景色 | 文字色 |
+|------|--------|--------|
+| 第 1 名 | `#FF6B35` | `#FFFFFF` |
+| 第 2 名 | `#FF9F1C` | `#FFFFFF` |
+| 第 3 名 | `#FFD166` | `#FFFFFF` |
+
+---
+
+## 十七、卡片阴影等级（更新）
+
+从首页优化中确立的阴影使用标准：
+
+| 等级 | 变量 | 用途 | 配合边框 |
+|------|------|------|---------|
+| 信息区块 | `--shadow-sm` | 热卖榜、活动角等功能卡片 | `border: 1px solid rgba(0,0,0,0.04)` |
+| 内容卡片 | `--shadow-card` | 藏品卡片、Banner | 无需额外边框 |
+| 悬浮状态 | `--shadow-card-hover` | hover / active | 配合 `translateY(-4px)` |
+| 品牌强调 | `--shadow-glow` | NFT 特效展示 | 配合金色边框 |
+
+---
+
+## 十八、文字截断策略
+
+| 场景 | 方式 | 实现 |
+|------|------|------|
+| 卡片标题 | **2 行截断** | `display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;` |
+| 列表项标题 | 单行截断 | `white-space: nowrap; overflow: hidden; text-overflow: ellipsis;` |
+| 作者名/标签 | 单行截断 + 限宽 | `max-width: 60px; overflow: hidden; text-overflow: ellipsis;` |
+| 详情页标题 | 不截断 | 完整展示，自然换行 |
+
+---
+
+## 十九、滚动提示规范
+
+当水平滚动容器有隐藏内容时，**必须**添加渐变遮罩暗示可滚动：
+
+```scss
+.scroll-container {
+  position: relative;
+
+  // 右侧渐变遮罩
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40px;
+    height: 100%;
+    background: linear-gradient(to left, var(--color-bg-primary) 0%, transparent 100%);
+    pointer-events: none;
+    z-index: 1;
+  }
+}
+```
+
+同时调整 item 宽度，让最后一个可见项**半露出来**暗示可滑：
+
+```scss
+.scroll-item {
+  flex-shrink: 0;
+  width: calc((100% - 32px) / 4.5); // 显示 4.5 个
+}
+```
+
+---
+
+## 二十、页面氛围渐变
+
+每个页面顶部添加装饰性金色渐变，增强品牌氛围感：
+
+```scss
+.page::before {
+  content: '';
+  position: absolute; // 用 absolute，不用 fixed（减少重绘）
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 240px;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(212, 175, 55, 0.14) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 10%, rgba(139, 92, 246, 0.07) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+```
+
+参数规范：
+- 使用 `position: absolute` 而非 `fixed`
+- 高度 240px，集中在首屏
+- 金色透明度 0.12~0.15，紫色 0.06~0.08
+
+---
+
+## 二十一、区块间距统一节奏
+
+页面内各一级区块之间使用 **12px** 间距：
+
+```
+Header (sticky, 56px)
+  ↓ 0px（紧贴）
+Banner / 主视觉
+  ↓ 12px
+通知条 / 公告
+  ↓ 12px
+功能入口 / 快捷操作
+  ↓ 12px
+信息卡片 / 排行榜
+  ↓ 12px
+Tab 区域 (sticky)
+  ↓ 0px
+内容网格 / 列表
+  ↓ padding-bottom: calc(tab-bar + safe-area + 20px)
+```
+
+### 禁止事项
+- **不要**在不同区块间使用不一致间距（如 4px、10px、14px 混用）
+- **不要**用 margin 和 padding 叠加产生非标准间距
+
+---
+
+## 二十二、各页面待对齐 Checklist
+
+基于首页优化经验，其他页面需逐一检查和对齐：
+
+### Hot 热卖页
+- [ ] Header 通知图标触控区扩大至 44px（当前 32px）
+- [ ] 网格 gap 从 10px 改为 12px
+- [ ] 筛选按钮触控区扩大至 44px（当前 36px）
+- [ ] "我的关注"按钮触控区扩大（当前 36px）
+- [ ] 如有 Tab，添加 sticky 吸顶
+- [ ] 卡片标题确认 2 行截断
+- [ ] Logo 文字加金色渐变
+
+### Market 藏品库页
+- [ ] Header 通知图标触控区扩大至 44px（当前 32px）
+- [ ] 网格 gap 从 10px 改为 12px
+- [ ] 筛选选择器触控区扩大（当前 36px）
+- [ ] 如有筛选条，添加 sticky 吸顶
+- [ ] 卡片标题确认 2 行截断
+- [ ] Logo 文字加金色渐变
+
+### Detail 详情页
+- [ ] Header 返回按钮触控区确认 44px（当前 40px）
+- [ ] Tab sticky 间距节奏对齐
+- [ ] 购买/出价按钮触控区 >= 44px
+- [ ] 价格展示使用品牌色 `--color-primary`
+
+### Profile 个人中心
+- [ ] 设置按钮触控区扩大（当前 40px）
+- [ ] 菜单项高度确认 >= 44px
+- [ ] 邀请按钮触控区扩大
+- [ ] 区块间距统一为 12px 节奏
+
+### 全局统一项
+- [ ] 所有页面 Header sticky 吸顶
+- [ ] 所有页面顶部添加品牌氛围渐变
+- [ ] 所有卡片使用 `--shadow-sm` + 微边框
+- [ ] 所有 Tab 非选中色使用 `--color-text-secondary`
+- [ ] 所有 Tab 选中下划线使用 `--gradient-gold`
+
+---
+
+*文档版本: 2.0*
+*最后更新: 2026-02-07*
+*更新内容: 新增十四~二十二章，从首页 P0+P1 优化实践中提炼交互规范、品牌色运用、Sticky 定位、文字截断、滚动提示、氛围渐变等可复用模式，以及各页面待对齐 Checklist。*
