@@ -3,10 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import USearch from '../components/base/USearch';
 import CollectionCard from '../components/business/CollectionCard';
 import CollectionListItem from '../components/business/CollectionListItem';
+import CategoryFolder from '../components/business/CategoryFolder';
 import { IconSearch, IconFilter, IconSortDown, IconSortUp, IconAdd, IconBack, IconCheckCircle, IconBell, IconHeart, IconCategory, IconChevronDown, IconChevronUp } from '../components/base/Icons';
 import useDebouncedValue from '../hooks/useDebouncedValue';
 import useSearchHistory from '../hooks/useSearchHistory';
-import { hotCollections, searchHistory as defaultHistory, myFollowList } from '../mock/data';
+import { hotCollections, searchHistory as defaultHistory, myFollowList, categoryFolders } from '../mock/data';
 import './Hot.scss';
 
 // 排序选项 - 匹配设计: 时间/价格
@@ -49,6 +50,7 @@ export default function Hot() {
   const [sortDirection, setSortDirection] = useState({ time: 'desc', price: 'desc' });
   const [isSearching, setIsSearching] = useState(false);
   const [showMyFollow, setShowMyFollow] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState(null); // 文件夹分类选中
   const [activeCategory, setActiveCategory] = useState('all');
   const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
   const navigate = useNavigate();
@@ -240,15 +242,12 @@ export default function Hot() {
       ) : showMyFollow ? (
         /* 我的关注视图 - 小图列表展示 */
         <div className="my-follow-view">
-          {/* 顶部：我的关注标题 */}
           <div className="my-follow-header">
             <button className="back-btn" onClick={() => setShowMyFollow(false)}>
               <IconBack size={20} />
             </button>
             <h2>我的关注</h2>
           </div>
-
-          {/* 关注列表 - 小图展示 */}
           <div className="follow-list">
             {myFollowList.map((item) => (
               <div key={item.id} className="follow-item" onClick={() => handleCardClick(item)}>
@@ -270,41 +269,18 @@ export default function Hot() {
             ))}
           </div>
         </div>
-      ) : (
-        /* 默认视图 */
+      ) : selectedCategory ? (
+        /* 分类藏品列表视图 */
         <>
-          {/* 筛选区域 - 我的关注 + 分区选择器 */}
-          <div className="filter-section">
-            <button className="my-follow-btn" onClick={handleMyFollowClick}>
-              <IconHeart size={16} className="btn-icon" filled />
-              <span>我的关注</span>
+          <div className="category-list-header">
+            <button className="back-btn" onClick={() => setSelectedCategory(null)}>
+              <IconBack size={20} />
             </button>
-            <div className={`category-selector ${showCategoryDropdown ? 'open' : ''}`}>
-              <IconCategory size={16} className="selector-icon" />
-              <span onClick={() => setShowCategoryDropdown(!showCategoryDropdown)}>
-                {categoryOptions.find(c => c.value === activeCategory)?.label}
-              </span>
-              <IconChevronDown size={18} className="selector-arrow" onClick={() => setShowCategoryDropdown(!showCategoryDropdown)} />
-              {showCategoryDropdown && (
-                <div className="category-dropdown show">
-                  {categoryOptions.map((cat) => (
-                    <div
-                      key={cat.value}
-                      className={`dropdown-item ${activeCategory === cat.value ? 'active' : ''}`}
-                      onClick={() => {
-                        setActiveCategory(cat.value);
-                        setShowCategoryDropdown(false);
-                      }}
-                    >
-                      {cat.label}
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
+            <h2>{selectedCategory.name}</h2>
+            <span className="category-count">{selectedCategory.onSaleCount}在售</span>
           </div>
 
-          {/* 排序栏 - 时间/价格 */}
+          {/* 排序栏 */}
           <div className="sort-filter-bar">
             {sortOptions.map((option) => (
               <div
@@ -330,7 +306,7 @@ export default function Hot() {
             ))}
           </div>
 
-          {/* 瀑布流藏品列表 */}
+          {/* 藏品列表 */}
           <div className="collection-grid">
             {sortedCollections.map((item) => (
               <div key={item.id} className="collection-card-wrapper">
@@ -343,6 +319,18 @@ export default function Hot() {
             ))}
           </div>
         </>
+      ) : (
+        /* 默认视图 - 文件夹分类 */
+        <CategoryFolder
+          folders={categoryFolders}
+          onFolderClick={(folder) => {
+            if (folder.id === 'follow') {
+              setShowMyFollow(true);
+            } else {
+              setSelectedCategory(folder);
+            }
+          }}
+        />
       )}
     </div>
   );

@@ -88,6 +88,53 @@ export const homeTabs = [
   { value: 'records', label: '发售记录' },
 ];
 
+// 寄售市场分类（文件夹式）
+export const categoryFolders = [
+  {
+    id: 'all',
+    name: '全部',
+    cover: 'https://oss.umxverse.com/image/origin/P7zyGM3SKdJ6EmxSY6w.png',
+    totalCount: 2847,
+    onSaleCount: 156,
+  },
+  {
+    id: 'ushare',
+    name: 'U享区',
+    cover: 'https://oss.umxverse.com/image/origin/GibS3EtQrWnK52zmCsD.png',
+    totalCount: 892,
+    onSaleCount: 43,
+  },
+  {
+    id: 'new',
+    name: '新品区',
+    cover: 'https://oss.umxverse.com/image/origin/BKKYAj8Dhk6Kj4Y784N.jpg',
+    totalCount: 456,
+    onSaleCount: 28,
+  },
+  {
+    id: 'select',
+    name: '精选区',
+    cover: 'https://oss.umxverse.com/image/origin/kGY22AYNX63Thn7jG5J.jpg',
+    totalCount: 1203,
+    onSaleCount: 67,
+  },
+  {
+    id: 'limited',
+    name: '限量区',
+    cover: 'https://oss.umxverse.com/image/origin/a8nncd7fX2kJAz2YPdT.jpg',
+    totalCount: 296,
+    onSaleCount: 18,
+  },
+  {
+    id: 'follow',
+    name: '我的关注',
+    cover: 'https://oss.umxverse.com/image/origin/PWChnePBmsxjrX4AP2k.jpg',
+    totalCount: 7,
+    onSaleCount: 3,
+    isSpecial: true,
+  },
+];
+
 // 热卖分类
 export const hotCategories = [
   { value: 'all', label: '全部' },
