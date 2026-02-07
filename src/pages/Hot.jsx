@@ -4,10 +4,10 @@ import USearch from '../components/base/USearch';
 import CollectionCard from '../components/business/CollectionCard';
 import CollectionListItem from '../components/business/CollectionListItem';
 import CategoryFolder from '../components/business/CategoryFolder';
-import { IconSearch, IconFilter, IconSortDown, IconSortUp, IconAdd, IconBack, IconCheckCircle, IconBell, IconHeart, IconCategory, IconChevronDown, IconChevronUp } from '../components/base/Icons';
+import { IconSearch, IconFilter, IconSortDown, IconSortUp, IconAdd, IconBack, IconBell, IconChevronDown, IconChevronUp } from '../components/base/Icons';
 import useDebouncedValue from '../hooks/useDebouncedValue';
 import useSearchHistory from '../hooks/useSearchHistory';
-import { hotCollections, searchHistory as defaultHistory, myFollowList, categoryFolders } from '../mock/data';
+import { hotCollections, searchHistory as defaultHistory, categoryFolders } from '../mock/data';
 import './Hot.scss';
 
 // 排序选项 - 匹配设计: 时间/价格
@@ -40,7 +40,6 @@ export default function Hot() {
   const [activeSort, setActiveSort] = useState('time');
   const [sortDirection, setSortDirection] = useState({ time: 'desc', price: 'desc' });
   const [isSearching, setIsSearching] = useState(false);
-  const [showMyFollow, setShowMyFollow] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null); // 文件夹分类选中
   const navigate = useNavigate();
 
@@ -224,36 +223,6 @@ export default function Hot() {
             )}
           </div>
         </div>
-      ) : showMyFollow ? (
-        /* 我的关注视图 - 小图列表展示 */
-        <div className="my-follow-view">
-          <div className="my-follow-header">
-            <button className="back-btn" onClick={() => setShowMyFollow(false)}>
-              <IconBack size={20} />
-            </button>
-            <h2>我的关注</h2>
-          </div>
-          <div className="follow-list">
-            {myFollowList.map((item) => (
-              <div key={item.id} className="follow-item" onClick={() => handleCardClick(item)}>
-                <div className="follow-item-image">
-                  <img src={item.image} alt={item.name} />
-                </div>
-                <div className="follow-item-info">
-                  <div className="follow-item-name">{item.name}</div>
-                  <div className="follow-item-code">{item.code}</div>
-                </div>
-                <div className="follow-item-stats">
-                  <div className="stat-value">{item.onSale !== null ? item.onSale : '--'}</div>
-                  <div className="stat-value">{item.total !== null ? item.total : '--'}</div>
-                </div>
-                <button className="follow-item-action">
-                  <IconCheckCircle size={16} />
-                </button>
-              </div>
-            ))}
-          </div>
-        </div>
       ) : selectedCategory ? (
         /* 分类藏品列表视图 */
         <>
@@ -308,13 +277,7 @@ export default function Hot() {
         /* 默认视图 - 文件夹分类 */
         <CategoryFolder
           folders={categoryFolders}
-          onFolderClick={(folder) => {
-            if (folder.id === 'follow') {
-              setShowMyFollow(true);
-            } else {
-              setSelectedCategory(folder);
-            }
-          }}
+          onFolderClick={(folder) => setSelectedCategory(folder)}
         />
       )}
     </div>
