@@ -6,6 +6,7 @@
   border-radius: var(--radius-lg);
   overflow: hidden;
   cursor: pointer;
+  border: 1px solid rgba(0, 0, 0, 0.04);
   box-shadow: var(--shadow-card);
   transition: transform var(--duration-normal) var(--ease-out),
               box-shadow var(--duration-normal) var(--ease-out);
@@ -14,14 +15,16 @@
     transform: scale(0.98);
   }
 
-  // 图片容器 - 固定高度165px
+  // 图片容器 - 固定高度165px，内部圆角
   &__image-wrapper {
     position: relative;
     width: 100%;
     height: 165px;
     overflow: hidden;
     background: var(--color-bg-tertiary);
-    border-radius: 0;
+    margin: 6px 6px 0;
+    width: calc(100% - 12px);
+    border-radius: var(--radius-md);
   }
 
   // 发行方式标签（右上角）- 仅藏品库显示
