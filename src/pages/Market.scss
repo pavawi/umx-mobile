@@ -12,10 +12,23 @@
   }
 
   .header-logo {
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--color-primary);
+    display: flex;
+    align-items: center;
+    gap: 6px;
     flex-shrink: 0;
+
+    .logo-img {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+    }
+
+    .logo-text {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--color-text-primary);
+      letter-spacing: -0.5px;
+    }
   }
 
   .header-search {
