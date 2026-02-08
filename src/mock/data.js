@@ -85,7 +85,6 @@ export const homeTabs = [
   { value: 'auction', label: '原作拍卖' },
   { value: 'print', label: '版画臻藏' },
   { value: 'custom', label: '私人高定' },
-  { value: 'records', label: '发售记录' },
 ];
 
 // 寄售市场分类（文件夹式）
@@ -96,6 +95,14 @@ export const categoryFolders = [
     cover: 'https://oss.umxverse.com/image/origin/P7zyGM3SKdJ6EmxSY6w.png',
     totalCount: 2847,
     onSaleCount: 156,
+  },
+  {
+    id: 'follow',
+    name: '我的关注',
+    cover: 'https://oss.umxverse.com/image/origin/PWChnePBmsxjrX4AP2k.jpg',
+    totalCount: 7,
+    onSaleCount: 3,
+    isSpecial: true,
   },
   {
     id: 'ushare',
@@ -124,14 +131,6 @@ export const categoryFolders = [
     cover: 'https://oss.umxverse.com/image/origin/a8nncd7fX2kJAz2YPdT.jpg',
     totalCount: 296,
     onSaleCount: 18,
-  },
-  {
-    id: 'follow',
-    name: '我的关注',
-    cover: 'https://oss.umxverse.com/image/origin/PWChnePBmsxjrX4AP2k.jpg',
-    totalCount: 7,
-    onSaleCount: 3,
-    isSpecial: true,
   },
 ];
 

@@ -12,23 +12,16 @@
   &__logo {
     display: flex;
     align-items: center;
-    gap: 6px;
+    justify-content: center;
     flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    margin-left: -6px; // 与右侧通知图标对称
 
     .logo-img {
-      width: 28px;
-      height: 28px;
+      width: 24px;
+      height: 24px;
       object-fit: contain;
-    }
-
-    .logo-text {
-      font-size: 16px;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      background: var(--gradient-gold);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
     }
   }
 
@@ -95,10 +88,6 @@
   .home-header {
     padding: 12px 24px;
     gap: 16px;
-
-    &__logo .logo-text {
-      font-size: 24px;
-    }
 
     &__search {
       // 移除 max-width 限制，让搜索框填满可用空间

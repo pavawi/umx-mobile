@@ -21,7 +21,6 @@ export default function HomeHeader({
           {/* Logo */}
           <div className="home-header__logo">
             <img src={`${import.meta.env.BASE_URL}img/黑色logo.png`} alt="UMX" className="logo-img" />
-            <span className="logo-text">umx.art</span>
           </div>
 
           {/* 搜索框 */}

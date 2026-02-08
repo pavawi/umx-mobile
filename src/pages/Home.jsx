@@ -19,7 +19,6 @@ import {
   auctionCollections,
   printCollections,
   customCollections,
-  recordCollections
 } from '../mock/data';
 import './Home.scss';
 
@@ -33,7 +32,6 @@ export default function Home() {
     auction: auctionCollections,
     print: printCollections,
     custom: customCollections,
-    records: recordCollections,
   };
   const currentTabData = tabDataMap[activeTab] || homeCollections;
 
